@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\LevelController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -34,6 +35,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('/professors', [UserController::class, 'getProfessors']);
     Route::resource('categories', CategoryController::class);
     Route::resource('subjects', SubjectController::class);
+    Route::resource('levels', LevelController::class);
     Route::get('courses/favorites', [CourseController::class, 'favorites']);
     Route::post('courses/favorites', [CourseController::class, 'addFavorite']);
     Route::delete('courses/favorites/{userFavorite}', [CourseController::class, 'removeFavorite']);
