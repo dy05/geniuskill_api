@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,9 +18,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'gender',
+        'firstname',
+        'lastname',
+        'birth_date',
         'email',
         'password',
+        'role',
+    ];
+
+    protected $appends = [
+        'name',
+        'age',
+        'is_professor',
     ];
 
     /**
@@ -41,4 +51,40 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return string|null
+     */
+    public function getAgeAttribute(): string|null
+    {
+        if (!$this->birth_date) {
+            return null;
+        }
+
+        return date('Y') - date_create($this->birth_date)->format('Y');
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameAttribute(): string
+    {
+        return join(' ', [$this->lastname, $this->firstname]);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsProfessorAttribute(): bool
+    {
+        return $this->role === 'professor';
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function courses(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class, UserCourse::class);
+    }
 }
