@@ -27,7 +27,7 @@ return new class extends Migration
 
         Schema::create('user_quizzes', function (Blueprint $table) {
             $table->id();
-            $table->string('response');
+            $table->string('choice');
             $table->enum('status', [0, 1]);
             $table->foreignId('quiz_id')
                 ->constrained('quizzes')

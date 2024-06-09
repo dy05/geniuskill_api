@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -81,10 +82,37 @@ class User extends Authenticatable
     }
 
     /**
+     * @return HasMany
+     */
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'user_id');
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function courses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, UserCourse::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function quizzes(): BelongsToMany
+    {
+        return $this->belongsToMany(Quiz::class, 'user_quizzes')
+            ->withPivot(['choice', 'status']);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function rewards(): BelongsToMany
+    {
+        return $this->belongsToMany(Reward::class)
+            ->using(UserReward::class)
+            ->withPivot(['meta']);
     }
 }

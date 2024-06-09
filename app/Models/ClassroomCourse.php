@@ -13,7 +13,22 @@ class ClassroomCourse extends Model
     protected $fillable = [
         'course_id',
         'classroom_id',
+        'professor_id',
     ];
+
+    protected $with = [
+        'professor',
+        'course',
+        'classroom',
+    ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function professor(): BelongsTo
+    {
+        return $this->belongsTo(Professor::class, 'professor_id');
+    }
 
     /**
      * @return BelongsTo

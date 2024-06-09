@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\SubjectController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +25,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => '/auth'], function() {
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
 });
+
+Route::group(['middleware' => 'auth:sanctum'], function() {
+    Route::get('/user', [AuthController::class, 'currentUser']);
+    Route::post('/professors', [UserController::class, 'addProfessor']);
+    Route::get('/professors', [UserController::class, 'getProfessors']);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('subjects', SubjectController::class);
+    Route::get('courses/favorites', [CourseController::class, 'favorites']);
+    Route::post('courses/favorites', [CourseController::class, 'addFavorite']);
+    Route::delete('courses/favorites/{userFavorite}', [CourseController::class, 'removeFavorite']);
+    Route::get('courses/plannings', [CourseController::class, 'plannings']);
+    Route::post('courses/plannings', [CourseController::class, 'addPlanning']);
+    Route::delete('courses/plannings', [CourseController::class, 'removePlanning']);
+    Route::resource('courses', CourseController::class);
+    Route::post('/user-courses/add', [CourseController::class, 'addUserCourses']);
+    Route::get('/user-courses', [CourseController::class, 'userCourses']);
+    Route::delete('/user-courses/{userCourse}', [CourseController::class, 'removeUserCourses']);
+});
+
