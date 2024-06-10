@@ -2,13 +2,12 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import DecouvrirScreen from './App/Screen/DecouvrirScreen';
-import ProfilScreen from './App/Screen/ProfilScreen';
-import RechercheScreen from './App/Screen/RechercheScreen';
-import SauvegarderScreen from './App/Screen/SauvegaderScreen';
-import MesCoursScreen from './App/Screen/MescoursScreen'; 
+import DecouvrirScreen from './App/screens/DecouvrirScreen';
+import ProfilScreen from './App/screens/ProfilScreen';
+import RechercheScreen from './App/screens/RechercheScreen';
+import SauvegarderScreen from './App/screens/SauvegaderScreen';
+import MesCoursScreen from './App/screens/MescoursScreen';
 import { Ionicons } from '@expo/vector-icons';
-import Logopage from './App/Screen/logopage';
 
 const Tab = createBottomTabNavigator();
 
@@ -50,8 +49,6 @@ function MyTabs() {
 }
 
 export default function Home() {
-
-     
   return (
     <NavigationContainer style={styles.container}>
       <MyTabs />

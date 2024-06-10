@@ -26,10 +26,10 @@ const ProfilScreen = () => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {/* Photo de profil */}
       <Image
-        source={require('../../assets/images/profill.png')}
+        source={require('../assets/images/profill.png')}
         style={{ width: 150, height: 150, borderRadius: 78, marginBottom: 50 }}
       />
-      
+
       {/* Nom d'utilisateur */}
       <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>Ariel</Text>
 
@@ -56,7 +56,7 @@ const ProfilScreen = () => {
         <Text>Centre d'aide</Text>
       </TouchableOpacity>
       {/* Ajoutez les autres boutons avec les fonctions de navigation appropriées */}
-      
+
       {/* Bouton de déconnexion */}
       <TouchableOpacity onPress={handleLogout} style={{ marginTop: 20 }}>
         <Text style={{ color: 'red' }}>Se déconnecter</Text>
