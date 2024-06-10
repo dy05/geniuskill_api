@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\LevelController;
+use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -42,9 +43,11 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('courses/plannings', [CourseController::class, 'plannings']);
     Route::post('courses/plannings', [CourseController::class, 'addPlanning']);
     Route::delete('courses/plannings', [CourseController::class, 'removePlanning']);
+    Route::get('/courses/user', [CourseController::class, 'userCourses']);
+    Route::post('/courses/add', [CourseController::class, 'addUserCourse']);
+    Route::delete('/user-courses/{userCourse}', [CourseController::class, 'removeUserCourse']);
     Route::resource('courses', CourseController::class);
-    Route::post('/user-courses/add', [CourseController::class, 'addUserCourses']);
-    Route::get('/user-courses', [CourseController::class, 'userCourses']);
-    Route::delete('/user-courses/{userCourse}', [CourseController::class, 'removeUserCourses']);
+    Route::post('quizzes/answer', [QuizController::class, 'answer']);
+    Route::resource('quizzes', QuizController::class);
 });
 

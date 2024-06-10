@@ -13,7 +13,12 @@ class UserReward extends Model
 
     protected $fillable = [
         'user_id',
+        'meta',
         'reward_id',
+    ];
+
+    protected $casts = [
+        'meta' => 'array'
     ];
 
     /**

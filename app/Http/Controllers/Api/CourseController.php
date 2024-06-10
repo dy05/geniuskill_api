@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\CourseSchedule;
 use App\Models\Quiz;
+use App\Models\UserCourse;
 use App\Models\UserFavorite;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -143,25 +144,6 @@ class CourseController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function favorites(Request $request): JsonResponse
-    {
-        $userId = $request->get('user_id', $request->user()->id);
-
-        $courses = Course::query()
-            ->whereHas('favorites', function ($query) use ($userId) {
-                $query->where(['user_id' => $userId]);
-            })
-            ->get();
-
-        return response()->json([
-            'favorite_courses' => $courses
-        ]);
-    }
-
-    /**
      * @param Course $course
      * @return JsonResponse
      */
@@ -203,13 +185,37 @@ class CourseController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
+    public function favorites(Request $request): JsonResponse
+    {
+        $userId = $request->get('user_id', $request->user()->id);
+
+        $courses = Course::query()
+            ->whereHas('favorites', function ($query) use ($userId) {
+                $query->where(['user_id' => $userId]);
+            })
+            ->get();
+
+        return response()->json([
+            'favorite_courses' => $courses
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function addFavorite(Request $request): JsonResponse
     {
+        $request->validate([
+            'course_id' => 'required|exists:courses,id'
+        ]);
+
         try {
-            UserFavorite::query()->create([
-                'user_id' => $request->user()->id,
-                'course_id' => $request->input('course_id'),
-            ]);
+            UserFavorite::query()
+                ->firstOrCreate([
+                    'user_id' => $request->user()->id,
+                    'course_id' => $request->input('course_id'),
+                ]);
 
             return response()->json([
                 'message' => 'Course added to favorites'
@@ -232,6 +238,71 @@ class CourseController extends Controller
 
             return response()->json([
                 'message' => 'Course removed from favorites'
+            ]);
+        } catch (Exception $exc) {
+            return response()->json([
+                'message' => $exc->getMessage(),
+            ], 400);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function userCourses(Request $request): JsonResponse
+    {
+        $userId = $request->get('user_id', $request->user()->id);
+
+        $courses = Course::query()
+            ->whereHas('users', function ($query) use ($userId) {
+                $query->where(['user_id' => $userId]);
+            })
+            ->get();
+
+        return response()->json([
+            'user_courses' => $courses
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function addUserCourse(Request $request): JsonResponse
+    {
+        $request->validate([
+            'course_id' => 'required|exists:courses,id'
+        ]);
+
+        try {
+            UserCourse::query()
+                ->firstOrCreate([
+                    'user_id' => $request->user()->id,
+                    'course_id' => $request->input('course_id'),
+                ]);
+
+            return response()->json([
+                'message' => "Course added to user's courses list"
+            ]);
+        } catch (Exception $exc) {
+            return response()->json([
+                'message' => $exc->getMessage(),
+            ], 400);
+        }
+    }
+
+    /**
+     * @param UserCourse $userCourse
+     * @return JsonResponse
+     */
+    public function removeUserCourse(UserCourse $userCourse): JsonResponse
+    {
+        try {
+            $userCourse->delete();
+
+            return response()->json([
+                'message' => "Course removed from user's courses list"
             ]);
         } catch (Exception $exc) {
             return response()->json([

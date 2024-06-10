@@ -2,25 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class UserCourse extends Model
+class UserQuiz extends Pivot
 {
-    use HasFactory;
+    protected $table = 'user_quizzes';
 
     protected $fillable = [
         'user_id',
-        'course_id',
+        'quiz_id',
+        'choice',
+        'status',
     ];
 
     /**
      * @return BelongsTo
      */
-    public function course(): BelongsTo
+    public function quiz(): BelongsTo
     {
-        return $this->belongsTo(Course::class, 'course_id');
+        return $this->belongsTo(Quiz::class, 'quiz_id');
     }
 
     /**

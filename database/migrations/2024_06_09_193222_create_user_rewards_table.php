@@ -23,6 +23,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('rewards')
                 ->onDelete('SET NULL');
+            $table->json('meta')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

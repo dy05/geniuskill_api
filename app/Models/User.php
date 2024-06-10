@@ -103,7 +103,18 @@ class User extends Authenticatable
     public function quizzes(): BelongsToMany
     {
         return $this->belongsToMany(Quiz::class, 'user_quizzes')
-            ->withPivot(['choice', 'status']);
+            ->withPivot([
+                'choice',
+                'status'
+            ]);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function quiz_answers(): HasMany
+    {
+        return $this->hasMany(UserQuiz::class, 'user_id');
     }
 
     /**
