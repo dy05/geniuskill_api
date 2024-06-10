@@ -44,10 +44,12 @@ class QuizController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $countChoices = count($request->input('choices', []));
+
         $request->validate([
+            'response' => 'required|integer|min:0|max:' . ($countChoices - 1),
             'title' => 'string',
             'course_id' => 'required|exists:courses,id',
-            'response' => 'required',
             'choices' => 'required|array|min:2'
         ]);
 
@@ -93,7 +95,7 @@ class QuizController extends Controller
 
         $request->validate([
             'title' => 'sometimes|string',
-            'response' => 'sometimes|required',
+            'response' => 'sometimes|required|integer|min:0|max:' . ($countChoices - 1),
             'choices' => 'sometimes|required|array|min:2'
         ]);
 
