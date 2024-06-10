@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import DecouvrirScreen from './App/screens/DecouvrirScreen';
@@ -48,12 +48,40 @@ function MyTabs() {
   );
 }
 
+const HomeScreen = () => {
+  return (
+    <View>
+      <Text>Hello</Text>
+    </View>
+  )
+}
+
 export default function Home() {
   return (
-    <NavigationContainer style={styles.container}>
-      <MyTabs />
-    </NavigationContainer>
-  )
+    <>
+      <HomeScreen/>
+    </>
+  );
+
+  // return (
+  //   <NavigationContainer style={styles.container}>
+  //     <Tab.Navigator
+  //       screenOptions={({ route }) => ({
+  //         tabBarIcon: ({ color, size }) => {
+  //           // You can return any component that you like here!
+  //           return <Ionicons name={'home'} size={size} color={color} />;
+  //         },
+  //       })}
+  //       // tabBarOptions={{
+  //       // activeTintColor: 'blue',
+  //       // inactiveTintColor: 'gray',
+  //       // }}
+  //     >
+  //       <Tab.Screen name="Decouvrir" component={DecouvrirScreen} />
+  //       <Tab.Screen name="Rechercher" component={RechercheScreen} />
+  //     </Tab.Navigator>
+  //   </NavigationContainer>
+  // )
 }
 
 const styles = StyleSheet.create({

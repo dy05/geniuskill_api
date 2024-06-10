@@ -26,7 +26,7 @@ const ProfilScreen = () => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {/* Photo de profil */}
       <Image
-        source={require('../assets/images/profill.png')}
+        source={require('../../assets/images/profill.png')}
         style={{ width: 150, height: 150, borderRadius: 78, marginBottom: 50 }}
       />
 

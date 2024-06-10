@@ -5,19 +5,19 @@ const NavigationBar = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button}>
-        <Image source={require('../assets/decouvr.png')} style={styles.icon} />
+        <Image source={require('../../assets/decouvr.png')} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
-        <Image source={require('../assets/mescour.png')} style={styles.icon} />
+        <Image source={require('../../assets/mescour.png')} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
-        <Image source={require('../assets/profil.png')} style={styles.icon} />
+        <Image source={require('../../assets/profil.png')} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
-        <Image source={require('../assets/recher.png')} style={styles.icon} />
+        <Image source={require('../../assets/recher.png')} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
-        <Image source={require('../assets/sauve.png')} style={styles.icon} />
+        <Image source={require('../../assets/sauve.png')} style={styles.icon} />
       </TouchableOpacity>
     </View>
   );

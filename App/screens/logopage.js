@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import tailwind from 'tailwind-rn';
-//import logomds from '../assets/images/logomds.png'; 
-const logomds = require('../assets/images/logomds.png'); 
-import { useNavigation } from '@react-navigation/native';
+const logomds = require('../../assets/images/logomds.png');
+// import { useNavigation } from '@react-navigation/native';
 
 export default function Logopage() {
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   useEffect(() => {
     const interval = setInterval(() => {
