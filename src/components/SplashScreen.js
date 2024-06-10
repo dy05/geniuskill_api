@@ -10,7 +10,8 @@ const SplashScreen = ({ navigation }) => {
         if (loadingProgress >= 100) {
             setTimeout(() => {
                 // navigation.replace('Home');
-                navigation.navigate('Main', {screen: 'Home'});
+                // navigation.navigate('Main', {screen: 'Home'});
+                navigation.navigate('Login');
             }, 2000); // 3 seconds
         }
     }, [navigation, loadingProgress]);
@@ -31,16 +32,18 @@ const SplashScreen = ({ navigation }) => {
     }, [loadingProgress]);
 
     return (
-      <View style={tailwind('flex h-full w-full justify-center items-center bg-yellow-100')}>
-          <Text style={tailwind('text-4xl text-blue-600 mb-8')}>
-              Bienvenue Hello
-          </Text>
-          <Image source={require('../../assets/images/logomds.png')} style={styles.logo} />
-          <View style={tailwind('w-11/12 mt-8 h-[30vh]')}>
-              <View style={tailwind('h-4 bg-gray-300 rounded-full overflow-hidden')}>
-                  <View style={[tailwind('h-full bg-blue-600'), { width: `${loadingProgress}%` }]} />
+      <View style={tailwind('flex h-full w-full justify-center items-center bg-blue-600')}>
+          <View style={tailwind('flex w-3/5 justify-center items-center')}>
+              <Text style={tailwind('text-4xl text-white mb-8')}>
+                  Bienvenue
+              </Text>
+              <Image source={require('../../assets/images/logomds.png')} style={styles.logo} />
+              <View style={tailwind('w-11/12 mt-8 h-[30vh]')}>
+                  <View style={tailwind('h-4 bg-gray-300 rounded-full overflow-hidden')}>
+                      <View style={[tailwind('h-full bg-white'), { width: `${loadingProgress}%` }]} />
+                  </View>
+                  <Text style={tailwind('text-center text-white mt-2')}>{loadingProgress}%</Text>
               </View>
-              <Text style={tailwind('text-center mt-2')}>{loadingProgress}%</Text>
           </View>
       </View>
     );
