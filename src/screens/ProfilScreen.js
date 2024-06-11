@@ -1,9 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
-const ProfilScreen = () => {
-  const navigation = useNavigation();
+const ProfilScreen = ({navigation}) => {
 
   const handleEditProfile = () => {
     // Naviguer vers l'écran d'édition de profil
@@ -20,6 +18,7 @@ const ProfilScreen = () => {
   const handleLogout = () => {
     // Mettre ici le code pour se déconnecter
     console.log("Déconnexion...");
+    navigation.navigate('Login');
   };
 
   return (

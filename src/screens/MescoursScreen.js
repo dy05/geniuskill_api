@@ -1,12 +1,23 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import React, {useEffect} from 'react';
+import {View, Text, Image, StyleSheet, Button} from 'react-native';
 
 // Importez vos images pour les différents cours
 import cour1 from './../../assets/images/cour1.png';
 import cour2 from './../../assets/images/cour2.png';
 import cour3 from './../../assets/images/cour3.png';
 
-const MescoursScreen = () => {
+const MescoursScreen = ({navigation}) => {
+  useEffect(() => {
+    // Use `setOptions` to update the button that we previously specified
+    // Now the button includes an `onPress` handler to update the count
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={() => navigation.navigate('Main', {screen: 'Back'})}
+                title="Back to Profil" />
+      ),
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <View style={styles.courseContainer}>
@@ -17,7 +28,7 @@ const MescoursScreen = () => {
         </View>
         <Text style={styles.date}>Date de lecture : 01/05/2024</Text>
       </View>
-      
+
       <View style={styles.courseContainer}>
         <Image source={cour2} style={styles.cour2} />
         <Text style={styles.courseTitle}>Figma</Text>
@@ -34,7 +45,7 @@ const MescoursScreen = () => {
         </View>
         <Text style={styles.date}>Date de lecture : 05/05/2024</Text>
       </View>
-      
+
     </View>
   );
 }

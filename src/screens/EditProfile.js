@@ -1,9 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; 
+import {View, Text, TouchableOpacity, Image, StyleSheet, TextInput} from 'react-native';
 
-const EditProfile = () => {
-  const navigation = useNavigation();
+const EditProfile = ({navigation}) => {
 
   const handleSave = () => {
     // Code pour sauvegarder les modifications du profil
@@ -11,7 +9,7 @@ const EditProfile = () => {
 
   const handleChangePassword = () => {
     // Naviguer vers l'écran de changement de mot de passe
-    navigation.navigate('ChangePassword');
+    navigation.navigate('PasswordReset');
   };
 
   return (
@@ -21,20 +19,20 @@ const EditProfile = () => {
         source={require('../../assets/images/profill.png')}
         style={styles.profileImage}
       />
-      
+
       {/* Champ Nom */}
       <Text style={styles.label}>Nom</Text>
       <TextInput style={styles.input} placeholder="Entrez votre nom" />
-      
+
       {/* Champ Email */}
       <Text style={styles.label}>Adresse Email</Text>
       <TextInput style={styles.input} placeholder="Entrez votre adresse email" />
-      
+
       {/* Bouton Sauvegarder */}
       <TouchableOpacity onPress={handleSave} style={[styles.button, { backgroundColor: 'blue' }]}>
         <Text style={styles.buttonText}>Sauvegarder</Text>
       </TouchableOpacity>
-      
+
       {/* Bouton Changer de mot de passe */}
       <TouchableOpacity onPress={handleChangePassword} style={[styles.button, styles.roundedButton]}>
         <Text style={styles.buttonText}>Changer de mot de passe</Text>

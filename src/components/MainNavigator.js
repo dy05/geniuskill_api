@@ -10,9 +10,11 @@ import ProfilScreen from "../screens/ProfilScreen";
 import LoginScreen from "../screens/Login";
 import {createStackNavigator} from "@react-navigation/stack";
 // import Ionicons from "react-native-vector-icons/Ionicons";
-import { Ionicons } from '@expo/vector-icons';
+import {Ionicons, MaterialIcons} from '@expo/vector-icons';
 import PasswordResetScreen from "../screens/PasswordReset";
 import RegisterScreen from "../screens/Register";
+import EditProfile from "../screens/EditProfile";
+import {Button} from "react-native";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,11 +45,9 @@ const BottomTabNavigator = () => {
 
                 return <Ionicons name={iconName} size={size} color={color} />;
             },
-        })}
-        tabBarOptions={{
             activeTintColor: 'blue',
             inactiveTintColor: 'gray',
-        }}>
+          })}>
           <Tab.Screen name="Home" component={DecouvrirScreen} />
           <Tab.Screen name="Recherche" component={RechercheScreen} />
           <Tab.Screen name="Sauvegarder" component={SauvegarderScreen} />
@@ -67,8 +67,38 @@ const MainNavigator = () => {
               <Stack.Screen name="Splash" component={SplashScreen} />
               <Stack.Screen name="Login" component={LoginScreen} />
               <Stack.Screen name="Register" component={RegisterScreen} />
-              <Stack.Screen name="PasswordReset" component={PasswordResetScreen} />
+              <Stack.Screen name="PasswordReset" component={PasswordResetScreen}
+                            options={{
+                                tabBarLabel: 'PasswordReset',
+                                tabBarIcon: ({ tintColor }) => (
+                                  <MaterialIcons name="account-circle" color={tintColor} size={25} />
+                                ),
+                            }}
+              />
               <Stack.Screen name="Main" component={BottomTabNavigator} />
+              <Stack.Screen name="MyCourses" component={MesCoursScreen}
+                            options={{
+                                headerTitle: 'Mes cours',
+                                // headerRight: () => (
+                                //   <Button
+                                //     onPress={() => navigation.navigate('Main', {screen: 'Profil'})}
+                                //     title="Details"
+                                //     color="#000"
+                                //   />
+                                // ),
+                                tabBarIcon: ({ tintColor }) => (
+                                  <MaterialIcons name="account-circle" color={tintColor} size={25} />
+                                ),
+                            }}
+              />
+              <Stack.Screen name="EditProfile" component={EditProfile}
+                            options={{
+                                tabBarLabel: 'EditProfile',
+                                tabBarIcon: ({ tintColor }) => (
+                                  <MaterialIcons name="account-circle" color={tintColor} size={25} />
+                                ),
+                            }}
+              />
           </Stack.Navigator>
       </NavigationContainer>
     );
