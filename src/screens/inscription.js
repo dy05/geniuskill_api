@@ -2,8 +2,9 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import {useTailwind} from 'tailwind-rn';
 
-export default function Authentif() {
+export default function Inscription() {
   const tailwind = useTailwind();
+
   return (
     <View style={tailwind('flex-1 justify-center items-center bg-yellow-50')}>
       <View style={tailwind('w-11/12 p-5 bg-white rounded-lg shadow')}>

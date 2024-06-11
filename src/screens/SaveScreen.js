@@ -6,12 +6,12 @@ import cour1 from './../../assets/images/cour1.png';
 import cour2 from './../../assets/images/cour2.png';
 import cour3 from './../../assets/images/cour3.png';
 
-const MescoursScreen = () => {
+const SaveScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.courseContainer}>
         <Image source={cour1} style={styles.cour1} />
-        <Text style={styles.courseTitle}>AWS</Text>
+        <Text style={styles.courseTitle}>Abdove</Text>
         <View style={styles.progressBar}>
           {/* Barre d'évolution du cours 1 */}
         </View>
@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FBF9EA',
   },
   courseContainer: {
     borderWidth: 1,
@@ -77,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MescoursScreen;
+export default SaveScreen;

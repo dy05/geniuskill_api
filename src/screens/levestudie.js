@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import tailwind from 'tailwind-rn';
+import {useTailwind} from 'tailwind-rn';
 
 export default function Levestudie() {
+  const tailwind = useTailwind();
   const [selectedLevel, setSelectedLevel] = useState('');
 
   const handleLevelClick = (level) => {
@@ -16,19 +17,19 @@ export default function Levestudie() {
           <Text style={tailwind('text-2xl text-gray-900')}>Quel est votre niveau d'étude?</Text>
         </View>
         <View style={tailwind('mb-5')}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={tailwind(`p-2 mb-2 rounded ${selectedLevel === 'collégien' ? 'bg-blue-600' : 'bg-gray-200'}`)}
             onPress={() => handleLevelClick('collégien')}
           >
             <Text style={tailwind(`${selectedLevel === 'collégien' ? 'text-white' : 'text-black'}`)}>Collégien(ne)</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={tailwind(`p-2 mb-2 rounded ${selectedLevel === 'lycéen' ? 'bg-blue-600' : 'bg-gray-200'}`)}
             onPress={() => handleLevelClick('lycéen')}
           >
             <Text style={tailwind(`${selectedLevel === 'lycéen' ? 'text-white' : 'text-black'}`)}>Lycéen(ne)</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={tailwind(`p-2 rounded ${selectedLevel === 'étudiant' ? 'bg-blue-600' : 'bg-gray-200'}`)}
             onPress={() => handleLevelClick('étudiant')}
           >

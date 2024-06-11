@@ -8,9 +8,11 @@ export default function Login({ navigation }) {
   const tailwind = useTailwind();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [token, setToken] = useState('');
+  const [authUser, setAuthUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email.length) {
       Alert.alert('Email is required', 'You must add your email.');
       return;
@@ -27,8 +29,13 @@ export default function Login({ navigation }) {
         email: email,
         password: password,
       })
-        .then((data) => {
-          Alert.alert('Login', JSON.stringify(data));
+        .then((response) => {
+          console.log('data');
+          console.log(response);
+          console.log(response.data);
+          setToken(response.data.token)
+          setAuthUser(response.data.user)
+          handleLoginToken();
         })
         .catch((error) => {
           Alert.alert('Error', JSON.stringify([error.message, error.response]));
@@ -37,6 +44,14 @@ export default function Login({ navigation }) {
           setLoading(false);
         });
     }
+  };
+
+  const handleLoginToken = () => {
+    // if (token) {
+    //   navigation.navigate('Main', {screen: 'Home'});
+    // }
+
+    navigation.navigate('Main', {screen: 'Home'});
   };
 
   return (
@@ -73,7 +88,7 @@ export default function Login({ navigation }) {
               <Text style={tailwind('text-blue-600')} onPress={() => navigation.navigate('PasswordReset')}>
                 Mot de passe oublié?
               </Text>
-              <Text style={tailwind('text-gray-500 mt-3 text-center')}>
+              <Text style={tailwind('text-gray-500 mt-3 text-center')} onPress={() => handleLoginToken()}>
                 Ou
               </Text>
             </View>

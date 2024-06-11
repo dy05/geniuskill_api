@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Si vous utilisez React Navigation
+import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const ProfilScreen = () => {
   const navigation = useNavigation();
@@ -23,46 +23,85 @@ const ProfilScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <ScrollView contentContainerStyle={styles.container}>
       {/* Photo de profil */}
       <Image
         source={require('../../assets/images/profill.png')}
-        style={{ width: 150, height: 150, borderRadius: 78, marginBottom: 50 }}
+        style={styles.profileImage}
       />
 
       {/* Nom d'utilisateur */}
-      <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>Ariel</Text>
+      <Text style={styles.username}>Tiana</Text>
 
-      {/* Boutons */}
-      <TouchableOpacity onPress={handleEditProfile} style={{ marginBottom: 10 }}>
-        <Text>Editer profil</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleMyCourses} style={{ marginBottom: 10 }}>
-        <Text>Mes cours</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleMyCourses} style={{ marginBottom: 10 }}>
-        <Text>Rewards</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleMyCourses} style={{ marginBottom: 10 }}>
-        <Text>Langue de préference</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleMyCourses} style={{ marginBottom: 10 }}>
-        <Text>Notifications</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleMyCourses} style={{ marginBottom: 10 }}>
-        <Text>Abonnement</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleMyCourses} style={{ marginBottom: 18 }}>
-        <Text>Centre d'aide</Text>
-      </TouchableOpacity>
-      {/* Ajoutez les autres boutons avec les fonctions de navigation appropriées */}
+      {/* Conteneur de boutons */}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={handleEditProfile} style={styles.button}>
+          <Text>Editer profil</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleMyCourses} style={styles.button}>
+          <Text>Mes cours</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleMyCourses} style={styles.button}>
+          <Text>Rewards</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleMyCourses} style={styles.button}>
+          <Text>Langue de préference</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleMyCourses} style={styles.button}>
+          <Text>Notifications</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleMyCourses} style={styles.button}>
+          <Text>Abonnement</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleMyCourses} style={[styles.button, { marginBottom: 0 }]}>
+          <Text>Centre d'aide</Text>
+        </TouchableOpacity>
+        {/* Ajoutez les autres boutons avec les fonctions de navigation appropriées */}
+      </View>
 
       {/* Bouton de déconnexion */}
-      <TouchableOpacity onPress={handleLogout} style={{ marginTop: 20 }}>
+      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
         <Text style={{ color: 'red' }}>Se déconnecter</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    overflow: 'scroll',
+    alignItems: 'center',
+    marginTop: '8%',
+    height: '80%',
+    justifyContent: 'center',
+    backgroundColor: '#FBF9EA', // Ajout de la couleur de fond
+  },
+  profileImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 78,
+    marginBottom: 50,
+  },
+  username: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    borderWidth: 1,
+    borderColor: 'blue',
+    borderRadius: 10,
+    padding: 60,
+    width: '80%', // Modifier la largeur du conteneur
+    marginBottom:27,
+  },
+  button: {
+    marginBottom: 21,
+  },
+  logoutButton: {
+    marginTop: 11,
+  },
+});
 
 export default ProfilScreen;
