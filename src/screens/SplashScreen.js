@@ -9,10 +9,8 @@ const SplashScreen = ({ navigation }) => {
     useEffect(() => {
         if (loadingProgress >= 100) {
             setTimeout(() => {
-                // navigation.replace('Home');
-                // navigation.navigate('Main', {screen: 'Home'});
                 navigation.navigate('Login');
-            }, 2000); // 3 seconds
+            }, 2000); // 2 seconds
         }
     }, [navigation, loadingProgress]);
 
@@ -23,7 +21,6 @@ const SplashScreen = ({ navigation }) => {
                     clearInterval(interval);
                     return 100;
                 }
-
                 return prev + 10;
             });
         }, 200);
@@ -32,10 +29,11 @@ const SplashScreen = ({ navigation }) => {
     }, [loadingProgress]);
 
     return (
-      <View style={tailwind('flex h-full w-full justify-center items-center bg-blue-600')}>
+      <View style={[tailwind('flex h-full w-full justify-center items-center'), { backgroundColor: '#1B5091' }]}>
           <View style={tailwind('flex w-3/5 justify-center items-center')}>
               <Text style={tailwind('text-4xl text-white mb-8')}>
-                  Bienvenue
+                   
+
               </Text>
               <Image source={require('../../assets/images/logomds.png')} style={styles.logo} />
               <View style={tailwind('w-11/12 mt-8 h-[30vh]')}>

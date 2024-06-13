@@ -61,7 +61,7 @@ const MainNavigator = () => {
     return (
       <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Splash"
+            initialRouteName="Main"
             screenOptions={{ headerShown: false }}
           >
               <Stack.Screen name="Splash" component={SplashScreen} />
@@ -92,6 +92,14 @@ const MainNavigator = () => {
                             }}
               />
               <Stack.Screen name="EditProfile" component={EditProfile}
+                            options={{
+                                tabBarLabel: 'EditProfile',
+                                tabBarIcon: ({ tintColor }) => (
+                                  <MaterialIcons name="account-circle" color={tintColor} size={25} />
+                                ),
+                            }}
+              />
+              <Stack.Screen name="CourseDetails" component={EditProfile}
                             options={{
                                 tabBarLabel: 'EditProfile',
                                 tabBarIcon: ({ tintColor }) => (

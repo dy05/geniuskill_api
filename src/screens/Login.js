@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, View, Text, TextInput, TouchableOpacity, Image, Button} from 'react-native';
 import {useTailwind} from 'tailwind-rn';
-import travail from '../../assets/images/logo.png';
+import travail from '../../assets/images/pro1.png';
 import axios from "../../utils/axios";
 
 export default function Login({ navigation }) {
