@@ -31,7 +31,7 @@ export default function Logopage(props) {
   }, [loadingProgress]);
 
   return (
-    <View style={[styles.container]}>
+    <View style={styles.container}>
       <Text style={[tailwind('text-4xl mb-8 text-white'), styles.welcomeText]}>Bienvenue</Text>
       <Image source={logomds} style={styles.logo} />
       <View style={styles.loadingBarContainer}>
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00008B', // Changement de la couleur de fond
+    backgroundColor: '#1B5091', 
   },
   logo: {
     width: 100,

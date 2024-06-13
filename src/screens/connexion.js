@@ -9,7 +9,7 @@ export default function Connexion() {
     <View style={tailwind('flex-1 bg-yellow-50')}>
       <View style={tailwind('p-4 bg-white shadow-md')}>
         <View style={tailwind('flex-row justify-between')}>
-          <Text style={tailwind('text-xl font-bold')}>Naviguer</Text>
+          <Text style={tailwind('text-xl font-bold')}>Nav</Text>
         </View>
       </View>
       <View style={tailwind('flex-1 justify-center items-center p-4')}>
