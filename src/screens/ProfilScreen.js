@@ -5,12 +5,13 @@ const ProfilScreen = ({navigation}) => {
 
   const handleEditProfile = () => {
     // Naviguer vers l'écran d'édition de profil
+    // navigation.navigate('Profil', {screen: 'EditProfile'});
     navigation.navigate('EditProfile');
   };
 
   const handleMyCourses = () => {
     // Naviguer vers l'écran de mes cours
-    navigation.navigate('MyCourses');
+    navigation.navigate('Mes cours', {screen: 'Courses'});
   };
 
   // Ajoutez d'autres fonctions de navigation pour les autres boutons

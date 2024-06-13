@@ -1,22 +1,32 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet, Button} from 'react-native';
 
 // Importez vos images pour les différents cours
 import cour1 from './../../assets/images/cour1.png';
 import cour2 from './../../assets/images/cour2.png';
 import cour3 from './../../assets/images/cour3.png';
+import {getCourses} from "../services/courseService";
 
 const MescoursScreen = ({navigation}) => {
+  const [loading, setLoading] = useState(true);
+  const [courses, setCourses] = useState([]);
+
   useEffect(() => {
-    // Use `setOptions` to update the button that we previously specified
-    // Now the button includes an `onPress` handler to update the count
-    navigation.setOptions({
-      headerRight: () => (
-        <Button onPress={() => navigation.navigate('Main', {screen: 'Back'})}
-                title="Back to Profil" />
-      ),
-    });
-  }, [navigation]);
+    if (!loading) {
+      getCourses().then((response) => {
+        console.log('response.data');
+        console.log(response.data);
+        setCourses(courses);
+      });
+    } else {
+      setLoading(false);
+    }
+  }, [loading]);
+
+  // Fonction pour naviguer vers les détails de la découverte
+  const navigateToDetails = (id) => {
+    navigation.navigate('Courses', {screen: 'CourseDetails', id: id});
+  };
 
   return (
     <View style={styles.container}>
