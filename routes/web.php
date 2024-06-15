@@ -29,6 +29,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('categories', CategoryController::class);
+
+    /*
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index')');
+    Route::get('/categories/create', [CategoryController::class, 'create']);
+    Route::post('/categories', [CategoryController::class, 'store']);
+    Route::get('/categories/{category}', [CategoryController::class, 'show']);
+    Route::get('/categories/{category}/edit', [CategoryController::class, 'edit']);
+    Route::put('/categories/{category}', [CategoryController::class, 'update']);
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
+    //*/
 });
 
 require __DIR__.'/auth.php';
