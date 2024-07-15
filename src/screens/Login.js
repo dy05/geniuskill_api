@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Alert, View, Text, TextInput, TouchableOpacity, Image, Button } from 'react-native';
 import { useTailwind } from 'tailwind-rn';
 import travail from '../../assets/images/pro1.png';
-import axios from "../../utils/axios";
+import { login, setAuthToken, setAuthUser } from '../services/authService';
 
 // Créez un contexte pour stocker les informations de l'utilisateur
 export const UserContext = React.createContext();
@@ -12,8 +12,16 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [token, setToken] = useState('');
-  const [authUser, setAuthUser] = useState(null);
+  const [authUser, setLocalAuthUser] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const handleEmailInput = (event) => {
+    setEmail(event.target.value);
+  }
+
+  const handlePasswordInput = (event) => {
+    setPassword(event.target.value);
+  }
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,11 +52,10 @@ export default function Login({ navigation }) {
     if (!loading) {
       setLoading(true);
       
-      axios.post('/auth/login', {
-        email: email,
-        password: password,
-      })
-        .then((response) => {
+      login(email, password)
+        .then(async (response) => {
+          await setAuthToken(response.data.token);
+          await setAuthUser(response.data.user);
           setToken(response.data.token);
           setAuthUser(response.data.user);
           handleLoginToken(response.data.user); // Passez les informations de l'utilisateur à la fonction handleLoginToken
