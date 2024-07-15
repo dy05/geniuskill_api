@@ -12,15 +12,12 @@ const CoursePage = () => {
       <Image source={{ uri: 'https://via.placeholder.com/93x12' }} style={styles.headerImage} />
       <Text style={styles.courseTitle}>Anglais</Text>
       <Text style={styles.courseDescription}>
-        Par : Cecile le Doux
+        Par : CeDox
       </Text>
       <Text style={styles.courseInfo}>
-        5 cours - 22 h de cours au total
+        5 cours - 2 h de cours au total
       </Text>
-      <Text style={styles.courseSectionTitle}>Grammaire et vocabulaire</Text>
-      <Text style={styles.courseSectionDescription}>
-        Maîtriser les règles de grammaire et améliorer votre français pour mieux vous exprimer
-      </Text>
+     
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTime}>04h:40</Text>
         <Text style={styles.sectionNumber}>1</Text>

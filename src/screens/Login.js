@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
-import {Alert, View, Text, TextInput, TouchableOpacity, Image, Button} from 'react-native';
-import {useTailwind} from 'tailwind-rn';
+import React, { useState, useContext } from 'react';
+import { Alert, View, Text, TextInput, TouchableOpacity, Image, Button } from 'react-native';
+import { useTailwind } from 'tailwind-rn';
 import travail from '../../assets/images/pro1.png';
 import axios from "../../utils/axios";
+
+// Créez un contexte pour stocker les informations de l'utilisateur
+export const UserContext = React.createContext();
 
 export default function Login({ navigation }) {
   const tailwind = useTailwind();
@@ -12,9 +15,19 @@ export default function Login({ navigation }) {
   const [authUser, setAuthUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
   const handleLogin = async () => {
     if (!email.length) {
       Alert.alert('Email is required', 'You must add your email.');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      Alert.alert('Invalid email', 'Please enter a valid email address.');
       return;
     }
 
@@ -23,19 +36,22 @@ export default function Login({ navigation }) {
       return;
     }
 
+    if (password.length < 6) {
+      Alert.alert('Weak Password', 'Password must be at least 6 characters long.');
+      return;
+    }
+
     if (!loading) {
       setLoading(true);
+      
       axios.post('/auth/login', {
         email: email,
         password: password,
       })
         .then((response) => {
-          console.log('data');
-          console.log(response);
-          console.log(response.data);
-          setToken(response.data.token)
-          setAuthUser(response.data.user)
-          handleLoginToken();
+          setToken(response.data.token);
+          setAuthUser(response.data.user);
+          handleLoginToken(response.data.user); // Passez les informations de l'utilisateur à la fonction handleLoginToken
         })
         .catch((error) => {
           Alert.alert('Error', JSON.stringify([error.message, error.response]));
@@ -46,12 +62,9 @@ export default function Login({ navigation }) {
     }
   };
 
-  const handleLoginToken = () => {
-    // if (token) {
-    //   navigation.navigate('Main', {screen: 'Home'});
-    // }
-
-    navigation.navigate('Main', {screen: 'Home'});
+  const handleLoginToken = (user) => {
+    // Naviguez vers l'écran principal et passez les informations de l'utilisateur
+    navigation.navigate('Main', { screen: 'Home', params: { user } });
   };
 
   return (

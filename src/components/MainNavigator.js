@@ -16,7 +16,10 @@ import RegisterScreen from "../screens/Register";
 import EditProfile from "../screens/EditProfile";
 import {Button} from "react-native";
 import CourseDetails from "../screens/CourseDetails";
+//import CoursePage from "../screens/CoursePage";
 import BackButton from "./BackButton";
+import RewardsScreen from '../screens/Rewards';
+import langueScreen from '../screens/langue';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,7 +27,7 @@ const Tab = createBottomTabNavigator();
 const HomeStack = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Home" component={DecouvrirScreen}
+            <Stack.Screen name="HomeScreen" component={DecouvrirScreen}
                           options={{headerShown: false}} />
             <Stack.Screen
                 name="CourseDetails"
@@ -62,7 +65,7 @@ const CoursesStack = () => {
 const ProfileStack = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Profil" component={ProfilScreen}
+            <Stack.Screen name="ProfilScreen" component={ProfilScreen}
                           options={{headerShown: false}} />
             <Stack.Screen
                 name="EditProfile"
@@ -72,6 +75,29 @@ const ProfileStack = () => {
                     headerLeft: () => (
                         <BackButton />
                     ),
+                    
+                })}
+            />
+             <Stack.Screen
+                name="Rewards"
+                component={RewardsScreen}
+                options={() => ({
+                    title: 'Rewards',
+                    headerLeft: () => (
+                        <BackButton />
+                    ),
+                    
+                })}
+            />
+               <Stack.Screen
+                name="Langue de préférence"
+                component={langueScreen}
+                options={() => ({
+                    title: 'langue',
+                    headerLeft: () => (
+                        <BackButton />
+                    ),
+                    
                 })}
             />
         </Stack.Navigator>
@@ -112,6 +138,7 @@ const BottomTabNavigator = () => {
             <Tab.Screen name="Sauvegarder" component={SauvegarderScreen}/>
             <Tab.Screen name="Mes cours" component={CoursesStack}/>
             <Tab.Screen name="Profil" component={ProfileStack}/>
+
         </Tab.Navigator>
     );
 };
@@ -120,7 +147,7 @@ const MainNavigator = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Main"
+                initialRouteName="Splash"
                 screenOptions={{headerShown: false}}
             >
                 <Stack.Screen name="Splash" component={SplashScreen}/>

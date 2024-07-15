@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
-const Langue = () => {
+const LangueScreen = ({ navigation }) => {
   const [selectedLanguage, setSelectedLanguage] = useState('fr');
 
   const handleLanguageChange = (language) => {
@@ -11,37 +12,60 @@ const Langue = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Choisissez votre langue de préférence</Text>
-      <TouchableOpacity
-        onPress={() => handleLanguageChange('fr')}
-        style={[
-          styles.button,
-          selectedLanguage === 'fr' && styles.selectedButton,
-        ]}
-      >
-        <Text style={styles.buttonText}>Français</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => handleLanguageChange('en')}
-        style={[
-          styles.button,
-          selectedLanguage === 'en' && styles.selectedButton,
-        ]}
-      >
-        <Text style={styles.buttonText}>English</Text>
-      </TouchableOpacity>
-      {/* Ajoutez d'autres options de langue ici */}
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* En-tête avec titre et flèche de retour */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <AntDesign name="arrowleft" size={24} color="blue" />
+        </TouchableOpacity>
+        <Text style={[styles.headerText, { color: 'blue' }]}>Langue de préférence</Text>
+      </View>
+
+      <View style={styles.content}>
+        <Text style={styles.title}>Choisissez votre langue de préférence</Text>
+        <TouchableOpacity
+          onPress={() => handleLanguageChange('fr')}
+          style={[
+            styles.button,
+            selectedLanguage === 'fr' && styles.selectedButton,
+          ]}
+        >
+          <Text style={styles.buttonText}>Français</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handleLanguageChange('en')}
+          style={[
+            styles.button,
+            selectedLanguage === 'en' && styles.selectedButton,
+          ]}
+        >
+          <Text style={styles.buttonText}>English</Text>
+        </TouchableOpacity>
+        {/* Ajoutez d'autres options de langue ici */}
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
+    backgroundColor: '#FBF9EA',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
+  content: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FBF9EA',
+    flex: 1,
   },
   title: {
     fontSize: 20,
@@ -65,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Langue;
+export default LangueScreen;

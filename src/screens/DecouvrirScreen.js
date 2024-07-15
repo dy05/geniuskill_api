@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; // Assurez-vous d'avoir installé react-native-vector-icons
 
@@ -6,20 +6,16 @@ import Icon from 'react-native-vector-icons/Ionicons'; // Assurez-vous d'avoir i
 import cour1 from './../../assets/images/cour1.png';
 import cour2 from './../../assets/images/cour2.png';
 import cour3 from './../../assets/images/cour3.png';
-<<<<<<< HEAD
-import cour4 from './../../assets/images/cour3.png';
-=======
 import cour4 from './../../assets/images/cour3.png'; // Ajoutez les nouvelles images ici
->>>>>>> dev
 import cour5 from './../../assets/images/cour3.png';
 import cour6 from './../../assets/images/cour3.png';
 import cour7 from './../../assets/images/cour3.png';
 import cour8 from './../../assets/images/cour3.png';
 import cour9 from './../../assets/images/cour3.png';
-<<<<<<< HEAD
-import {getCourses} from "../services/courseService";
+import exampleImage from './../../assets/images/book.png'; // Importez votre nouvelle image
+import { getCourses } from "../services/courseService";
 
-const DecouvrirScreen = ({navigation}) => {
+const DecouvrirScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState([]);
   const userName = "Ariel"; // Remplacez par le nom de l'utilisateur connecté
@@ -29,7 +25,7 @@ const DecouvrirScreen = ({navigation}) => {
       getCourses().then((response) => {
         console.log('response.data');
         console.log(response.data);
-        setCourses(courses);
+        setCourses(response.data); // Mettez à jour l'état avec les données de réponse
       });
     } else {
       setLoading(false);
@@ -38,183 +34,96 @@ const DecouvrirScreen = ({navigation}) => {
 
   // Fonction pour naviguer vers les détails de la découverte
   const navigateToDetails = (id) => {
-    navigation.navigate('CourseDetails', {id: id});
-  };
-
-  return (
-      <ScrollView contentContainerStyle={styles.container}>
-      {loading ? (
-          <View>
-            <Text>Loading...</Text>
-          </View>
-      ) : (
-          <>
-            <View style={styles.header}>
-              <Text style={styles.welcomeText}>Bienvenue, {userName}</Text>
-              <Icon name="ios-bag" size={30} color="#000" style={styles.icon} />
-            </View>
-            <Text style={styles.subTitle}>Votre programme</Text>
-            <View style={styles.imageFrame}>
-              <Image source={{ uri: 'https://via.placeholder.com/328x170' }} style={styles.courseImage} />
-            </View>
-            <Text style={styles.courseTitle}>Cours du jour :</Text>
-            <Text style={styles.courseDescription}>Améliorez vos compétences avec notre cours interactif et complet, conçu pour les apprenants de tous niveaux. Ce cours vous guidera à travers les bases et les subtilités de la langue anglaise</Text>
-            <Text style={styles.suggestedCoursesTitle}>Cours suggérés :</Text>
-            <View style={styles.suggestedCoursesContainer}>
-              <View style={styles.courseContainer}>
-                <TouchableOpacity onPress={() => navigateToDetails(1)}>
-                  <Image source={cour1} style={styles.suggestedCourseImage} />
-                </TouchableOpacity>
-                <Text style={styles.courseLabel}>Mathématique</Text>
-              </View>
-              <View style={styles.courseContainer}>
-                <TouchableOpacity onPress={() => navigateToDetails(2)}>
-                  <Image source={cour2} style={styles.suggestedCourseImage} />
-                </TouchableOpacity>
-                <Text style={styles.courseLabel}>Littérature</Text>
-              </View>
-              <View style={styles.courseContainer}>
-                <TouchableOpacity onPress={() => navigateToDetails(3)}>
-                  <Image source={cour3} style={styles.suggestedCourseImage} />
-                </TouchableOpacity>
-                <Text style={styles.courseLabel}>UX Design</Text>
-              </View>
-            </View>
-
-            <Text style={styles.additionalCoursesTitle}>Tous les autres cours :</Text>
-            <View style={styles.additionalCoursesContainer}>
-              <View style={styles.courseContainer}>
-                <TouchableOpacity onPress={() => navigateToDetails(4)}>
-                  <Image source={cour4} style={styles.additionalCourseImage} />
-                </TouchableOpacity>
-                <Text style={styles.courseLabel}>Histoire de l'art</Text>
-              </View>
-              <View style={styles.courseContainer}>
-                <TouchableOpacity onPress={() => navigateToDetails(5)}>
-                  <Image source={cour5} style={styles.additionalCourseImage} />
-                </TouchableOpacity>
-                <Text style={styles.courseLabel}>Design graphique</Text>
-              </View>
-              <View style={styles.courseContainer}>
-                <TouchableOpacity onPress={() => navigateToDetails(6)}>
-                  <Image source={cour6} style={styles.additionalCourseImage} />
-                </TouchableOpacity>
-                <Text style={styles.courseLabel}>Musique</Text>
-              </View>
-            </View>
-
-            <View style={styles.additionalCoursesContainer}>
-              <View style={styles.courseContainer}>
-                <TouchableOpacity onPress={() => navigateToDetails(7)}>
-                  <Image source={cour7} style={styles.additionalCourseImage} />
-                </TouchableOpacity>
-                <Text style={styles.courseLabel}>Illustration numérique</Text>
-              </View>
-              <View style={styles.courseContainer}>
-                <TouchableOpacity onPress={() => navigateToDetails(8)}>
-                  <Image source={cour8} style={styles.additionalCourseImage} />
-                </TouchableOpacity>
-                <Text style={styles.courseLabel}>Programmation</Text>
-              </View>
-              <View style={styles.courseContainer}>
-                <TouchableOpacity onPress={() => navigateToDetails(9)}>
-                  <Image source={cour9} style={styles.additionalCourseImage} />
-                </TouchableOpacity>
-                <Text style={styles.courseLabel}>Philosophie</Text>
-              </View>
-            </View>
-          </>
-      )}
-=======
-
-const DecouvrirScreen = ({navigation}) => {
-  const userName = "Ariel"; // Remplacez par le nom de l'utilisateur connecté
-
-  // Fonction pour naviguer vers les détails de la découverte
-  const navigateToDetails = (id) => {
-    // navigation.navigate('Main', {screen: 'Profil'})
-    navigation.navigate('CourseDetails', {id: id})
-    console.log("Navigating to details of discovery with ID:", id);
-    // Logique de navigation à ajouter ici
+    navigation.navigate('CourseDetails', { id: id });
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.welcomeText}>Bienvenue, {userName}</Text>
-        <Icon name="ios-bag" size={30} color="#000" style={styles.icon} />
-      </View>
-      <Text style={styles.subTitle}>Votre programme</Text>
-      <View style={styles.imageFrame}>
-        <Image source={{ uri: 'https://via.placeholder.com/328x170' }} style={styles.courseImage} />
-      </View>
-      <Text style={styles.courseTitle}>Cours du jour :</Text>
-      <Text style={styles.courseDescription}>Améliorez vos compétences avec notre cours interactif et complet, conçu pour les apprenants de tous niveaux. Ce cours vous guidera à travers les bases et les subtilités de la langue anglaise</Text>
-      <Text style={styles.suggestedCoursesTitle}>Cours suggérés :</Text>
-      <View style={styles.suggestedCoursesContainer}>
-        <View style={styles.courseContainer}>
-          <TouchableOpacity onPress={() => navigateToDetails(1)}>
-            <Image source={cour1} style={styles.suggestedCourseImage} />
-          </TouchableOpacity>
-          <Text style={styles.courseLabel}>Mathématique</Text>
+      {loading ? (
+        <View>
+          <Text>Loading...</Text>
         </View>
-        <View style={styles.courseContainer}>
-          <TouchableOpacity onPress={() => navigateToDetails(2)}>
-            <Image source={cour2} style={styles.suggestedCourseImage} />
-          </TouchableOpacity>
-          <Text style={styles.courseLabel}>Littérature</Text>
-        </View>
-        <View style={styles.courseContainer}>
-          <TouchableOpacity onPress={() => navigateToDetails(3)}>
-            <Image source={cour3} style={styles.suggestedCourseImage} />
-          </TouchableOpacity>
-          <Text style={styles.courseLabel}>UX Design</Text>
-        </View>
-      </View>
+      ) : (
+        <>
+          <View style={styles.header}>
+            <Text style={styles.welcomeText}>Bienvenue, {userName}</Text>
+            <Icon name="ios-bag" size={30} color="#000" style={styles.icon} />
+          </View>
+          <Text style={styles.subTitle}>Votre programme</Text>
+          
+          {/* Image en pleine largeur */}
+          <View style={styles.imageContainer}>
+            <Image source={exampleImage} style={styles.fullWidthImage} />
+          </View>
+          
+          <Text style={styles.courseTitle}>Cours du jour :</Text>
+          <Text style={styles.courseDescription}>Améliorez vos compétences avec notre cours interactif et complet, conçu pour les apprenants de tous niveaux. Ce cours vous guidera à travers les bases et les subtilités de la langue anglaise</Text>
+          <Text style={styles.suggestedCoursesTitle}>Cours suggérés :</Text>
+          <View style={styles.suggestedCoursesContainer}>
+            <View style={styles.courseContainer}>
+              <TouchableOpacity onPress={() => navigateToDetails(1)}>
+                <Image source={cour1} style={styles.suggestedCourseImage} />
+              </TouchableOpacity>
+              <Text style={styles.courseLabel}>UX Design</Text>
+            </View>
+            <View style={styles.courseContainer}>
+              <TouchableOpacity onPress={() => navigateToDetails(2)}>
+                <Image source={cour2} style={styles.suggestedCourseImage} />
+              </TouchableOpacity>
+              <Text style={styles.courseLabel}>Développement Web</Text>
+            </View>
+            <View style={styles.courseContainer}>
+              <TouchableOpacity onPress={() => navigateToDetails(3)}>
+                <Image source={cour3} style={styles.suggestedCourseImage} />
+              </TouchableOpacity>
+              <Text style={styles.courseLabel}>Data Science</Text>
+            </View>
+          </View>
 
-      <Text style={styles.additionalCoursesTitle}>Tous les autres cours :</Text>
-      <View style={styles.additionalCoursesContainer}>
-        <View style={styles.courseContainer}>
-          <TouchableOpacity onPress={() => navigateToDetails(4)}>
-            <Image source={cour4} style={styles.additionalCourseImage} />
-          </TouchableOpacity>
-          <Text style={styles.courseLabel}>Histoire de l'art</Text>
-        </View>
-        <View style={styles.courseContainer}>
-          <TouchableOpacity onPress={() => navigateToDetails(5)}>
-            <Image source={cour5} style={styles.additionalCourseImage} />
-          </TouchableOpacity>
-          <Text style={styles.courseLabel}>Design graphique</Text>
-        </View>
-        <View style={styles.courseContainer}>
-          <TouchableOpacity onPress={() => navigateToDetails(6)}>
-            <Image source={cour6} style={styles.additionalCourseImage} />
-          </TouchableOpacity>
-          <Text style={styles.courseLabel}>Musique</Text>
-        </View>
-      </View>
+          <Text style={styles.additionalCoursesTitle}>Tous les autres cours :</Text>
+          <View style={styles.additionalCoursesContainer}>
+            <View style={styles.courseContainer}>
+              <TouchableOpacity onPress={() => navigateToDetails(4)}>
+                <Image source={cour4} style={styles.additionalCourseImage} />
+              </TouchableOpacity>
+              <Text style={styles.courseLabel}>Cyber Sécurité</Text>
+            </View>
+            <View style={styles.courseContainer}>
+              <TouchableOpacity onPress={() => navigateToDetails(5)}>
+                <Image source={cour5} style={styles.additionalCourseImage} />
+              </TouchableOpacity>
+              <Text style={styles.courseLabel}>Intelligence Artificielle</Text>
+            </View>
+            <View style={styles.courseContainer}>
+              <TouchableOpacity onPress={() => navigateToDetails(6)}>
+                <Image source={cour6} style={styles.additionalCourseImage} />
+              </TouchableOpacity>
+              <Text style={styles.courseLabel}>Blockchain</Text>
+            </View>
+          </View>
 
-      <View style={styles.additionalCoursesContainer}>
-        <View style={styles.courseContainer}>
-          <TouchableOpacity onPress={() => navigateToDetails(7)}>
-            <Image source={cour7} style={styles.additionalCourseImage} />
-          </TouchableOpacity>
-          <Text style={styles.courseLabel}>Illustration numérique</Text>
-        </View>
-        <View style={styles.courseContainer}>
-          <TouchableOpacity onPress={() => navigateToDetails(8)}>
-            <Image source={cour8} style={styles.additionalCourseImage} />
-          </TouchableOpacity>
-          <Text style={styles.courseLabel}>Programmation</Text>
-        </View>
-        <View style={styles.courseContainer}>
-          <TouchableOpacity onPress={() => navigateToDetails(9)}>
-            <Image source={cour9} style={styles.additionalCourseImage} />
-          </TouchableOpacity>
-          <Text style={styles.courseLabel}>Philosophie</Text>
-        </View>
-      </View>
->>>>>>> dev
+          <View style={styles.additionalCoursesContainer}>
+            <View style={styles.courseContainer}>
+              <TouchableOpacity onPress={() => navigateToDetails(7)}>
+                <Image source={cour7} style={styles.additionalCourseImage} />
+              </TouchableOpacity>
+              <Text style={styles.courseLabel}>Réalité Virtuelle</Text>
+            </View>
+            <View style={styles.courseContainer}>
+              <TouchableOpacity onPress={() => navigateToDetails(8)}>
+                <Image source={cour8} style={styles.additionalCourseImage} />
+              </TouchableOpacity>
+              <Text style={styles.courseLabel}>Marketing Digital</Text>
+            </View>
+            <View style={styles.courseContainer}>
+              <TouchableOpacity onPress={() => navigateToDetails(9)}>
+                <Image source={cour9} style={styles.additionalCourseImage} />
+              </TouchableOpacity>
+              <Text style={styles.courseLabel}>Réseaux et Télécommunications</Text>
+            </View>
+          </View>
+        </>
+      )}
     </ScrollView>
   );
 }
@@ -244,18 +153,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
-  imageFrame: {
-    width: 328,
+  imageContainer: {
+    width: '100%',
     height: 170,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    justifyContent: 'center',
-    alignItems: 'center',
     marginBottom: 10,
   },
-  courseImage: {
-    width: 328,
-    height: 170,
+  fullWidthImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover', 
   },
   courseTitle: {
     fontSize: 18,
