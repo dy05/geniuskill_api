@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import {useTailwind} from "tailwind-rn";
+import { getAuthUser } from '../services/authService';
 
 const SplashScreen = ({ navigation }) => {
     const tailwind = useTailwind();
@@ -8,8 +9,13 @@ const SplashScreen = ({ navigation }) => {
 
     useEffect(() => {
         if (loadingProgress >= 100) {
-            setTimeout(() => {
-                navigation.navigate('Login');
+            setTimeout(async () => {
+                let authToken = await getAuthUser();
+                if (authToken) {
+                    navigation.navigate('Main', {screen: 'Home'});
+                } else {
+                    navigation.navigate('Login');
+                }
             }, 2000); // 2 seconds
         }
     }, [navigation, loadingProgress]);

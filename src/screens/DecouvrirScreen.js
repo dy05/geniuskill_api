@@ -37,6 +37,12 @@ const DecouvrirScreen = ({ navigation }) => {
     navigation.navigate('CourseDetails', { id: id });
   };
 
+  // Fonction pour ouvrir la photo de profil
+  const openProfilePicture = () => {
+    // Ajoutez ici la logique pour ouvrir ou modifier la photo de profil
+    console.log('Profile picture clicked');
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {loading ? (
@@ -46,8 +52,12 @@ const DecouvrirScreen = ({ navigation }) => {
       ) : (
         <>
           <View style={styles.header}>
-            <Text style={styles.welcomeText}>Bienvenue, {userName}</Text>
-            <Icon name="ios-bag" size={30} color="#000" style={styles.icon} />
+            <View style={styles.welcomeTextContainer}>
+              <Text style={styles.welcomeText}>Bienvenue, {userName}</Text>
+            </View>
+            <TouchableOpacity onPress={openProfilePicture} style={styles.profilePictureContainer}>
+              <Icon name="person-circle" size={40} color="#000" />
+            </TouchableOpacity>
           </View>
           <Text style={styles.subTitle}>Votre programme</Text>
           
@@ -138,15 +148,19 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between', // Aligne les éléments avec de l'espace entre eux
     marginBottom: 20,
+  },
+  profilePictureContainer: {
+    marginLeft: 10,
+  },
+  welcomeTextContainer: {
+    flex: 1,
+    alignItems: 'flex-start', // Assurez-vous que le texte est aligné à gauche
   },
   welcomeText: {
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  icon: {
-    marginLeft: 10,
   },
   subTitle: {
     fontSize: 22,

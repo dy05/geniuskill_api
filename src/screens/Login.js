@@ -3,6 +3,7 @@ import { Alert, View, Text, TextInput, TouchableOpacity, Image, Button } from 'r
 import { useTailwind } from 'tailwind-rn';
 import travail from '../../assets/images/pro1.png';
 import { login, setAuthToken, setAuthUser } from '../services/authService';
+import Icon from 'react-native-vector-icons/Ionicons'; // Importer l'icône Ionicons
 
 // Créez un contexte pour stocker les informations de l'utilisateur
 export const UserContext = React.createContext();
@@ -14,14 +15,8 @@ export default function Login({ navigation }) {
   const [token, setToken] = useState('');
   const [authUser, setLocalAuthUser] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const handleEmailInput = (event) => {
-    setEmail(event.target.value);
-  }
-
-  const handlePasswordInput = (event) => {
-    setPassword(event.target.value);
-  }
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // État pour gérer l'affichage du mot de passe
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,38 +25,35 @@ export default function Login({ navigation }) {
 
   const handleLogin = async () => {
     if (!email.length) {
-      Alert.alert('Email is required', 'You must add your email.');
+      setErrorMessage('Veuillez entrer votre email.');
       return;
     }
 
     if (!validateEmail(email)) {
-      Alert.alert('Invalid email', 'Please enter a valid email address.');
+      setErrorMessage('Veuillez entrer une adresse email valide.');
       return;
     }
 
     if (!password.length) {
-      Alert.alert('Password is required', 'You must add your password.');
-      return;
-    }
-
-    if (password.length < 6) {
-      Alert.alert('Weak Password', 'Password must be at least 6 characters long.');
+      setErrorMessage('Veuillez entrer votre mot de passe.');
       return;
     }
 
     if (!loading) {
       setLoading(true);
-      
+      setErrorMessage(''); // Clear the error message before starting login
+
       login(email, password)
         .then(async (response) => {
-          await setAuthToken(response.data.token);
-          await setAuthUser(response.data.user);
+          setAuthToken(response.data.token);
+          setAuthUser(response.data.user);
           setToken(response.data.token);
           setAuthUser(response.data.user);
           handleLoginToken(response.data.user); // Passez les informations de l'utilisateur à la fonction handleLoginToken
         })
         .catch((error) => {
-          Alert.alert('Error', JSON.stringify([error.message, error.response]));
+          console.error(error.message);
+          setErrorMessage('Erreur lors de la connexion. Veuillez réessayer.');
         })
         .finally(() => {
           setLoading(false);
@@ -81,39 +73,65 @@ export default function Login({ navigation }) {
         <View style={tailwind('flex-row justify-between')}>
           <Text style={tailwind('text-xl font-bold')}>
             Connexion
+            { loading ? 'loading' : '...' }
           </Text>
         </View>
         <View style={tailwind('w-full')}>
+          {errorMessage ? (
+            <Text style={tailwind('text-red-500 text-center mb-4')}>
+              {errorMessage}
+            </Text>
+          ) : null}
           <View style={tailwind('mb-4')}>
             <Text style={tailwind('font-bold mb-1')}>
               Email:
             </Text>
-            <TextInput style={tailwind('border p-2 rounded')} placeholder="Email" value={email}
-                       onChangeText={setEmail} keyboardType="email-address" />
+            <TextInput 
+              style={tailwind('border p-2 rounded')} 
+              placeholder="Email" 
+              value={email}
+              onChangeText={setEmail} 
+            />
           </View>
           <View style={tailwind('mb-4')}>
             <Text style={tailwind('font-bold mb-1')}>
               Mot de passe:
             </Text>
-            <TextInput value={password} onChangeText={setPassword}
-                       style={tailwind('border p-2 rounded')} placeholder="Mot de passe"
-                       secureTextEntry />
+            <View style={tailwind('flex-row items-center border p-2 rounded')}>
+              <TextInput 
+                value={password} 
+                onChangeText={setPassword}
+                style={tailwind('flex-1')} 
+                placeholder="Mot de passe"
+                secureTextEntry={!showPassword} // Utilise l'état pour afficher/cacher le mot de passe
+              />
+              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                <Icon name={showPassword ? "eye-off" : "eye"} size={20} />
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={tailwind('mt-4 flex items-center')}>
-            <TouchableOpacity style={tailwind('mt-1 rounded-full overflow-hidden rounded-full w-48 bg-blue-600')}>
-              <Button title={'Se connecter'} style={tailwind('text-white text-center p-2 rounded-full w-48')}
-                      onPress={() => handleLogin()} />
+            <TouchableOpacity 
+              style={tailwind('mt-1 rounded-full overflow-hidden rounded-full w-48 bg-blue-600')}
+              onPress={handleLogin}
+              disabled={loading || !email || !password}
+            >
+              <Button 
+                title={'Se connecter'} 
+                style={tailwind('text-white font-bold text-center p-2 rounded-full w-48')}
+                onPress={handleLogin} 
+              />
             </TouchableOpacity>
             <View style={tailwind('my-4')}>
               <Text style={tailwind('text-blue-600')} onPress={() => navigation.navigate('PasswordReset')}>
                 Mot de passe oublié?
               </Text>
-              <Text style={tailwind('text-gray-500 mt-3 text-center')} onPress={() => handleLoginToken()}>
+              <Text style={tailwind('text-gray-500 mt-3 text-center')}onPress={() => handleLoginToken()}>
                 Ou
               </Text>
             </View>
             <TouchableOpacity style={tailwind('mt-1 rounded-full overflow-hidden rounded-full w-48 bg-blue-600')}>
-              <Button title={"S'inscrire"} style={tailwind('text-white text-center p-2')}
+              <Button title={"S'inscrire"} style={tailwind('text-white font-bold text-center p-2')}
                       onPress={() => navigation.navigate('Register')} />
             </TouchableOpacity>
           </View>

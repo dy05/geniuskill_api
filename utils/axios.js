@@ -1,15 +1,13 @@
 import axios from "axios";
-//import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //import SyncStorage from 'sync-storage';
 
-//axios.defaults.baseURL = 'http://localhost:8001/api';
-axios.defaults.baseURL = 'http://192.168.1.25:8001/api';
+axios.defaults.baseURL = 'http://localhost:8000/api';
+// axios.defaults.baseURL = 'http://192.168.1.25:8000/api';
 
 axios.interceptors.request.use(async function (config) {
-    // const token = await AsyncStorage.getItem('token');
-//    const token = '23|yhoLxHJdRGKoYZICRyrbAPxHDYdGH8EyVeYHyKLz';
     //const token = localStorage.getItem('token');
-    const token = AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
     if (token) {
         config.headers["Authorization"] = `Bearer ${token}`;
         config.headers["Accept"] = 'application/json';

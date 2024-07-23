@@ -20,6 +20,10 @@ import CourseDetails from "../screens/CourseDetails";
 import BackButton from "./BackButton";
 import RewardsScreen from '../screens/Rewards';
 import langueScreen from '../screens/langue';
+import UXDesignCoursePage from '../screens/UXDesignCoursePage';
+
+
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,8 +31,8 @@ const Tab = createBottomTabNavigator();
 const HomeStack = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="HomeScreen" component={DecouvrirScreen}
-                          options={{headerShown: false}} />
+            <Stack.Screen name="HomeScreen" component={DecouvrirScreen} options={{headerShown: false}} />
+            <Stack.Screen name="UXDesignCoursePage" component={UXDesignCoursePage} options={{ title: 'UX Design Course' }} />            
             <Stack.Screen
                 name="CourseDetails"
                 component={CourseDetails}
@@ -111,7 +115,7 @@ const BottomTabNavigator = () => {
                 headerShown: false,
                 tabBarIcon: ({color, size}) => {
                     let iconName;
-                    if (route.name === 'Home') {
+                    if (route.name === 'HomeScreen') {
                         // iconName = 'home-outline';
                         iconName = 'search';
                     } else if (route.name === 'Recherche') {
@@ -138,7 +142,6 @@ const BottomTabNavigator = () => {
             <Tab.Screen name="Sauvegarder" component={SauvegarderScreen}/>
             <Tab.Screen name="Mes cours" component={CoursesStack}/>
             <Tab.Screen name="Profil" component={ProfileStack}/>
-
         </Tab.Navigator>
     );
 };
