@@ -33,6 +33,35 @@
                     </div>
 
                     <div class="flex flex-col gap-3 mb-5">
+                        <label for="image">
+                            Image
+                        </label>
+                        <div class="flex flex-row gap-2">
+                            <div class="rounded h-96 w-96 relative" id="imageContainer">
+                                <button type="button" class="bg-transparent block border-none p-0 z-50 absolute right-2"
+                                        onclick="showDefaultImage()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="#CCCCCC" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                </button>
+                                <img alt="{{ $course->label }}" class="w-full h-fit block object-contain rounded" src="{{ $course->image }}" />
+                                <div class="w-full h-full block hidden" style="background-repeat: no-repeat; background-position: top; background-size: contain !important;"></div>
+                                <span class="bg-gray-300 w-full h-full block hidden" style="background: url({{ asset('images/book.png') }}) no-repeat top; background-size: contain !important;"></span>
+                            </div>
+
+                            <label class="hidden">
+                                <input type="hidden" id="imageInput" name="imageInput" value="{{ $course->image }}"/>
+                            </label>
+                            <input type="file" id="image" name="image" value="{{ old('image') }}"
+                                   accept=".gif,.jpg,.jpeg,.png"
+                                   onchange="readURL(this);"/>
+                        </div>
+                        @error('image')
+                        <p class="text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-col gap-3 mb-5">
                         <label for="subject_id">
                             Subject
                         </label>
@@ -79,4 +108,86 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let _imageContainer = null;
+
+        window.addEventListener('load', () => {
+            _imageContainer = document.getElementById('imageContainer');
+        });
+
+        function readURL(input) {
+            if (_imageContainer && input.files && input.files[0]) {
+                let _div = _imageContainer.querySelector('div');
+                if (_div) {
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        _div.style.backgroundImage = "url('" + e.target.result + "')";
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                    removeDefaultImage();
+                }
+            }
+        }
+
+        function removeDefaultImage() {
+            if (_imageContainer) {
+                let _span = _imageContainer.querySelector('span');
+                if (_span && !_span.classList.contains('hidden')) {
+                    _span.classList.add('hidden');
+                }
+
+                let _img = _imageContainer.querySelector('img');
+                if (_img && !_img.classList.contains('hidden')) {
+                    _img.classList.add('hidden');
+                }
+
+                let _button = _imageContainer.querySelector('button');
+                if (_button && _button.classList.contains('hidden')) {
+                    _button.classList.remove('hidden');
+                }
+
+                let _div = _imageContainer.querySelector('div');
+                if (_div && _div.classList.contains('hidden')) {
+                    _div.classList.remove('hidden');
+                }
+            }
+        }
+
+        function showDefaultImage() {
+            let _imageInput = document.querySelector('input[name="imageInput"]');
+
+            if (_imageInput) {
+                _imageInput.value = null;
+            }
+
+            let _inputFile = document.querySelector('input[type="file"]');
+
+            if (_inputFile) {
+                _inputFile.value = null;
+
+                if (_imageContainer) {
+                    let _img = _imageContainer.querySelector('img');
+                    if (_img && !_img.classList.contains('hidden')) {
+                        _img.classList.add('hidden');
+                    }
+
+                    let _div = _imageContainer.querySelector('div');
+                    if (_div && !_div.classList.contains('hidden')) {
+                        _div.classList.add('hidden');
+                    }
+
+                    let _button = _imageContainer.querySelector('button');
+                    if (_button && !_button.classList.contains('hidden')) {
+                        _button.classList.add('hidden');
+                    }
+
+                    let _span = _imageContainer.querySelector('span');
+                    if (_span && _span.classList.contains('hidden')) {
+                        _span.classList.remove('hidden');
+                    }
+                }
+            }
+        }
+    </script>
 </x-app-layout>

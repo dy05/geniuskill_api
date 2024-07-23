@@ -18,6 +18,7 @@ class Course extends Model
         'slug',
         'level_id',
         'subject_id',
+        'image',
     ];
 
     protected $with = [
@@ -50,11 +51,32 @@ class Course extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function quizzes(): HasMany
+    {
+        return $this->hasMany(Quiz::class, 'course_id');
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
             ->using(UserCourse::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageAttribute(): string
+    {
+        $image = $this->attributes['image'] ?? null;
+        if (!$image) {
+            return asset('images/book.png');
+        }
+
+        return asset('storage/' . $image);
     }
 }

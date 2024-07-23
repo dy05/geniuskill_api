@@ -58,4 +58,23 @@ class UserController extends Controller
             'professors' => $queryBuilder->get()
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function userUpdate(Request $request): JsonResponse
+    {
+        $request->validate([
+            'email' => 'sometimes|email',
+        ]);
+
+        $data = $request->all();
+        $user = $request->user();
+        $user->update($data);
+
+        return response()->json([
+            'user' => $user->fresh(),
+        ]);
+    }
 }

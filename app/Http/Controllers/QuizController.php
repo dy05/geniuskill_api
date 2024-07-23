@@ -62,12 +62,10 @@ class QuizController extends Controller
             'choices' => 'required|array|min:2',
         ]);
 
-        $data = $request->all();
-
         DB::beginTransaction();
         try {
-            var_dump($data);
-            die();
+            $data = $request->all();
+            $data['choices'] = json_encode(array_values($data['choices']));
             Quiz::query()->create($data);
 
             DB::commit();
@@ -98,7 +96,7 @@ class QuizController extends Controller
     public function update(Quiz $quiz, Request $request)
     {
         $request->validate([
-            'title' => 'required|string|unique:quizzes,title,id,' . $quiz->id,
+            'title' => 'required|string|unique:quizzes,title,' . $quiz->id,
             'response' => 'required|integer|min:0',
             'choices' => 'required|array|min:2',
             'course_id' => 'required|exists:courses,id',
@@ -107,6 +105,7 @@ class QuizController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->all();
+            $data['choices'] = json_encode(array_values($data['choices']));
             $quiz->update($data);
 
             DB::commit();

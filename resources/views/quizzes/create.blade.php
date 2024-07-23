@@ -1,8 +1,3 @@
-@php
-    $choices = old('choices', []);
-    var_dump($choices);
-    $choicesId = 2;
-@endphp
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -10,6 +5,10 @@
         </h2>
     </x-slot>
 
+    @php
+        $choices = old('choices', []);
+        $choicesId = 2;
+    @endphp
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div class="w-full mb-12 xl:mb-0 mx-auto">
             <div class="bg-white shadow-lg rounded p-4 pb-12">
@@ -44,20 +43,20 @@
                                             $choicesId = $id;
                                         }
                                     @endphp
-                                    <div class="flex items-center gap-2" id="choices-0">
+                                    <div class="flex items-center gap-2" id="choices-{{ $id }}">
                                         <button type="button" onclick="deleteChoice(`{{ $id }}`)">
                                             <i class="fa fa-trash mr-1"></i>
                                         </button>
 
                                         <label>
                                             <input type="hidden" name="choices[{{ $id }}][id]"
-                                                   value="{{ $choice['id'] ?? '' }}" required/>
+                                                   value="{{ $id ?? '' }}" required/>
                                             <input type="text" name="choices[{{ $id }}][text]"
                                                    value="{{ $choice['text'] ?? '' }}" required/>
                                         </label>
 
                                         <input type="radio" class="rounded" id="response" name="response"
-                                               @checked(old('answer')) value="{{ $choice['id'] }}" required/>
+                                               @checked((string)old('response') === (string)$id) value="{{ $id }}" required/>
                                     </div>
                                 @empty
                                     @php

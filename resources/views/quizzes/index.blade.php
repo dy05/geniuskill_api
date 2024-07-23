@@ -36,24 +36,38 @@
                             <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                 Réponse
                             </th>
+                            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                Cours
+                            </th>
                             <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"></th>
                         </tr>
                         </thead>
                         <tbody>
                         @forelse($quizzes as $quiz)
+                            @php
+                                $response = null;
+                            @endphp
                             <tr>
                                 <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                                    {{ $quiz->label }}
+                                    {{ $quiz->title }}
                                 </th>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
                                     @foreach(($quiz->choices ?? []) as $choice)
+                                        @php
+                                            if ((string)$choice->id === (string)$quiz->response) {
+                                                $response = $choice->text;
+                                            }
+                                        @endphp
                                         <p>
-                                            {{ $choice }}
+                                            {{ $choice->text }}
                                         </p>
                                     @endforeach
                                 </td>
                                 <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    {{ $quiz->answer }}
+                                    {{ $response }}
+                                </td>
+                                <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    {{ optional($quiz->course)->label }}
                                 </td>
                                 <td class="border-t-0 px-6 align-middle justify-end border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                     <div class="flex gap-3 items-center justify-end w-full">

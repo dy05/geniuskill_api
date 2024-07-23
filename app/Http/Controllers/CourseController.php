@@ -40,17 +40,27 @@ class CourseController extends Controller
             'slug' => 'nullable|string',
             'level_id' => 'nullable|exists:levels,id',
             'subject_id' => 'required|exists:subjects,id',
+            'image' => 'nullable|image',
         ]);
 
         DB::beginTransaction();
         try {
-            Course::query()
-                ->create($request->only([
-                    'label',
-                    'slug',
-                    'level_id',
-                    'subject_id',
-                ]));
+            $data = $request->only([
+                'label',
+                'slug',
+                'level_id',
+                'subject_id',
+            ]);
+
+            $imageFile = $request->file('image');
+
+            if ($imageFile) {
+                $filename = time() . '-' . $imageFile->getClientOriginalName();
+                $imageFile->storeAs('public/images', $filename);
+                $data['image'] = 'images/' . $filename;
+            }
+
+            Course::query()->create($data);
 
             DB::commit();
             return redirect()->route('courses.index')
@@ -77,7 +87,6 @@ class CourseController extends Controller
         ]);
     }
 
-
     public function update(Course $course, Request $request)
     {
         $request->validate([
@@ -85,16 +94,30 @@ class CourseController extends Controller
             'slug' => 'nullable|string',
             'level_id' => 'nullable|exists:levels,id',
             'subject_id' => 'required|exists:subjects,id',
+            'image' => 'nullable|image',
         ]);
 
         DB::beginTransaction();
         try {
-            $course->update($request->only([
+            $data = $request->only([
                 'label',
                 'slug',
                 'level_id',
                 'subject_id',
-            ]));
+            ]);
+
+            $imageFile = $request->file('image');
+            $filename = $request->get('imageInput');
+
+            if ($imageFile) {
+                $filename = time() . '-' . $imageFile->getClientOriginalName();
+                $imageFile->storeAs('public/images', $filename);
+                $data['image'] = 'images/' . $filename;
+            } else if (!$filename) {
+                $data['image'] = null;
+            }
+
+            $course->update($data);
 
             DB::commit();
             return redirect()->route('courses.index')

@@ -21,9 +21,13 @@ class DatabaseSeeder extends Seeder
                     'email' => 'admin@admin.com',
                     'role' => 'admin',
                 ]);
-                User::factory(8)->create();
-                    $this->call(CategorySeeder::class);
+            User::factory(9)->create();
 
+            $this->call(CategorySeeder::class);
+            $this->call(LevelSeeder::class);
+            $this->call(SubjectSeeder::class);
+            $this->call(CourseSeeder::class);
+            $this->call(ClassroomSeeder::class);
         }
     }
 }

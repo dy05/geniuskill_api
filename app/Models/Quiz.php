@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class Quiz extends Model
 {
@@ -17,10 +18,6 @@ class Quiz extends Model
         'title',
         'choices',
         'response',
-    ];
-
-    protected $casts = [
-        'choices' => 'array'
     ];
 
     /**
@@ -50,5 +47,13 @@ class Quiz extends Model
     public function answers(): HasMany
     {
         return $this->hasMany(UserQuiz::class, 'quiz_id');
+    }
+
+    /**
+     * @return Collection|array
+     */
+    public function getChoicesAttribute(): Collection|array
+    {
+        return collect(json_decode($this->attributes['choices']))->keyBy('id');
     }
 }
