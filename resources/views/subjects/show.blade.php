@@ -3,13 +3,13 @@
         <div class="flex gap-4 justify-between w-full">
             <div class="w-3/5">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ __('Category') }} {{ $category->label }}
+                    {{ __('Subject') }} {{ $subject->label }}
                 </h2>
             </div>
             <div class="w-2/5 text-right">
-                <a href="{{ route('categories.index') }}"
+                <a href="{{ route('subjects.index') }}"
                    class="text-white p-2 rounded bg-blue-500 hover:bg-blue-600">
-                    Voir toutes les categories
+                    Voir toutes les subjects
                 </a>
             </div>
         </div>
@@ -23,7 +23,7 @@
                         Nom
                     </p>
                     <p>
-                        {{ $category->label }}
+                        {{ $subject->label }}
                     </p>
                 </div>
 
@@ -32,21 +32,30 @@
                         Slug
                     </p>
                     <p>
-                        {{ $category->slug }}
+                        {{ $subject->slug }}
                     </p>
                 </div>
 
                 <div class="flex flex-col gap-2 mb-4">
                     <p>
-                        Parent
+                        Level
                     </p>
                     <p>
-                        {{ optional($category->parent)->label ?? '' }}
+                        {{ optional($subject->level)->label ?? '' }}
                     </p>
                 </div>
 
-                <form action="{{ route('categories.destroy', $category) }}" method="POST"
-                      onsubmit="return confirm('Voulez vous vraiment supprimer cette categorie ?');">
+                <div class="flex flex-col gap-2 mb-4">
+                    <p>
+                        Categorie
+                    </p>
+                    <p>
+                        {{ optional($subject->category)->label ?? '' }}
+                    </p>
+                </div>
+
+                <form action="{{ route('subjects.destroy', $subject) }}" method="POST"
+                      onsubmit="return confirm('Voulez vous vraiment supprimer ce subject ?');">
                     @csrf
                     @method('DELETE')
                     <div class="flex mt-5 w-full">

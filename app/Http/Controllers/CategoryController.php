@@ -7,7 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CategoryController extends Controller 
+class CategoryController extends Controller
 {
     public function index(Request $request)
     {
@@ -50,7 +50,7 @@ class CategoryController extends Controller
             DB::commit();
             return redirect()->route('categories.index')
                 ->with([
-                    'message' => 'category created successfully.'
+                    'message' => 'Category created successfully.'
                 ]);
         } catch (Exception $exc) {
             DB::rollback();
@@ -91,7 +91,7 @@ class CategoryController extends Controller
             DB::commit();
             return redirect()->route('categories.index')
                 ->with([
-                    'message' => 'category updated successfully.'
+                    'message' => 'Category updated successfully.'
                 ]);
         } catch (Exception $exc) {
             DB::rollback();

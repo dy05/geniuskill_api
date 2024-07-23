@@ -30,7 +30,7 @@ Route::group(['prefix' => '/auth'], function() {
     Route::post('/register', [AuthController::class, 'register']);
 });
 
-Route::group(['middleware' => 'auth:sanctum'], function() {
+Route::group(['middleware' => 'auth:sanctum', 'as' => 'api.'], function() {
     Route::get('/user', [AuthController::class, 'currentUser']);
     Route::post('/professors', [UserController::class, 'addProfessor']);
     Route::get('/professors', [UserController::class, 'getProfessors']);

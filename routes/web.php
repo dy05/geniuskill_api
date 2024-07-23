@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LevelController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('categories', CategoryController::class);
+    Route::resource('levels', LevelController::class);
+    Route::resource('subjects', SubjectController::class);
+    Route::resource('courses', CourseController::class);
+    Route::resource('quizzes', QuizController::class);
 
     /*
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index')');
