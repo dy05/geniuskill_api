@@ -1,5 +1,5 @@
 import axios from "axios";
-//import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //import SyncStorage from 'sync-storage';
 
 //axios.defaults.baseURL = 'http://localhost:8001/api';

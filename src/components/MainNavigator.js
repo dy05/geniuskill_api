@@ -20,6 +20,10 @@ import CourseDetails from "../screens/CourseDetails";
 import BackButton from "./BackButton";
 import RewardsScreen from '../screens/Rewards';
 import langueScreen from '../screens/langue';
+import ArtificialCoursePage from'../screens/ArtificialCoursePage';
+import BlockCoursePage from'../screens/BlockCoursePage';
+
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -183,3 +187,4 @@ const MainNavigator = () => {
 };
 
 export default MainNavigator;
+

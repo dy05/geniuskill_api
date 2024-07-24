@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, Button, Alert } from 'react-native';
 import { useTailwind } from 'tailwind-rn';
-import travail from '../../assets/images/pro2.png';
+import travail from '../../assets/images/plant.png';
 import axios from "../../utils/axios";
 
 export default function Register({ navigation }) {
@@ -53,7 +53,7 @@ export default function Register({ navigation }) {
   return (
     <View style={tailwind('flex-1 bg-white')}>
       <View style={tailwind('flex-1 items-center p-4')}>
-        <Image source={travail} style={tailwind('w-32 h-32 mb-8')} />
+        <Image source={travail} style={[tailwind('mb-8'), { width: 250, height: 150, resizeMode: 'contain' }]} />
         <Text style={tailwind('text-2xl font-bold mb-8')}>Inscription</Text>
         <View style={tailwind('w-full')}>
           <View style={tailwind('mb-4')}>

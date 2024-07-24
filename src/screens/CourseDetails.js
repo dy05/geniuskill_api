@@ -1,181 +1,110 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Color, FontFamily, FontSize } from "../components/GlobalStyles";
+import { useNavigation } from '@react-navigation/native';
+import { Color } from "../components/GlobalStyles";
 
 const CoursePage = () => {
-  const courseProgress = 0.7; // 70% de progression
+  const courseProgress = 0.5; // 50% de progression
+  const navigation = useNavigation();
+
+  const sections = [
+    {
+      title: '1. Introduction au HTML',
+      text: ' - Structure de base d\'une page HTML\n - Éléments et attributs HTML\n - Mise en forme du texte et des images',
+      hours: '2 : 00 hrs',
+      videoUrl: 'https://www.youtube.com/watch?v=pQN-pnXPaVg',
+      quizId: 1,
+    },
+    {
+      title: '2. Introduction au CSS',
+      text: ' - Sélecteurs et propriétés CSS\n - Mise en page avec Flexbox et Grid\n - Styles réactifs pour les différents écrans',
+      hours: '2 : 30 hrs',
+      videoUrl: 'https://www.youtube.com/watch?v=yfoY53QXEnI',
+      quizId: 2,
+    },
+    {
+      title: '3. Introduction au JavaScript',
+      text: ' - Variables et types de données\n - Fonctions et événements\n - Manipulation du DOM et AJAX',
+      hours: '3 : 00 hrs',
+      videoUrl: 'https://www.youtube.com/watch?v=W6NZfCO5SIk',
+      quizId: 3,
+    },
+    {
+      title: '5. Responsive Design',
+      text: ' - Techniques de responsive design\n - Utilisation de media queries\n - Création de mises en page adaptatives',
+      hours: '2 : 45 hrs',
+      videoUrl: 'https://www.youtube.com/watch?v=srvUrASNj0s',
+      quizId: 4,
+    },
+    {
+      title: '6. Optimisation des Performances',
+      text: ' - Techniques d\'optimisation des temps de chargement\n - Minification et compression des fichiers\n - Caching et gestion des ressources',
+      hours: '2 : 30 hrs',
+      videoUrl: 'https://www.youtube.com/watch?v=bdAIw9qBGvc',
+      quizId: 5,
+    },
+    {
+      title: '7. Accessibilité Web',
+      text: ' - Principes de l\'accessibilité web\n - Utilisation des attributs ARIA\n - Test des interfaces pour les personnes handicapées',
+      hours: '2 : 15 hrs',
+      videoUrl: 'https://www.youtube.com/watch?v=nM4FdQyIQGo',
+      quizId: 6,
+    },
+    {
+      title: '8. Gestion des Versions et Collaboration',
+      text: ' - Introduction à Git et GitHub\n - Flux de travail collaboratifs\n - Résolution des conflits et gestion des branches',
+      hours: '3 : 00 hrs',
+      videoUrl: 'https://www.youtube.com/watch?v=8JJ101D3knE',
+      quizId: 7,
+    },
+  ];
+
+  const navigateToQuiz = (quizId) => {
+    navigation.navigate('QuizScreen', { quizId });
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.pageDuCours}>
-        {/* Image en haut de la page */}
         <View style={styles.imageContainer}>
           <Image
             style={styles.pageDuCoursChild}
             contentFit="cover"
-            source={require("../../assets/images/rectangle.png")}
+            source={require("../../assets/images/webdevelopment.png")}
           />
         </View>
-
-        {/* Titre "Anglais" */}
         <View style={styles.titleContainer}>
-          <Text style={styles.anglais}>Anglais</Text>
+          <Text style={styles.title}>Introduction au Développement Web</Text>
         </View>
-
-        {/* Texte principal */}
-        <Text style={styles.amliorezVosComptences}>
-          Améliorez vos compétences en anglais avec notre cours interactif et
-          complet, conçu pour les apprenants de tous niveaux. Ce cours vous
-          guidera à travers les bases et les subtilités de la langue anglaise.
+        <Text style={styles.courseDescription}>
+          Le cours "Introduction au Développement Web" est conçu pour fournir aux participants une compréhension complète des technologies et des pratiques du développement web. Ce cours couvre les fondamentaux du HTML, CSS, et JavaScript, ainsi que des concepts plus avancés tels que les frameworks modernes et les bonnes pratiques de développement. Les étudiants apprendront à créer des sites web dynamiques et interactifs, à optimiser les performances et à assurer la compatibilité entre les navigateurs.
         </Text>
-
-        {/* Par Tiffany King */}
-        <Text style={styles.parTiffanyKingContainer}>
-          <Text style={styles.par}>Par </Text>
-          <Text style={styles.tiffanyKing}>Tiffany King</Text>
+        <Text style={styles.courseDetails}>
+          Durée : 12 semaines{"\n"}
+          Niveau : Débutant à Avancé
         </Text>
-
-        {/* 5 cours - 22 heures de cours total */}
-        <Text style={styles.cours22}>
-          5 cours - 22 heures de cours total
-        </Text>
-
-        {/* Container pour les sections de cours */}
         <View style={styles.sectionsContainer}>
-          {/* Section "Grammaire et vocabulaire" */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>1. Grammaire et vocabulaire :</Text>
-            <Text style={styles.sectionText}>
-              Maîtrisez les règles de grammaire essentielles et enrichissez votre vocabulaire pour mieux vous exprimer.
-            </Text>
-            <View style={styles.sectionFooter}>
-              <Text style={styles.sectionHours}>04 : 40 hrs</Text>
-              <TouchableOpacity style={styles.playButton}>
-                <Icon name="play-circle-outline" size={30} color="#1E90FF" />
-              </TouchableOpacity>
+          {sections.map((section, index) => (
+            <View key={index} style={styles.section}>
+              <Text style={styles.sectionTitle}>{section.title}</Text>
+              <Text style={styles.sectionText}>{section.text}</Text>
+              <View style={styles.sectionFooter}>
+                <Text style={styles.sectionHours}>{section.hours}</Text>
+                <TouchableOpacity style={styles.playButton} onPress={() => navigation.navigate('VideoPlayer', { videoUrl: section.videoUrl })}>
+                  <Icon name="play-circle-outline" size={30} color="#1E90FF" />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.progressBarContainer}>
+                <View style={[styles.progressBar, { width: `${courseProgress * 100}%` }]} />
+              </View>
+              <View style={styles.quizButtonContainer}>
+                <TouchableOpacity style={styles.quizButton} onPress={() => navigateToQuiz(section.quizId)}>
+                  <Text style={styles.quizButtonText}>Commencer le Quizz</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.progressBarContainer}>
-              <View style={[styles.progressBar, { width: `${courseProgress * 100}%` }]} />
-            </View>
-          </View>
-
-          {/* Section "Compréhension écrite" */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>2. Compréhension écrite :</Text>
-            <Text style={styles.sectionText}>
-              Développez vos compétences en lecture en explorant divers textes,
-              articles et histoires.
-            </Text>
-            <View style={styles.sectionFooter}>
-              <Text style={styles.sectionHours}>04 : 40 hrs</Text>
-              <TouchableOpacity style={styles.playButton}>
-                <Icon name="play-circle-outline" size={30} color="#1E90FF" />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.progressBarContainer}>
-              <View style={[styles.progressBar, { width: `${courseProgress * 100}%` }]} />
-            </View>
-          </View>
-
-          {/* Section "Expression orale" */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>3. Expression orale :</Text>
-            <Text style={styles.sectionText}>
-              Améliorez votre prononciation et votre fluidité en participant à des
-              exercices de conversation et de discours.
-            </Text>
-            <View style={styles.sectionFooter}>
-              <Text style={styles.sectionHours}>04 : 40 hrs</Text>
-              <TouchableOpacity style={styles.playButton}>
-                <Icon name="play-circle-outline" size={30} color="#1E90FF" />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.progressBarContainer}>
-              <View style={[styles.progressBar, { width: `${courseProgress * 100}%` }]} />
-            </View>
-          </View>
-
-          {/* Section "Compréhension orale" */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>4. Compréhension orale :</Text>
-            <Text style={styles.sectionText}>
-              Entraînez-vous à comprendre l'anglais parlé grâce à des
-              enregistrements audio et des vidéos.
-            </Text>
-            <View style={styles.sectionFooter}>
-              <Text style={styles.sectionHours}>04 : 40 hrs</Text>
-              <TouchableOpacity style={styles.playButton}>
-                <Icon name="play-circle-outline" size={30} color="#1E90FF" />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.progressBarContainer}>
-              <View style={[styles.progressBar, { width: `${courseProgress * 100}%` }]} />
-            </View>
-          </View>
-
-          {/* Section "Expression écrite" */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>5. Expression écrite :</Text>
-            <Text style={styles.sectionText}>
-              Apprenez à rédiger des essais, des lettres et des emails avec clarté
-              et précision.
-            </Text>
-            <View style={styles.sectionFooter}>
-              <Text style={styles.sectionHours}>04 : 40 hrs</Text>
-              <TouchableOpacity style={styles.playButton}>
-                <Icon name="play-circle-outline" size={30} color="#1E90FF" />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.progressBarContainer}>
-              <View style={[styles.progressBar, { width: `${courseProgress * 100}%` }]} />
-            </View>
-
-            {/* Quizz - 25 questions */}
-            <View style={styles.quizzContainer}>
-              <TouchableOpacity style={styles.iconButton}>
-                <Icon name="help-circle-outline" size={30} color="#1E90FF" />
-              </TouchableOpacity>
-              <Text style={styles.quizzText}>Quizz - 25 questions</Text>
-              <TouchableOpacity style={styles.iconButton}>
-                <Icon name="play-circle-outline" size={30} color="#1E90FF" />
-              </TouchableOpacity>
-            </View>
-             {/* Section avec l'image */}
-          <View style={styles.section}>
-            {/* Ajouter l'image ici */}
-            <Image
-              style={styles.imageContainer} // Utiliser le style approprié pour l'image
-              contentFit="cover" // Cette propriété peut nécessiter une vérification selon votre configuration
-              source={require("../../assets/images/rectanglee.png")} // Chemin vers l'image
-            />
-          </View>
-            <Text style={[styles.tiffanyKingEst, styles.tiffanyKingEstTypo]}>
-              Tiffany King est une enseignante d'anglais passionnée et expérimentée,
-              dédiée à aider ses élèves à maîtriser la langue anglaise. Avec plus de
-              huit années d'expérience dans l'enseignement de l'anglais à divers
-              niveaux, elle a développé des méthodes pédagogiques innovantes et
-              engageantes pour faciliter l'apprentissage.
-            </Text>
-    
-
-          </View>
-          <View style={[styles.carloDespusWrapper, styles.carloPosition]}>
-        <Text
-          style={[styles.carloDespus, styles.carloDespusTypo]}
-        >{`Carlo Despuès `}</Text>
-      </View>
-      <Text style={[styles.loremIpsumDolor, styles.loremTypo]}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac
-        augue leo. Vestibulum ante ipsum primis in faucibus orci
-      </Text>
-      <Text style={[styles.loremIpsumDolor1, styles.loremTypo]}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac
-        augue leo. Vestibulum ante ipsum primis in faucibus orci
-      </Text>
-     
-     
-     
+          ))}
         </View>
       </View>
     </ScrollView>
@@ -184,166 +113,101 @@ const CoursePage = () => {
 
 const styles = StyleSheet.create({
   scrollViewContent: {
-    flexGrow: 1,
     paddingBottom: 20,
   },
   pageDuCours: {
     flex: 1,
     backgroundColor: Color.white,
-    alignItems: 'center',
-    paddingTop: 20,
+    alignItems: "center",
   },
   imageContainer: {
-    width: '100%',
+    width: "100%",
     height: 200,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   pageDuCoursChild: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   titleContainer: {
-    marginBottom: 10,
+    marginBottom: 20,
   },
-  anglais: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
-    textAlign: 'center',
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: Color.primary,
   },
-  amliorezVosComptences: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
-    textAlign: 'center',
-    marginHorizontal: 20,
-    marginTop: 10,
+  courseDescription: {
+    paddingHorizontal: 20,
+    textAlign: "center",
+    fontSize: 16,
+    marginBottom: 20,
   },
-  parTiffanyKingContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  par: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
-  },
-  tiffanyKing: {
-    fontFamily: FontFamily.robotoBold,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
-  },
-  cours22: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
-    textAlign: 'center',
+  courseDetails: {
+    paddingHorizontal: 20,
+    textAlign: "center",
+    fontSize: 16,
     marginBottom: 20,
   },
   sectionsContainer: {
-    width: '90%',
-    marginBottom: 20,
+    width: "100%",
+    paddingHorizontal: 20,
   },
   section: {
     marginBottom: 20,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 8,
     backgroundColor: Color.lightGray,
   },
   sectionTitle: {
-    fontFamily: FontFamily.robotoBold,
-    fontSize: FontSize.size_base,
-    color: Color.black,
-    marginBottom: 5,
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   sectionText: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
-    marginTop: 5,
+    fontSize: 16,
+    marginBottom: 10,
   },
   sectionFooter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   sectionHours: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
+    fontSize: 14,
+    color: Color.darkGray,
   },
   playButton: {
-    marginLeft: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
   progressBarContainer: {
-    height: 8,
-    backgroundColor: '#f0f0f0',
-    marginTop: 8,
-    borderRadius: 5,
-    overflow: 'hidden',
-  },
-  grammaireEtVocabulaireContainer: {
-    padding: 10,
-    marginTop: 20,
+    height: 5,
+    backgroundColor: Color.gray,
+    borderRadius: 2.5,
+    marginTop: 10,
   },
   progressBar: {
-    height: '100%',
-    backgroundColor: '#1E90FF',
-  }, 
-  tiffanyTypo: {
-    fontFamily: FontFamily.robotoBold,
-    fontSize: FontSize.size_md,
-    color: Color.black,
-    textAlign: 'center',
+    height: "100%",
+    backgroundColor: Color.primary,
+    borderRadius: 2.5,
+  },
+  quizButtonContainer: {
     marginTop: 10,
   },
-  quizzContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 20,
+  quizButton: {
+    backgroundColor: Color.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    alignItems: "center",
   },
-  iconButton: {
-    marginHorizontal: 10,
+  quizButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
-  quizzText: {
-    fontFamily: FontFamily.robotoBold,
-    fontSize: FontSize.size_md,
-    color: Color.black,
-  },
-  tiffanyKingEst: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
-    textAlign: 'center',
-    marginHorizontal: 20,
-    marginTop: 10,
-  },
-  tiffanyKingEstTypo: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
-    textAlign: 'center',
-
-
-  },
-  carloDespusTypo: {
-    fontFamily: FontFamily.robotoBold,
-    fontSize: FontSize.size_md,
-    color: Color.black,
-  },
-  loremTypo: {
-    fontFamily: FontFamily.robotoRegular,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 10,
-  },
-
 });
 
 export default CoursePage;

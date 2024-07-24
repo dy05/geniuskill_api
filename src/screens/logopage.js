@@ -84,11 +84,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   welcomeText: {
-    fontSize: 36, // Taille de police plus grande
-    fontWeight: 'bold', // Texte en gras
-    color: '#FFFFFF', // Couleur blanche
-    textShadowColor: '#000000', // Ombre de texte noire
-    textShadowOffset: { width: 2, height: 2 }, // Décalage de l'ombre de texte
-    textShadowRadius: 5, // Rayon de l'ombre de texte
+    fontSize: 36, 
+    fontWeight: 'bold', 
+    color: '#FFFFFF', 
+    textShadowColor: '#000000', 
+    textShadowOffset: { width: 2, height: 2 }, 
+    textShadowRadius: 5, 
   }
 });

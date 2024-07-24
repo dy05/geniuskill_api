@@ -1,5 +1,6 @@
 import axios from '../../utils/axios';
 //import SyncStorage from 'sync-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function login(email, password) {
     return axios.post('/auth/login', {
