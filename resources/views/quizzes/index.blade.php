@@ -108,6 +108,12 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="p-2 mt-3">
+                    @if(count($quizzes))
+                        {{ $quizzes->links() }}
+                    @endif
+                </div>
             </div>
         </div>
     </div>

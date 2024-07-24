@@ -128,6 +128,7 @@
             </div>
         </div>
     </div>
+
     <script>
         let _id = {{ $choicesId }};
 

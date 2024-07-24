@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseItem;
 use App\Models\Level;
 use App\Models\Subject;
 use Exception;
@@ -40,6 +41,7 @@ class CourseController extends Controller
             'slug' => 'nullable|string',
             'level_id' => 'nullable|exists:levels,id',
             'subject_id' => 'required|exists:subjects,id',
+            'items' => 'required|array|min:1',
             'image' => 'nullable|image',
         ]);
 
@@ -60,7 +62,15 @@ class CourseController extends Controller
                 $data['image'] = 'storage/images/' . $filename;
             }
 
-            Course::query()->create($data);
+            $course = Course::query()->create($data);
+
+            $items = $request->get('items');
+            foreach ($items as $item) {
+                unset($item['id']);
+                $item['course_id'] = $course->id;
+                CourseItem::query()
+                    ->firstOrCreate($item);
+            }
 
             DB::commit();
             return redirect()->route('courses.index')
@@ -94,6 +104,7 @@ class CourseController extends Controller
             'slug' => 'nullable|string',
             'level_id' => 'nullable|exists:levels,id',
             'subject_id' => 'required|exists:subjects,id',
+            'items' => 'required|array|min:1',
             'image' => 'nullable|image',
         ]);
 
@@ -118,6 +129,18 @@ class CourseController extends Controller
             }
 
             $course->update($data);
+
+            CourseItem::query()
+                ->where(['course_id' => $course->id])
+                ->delete();
+
+            $items = $request->get('items');
+            foreach ($items as $item) {
+                unset($item['id']);
+                $item['course_id'] = $course->id;
+                CourseItem::query()
+                    ->firstOrCreate($item);
+            }
 
             DB::commit();
             return redirect()->route('courses.index')

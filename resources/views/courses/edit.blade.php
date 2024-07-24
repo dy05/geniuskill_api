@@ -5,6 +5,9 @@
         </h2>
     </x-slot>
 
+    @php
+        $itemsId = 1;
+    @endphp
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div class="w-full mb-12 xl:mb-0 mx-auto">
             <div class="bg-white shadow-lg rounded p-4 pb-12">
@@ -129,6 +132,138 @@
                         @enderror
                     </div>
 
+                    <div class="flex flex-col gap-4 mb-2 mt-4">
+                        <div class="flex flex-col gap-3">
+                            <div class="flex flex-col md:flex-row gap-4 justify-between">
+                                <h3>
+                                    Contenu (items)
+                                </h3>
+
+                                <button type="button" onclick="addItem()"
+                                        class="flex-none h-fit bg-gray-500 p-2 text-white active:bg-blue-600 text-xs font-bold uppercase rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                                    <i class="fa fa-plus mr-2"></i>
+                                    Ajouter un chapitre
+                                </button>
+                            </div>
+
+                            <div class="flex flex-col gap-3 w-full divide-y divide-gray-400" id="items">
+                                @forelse($course->items as $item)
+                                    @php
+                                        $id = (int)$item['id'] ?? 0;
+                                        if ($id > $itemsId) {
+                                            $itemsId = $id;
+                                        }
+                                    @endphp
+                                    <div class="flex gap-2 items-baseline w-full" id="items-{{ $id }}">
+                                        <div class="bg-gray-100 p-2 rounded flex-1">
+                                            <div class="flex flex-col gap-2">
+                                                <input type="hidden" name="items[{{ $id }}][id]"
+                                                       value="{{ $id ?? '' }}" required/>
+                                                <label for="items[{{ $id }}][title]">
+                                                    Titre du chapitre
+                                                </label>
+                                                <input type="text" name="items[{{ $id }}][title]" id="items[{{ $id }}][title]"
+                                                       value="{{ $item->title ?? '' }}" required/>
+                                            </div>
+                                            <div class="flex flex-col gap-2">
+                                                <label for="items[{{ $id }}][duration]">
+                                                    Durée du chapitre
+                                                    <span class="text-xs">(en minutes)</span>
+                                                </label>
+                                                <input type="number" name="items[{{ $id }}][duration]" id="items[{{ $id }}][duration]"
+                                                       value="{{ $item->duration ?? '' }}" required/>
+                                            </div>
+                                            <div class="flex flex-col gap-2">
+                                                <label for="items[{{ $id }}][description]">
+                                                    Contenu / Description du chapitre
+                                                </label>
+                                                <textarea name="items[{{ $id }}][description]" id="items[{{ $id }}][description]"
+                                                          rows="4" required>{{ $item->description ?? '' }}</textarea>
+                                            </div>
+
+                                            <div class="flex flex-col gap-2">
+                                                <label for="items[{{ $id }}][video]">
+                                                    Lien video du chapitre
+                                                    <span class="text-xs">(Lien video)</span>
+                                                </label>
+                                                <input type="text" name="items[{{ $id }}][video]" id="items[{{ $id }}][video]"
+                                                       value="{{ $item->video ?? '' }}"/>
+                                            </div>
+
+                                            <div class="flex flex-col gap-2">
+                                                <label for="items[{{ $id }}][order]">
+                                                    Ordre du chapitre
+                                                </label>
+                                                <input type="number" name="items[{{ $id }}][order]" id="items[{{ $id }}][order]"
+                                                       value="{{ $item->order ?? '' }}" />
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="w-16 h-16" onclick="deleteItem(`{{ $id }}`)">
+                                            <i class="fa fa-trash mr-1"></i>
+                                        </button>
+                                    </div>
+                                @empty
+                                    @php
+                                        $id = 0;
+                                    @endphp
+                                    <div class="flex gap-2 items-baseline w-full" id="items-{{ $id }}">
+                                        <div class="bg-gray-100 p-2 rounded flex-1">
+                                            <div class="flex flex-col gap-2">
+                                                <input type="hidden" name="items[{{ $id }}][id]"
+                                                       value="{{ $id ?? '' }}" required/>
+                                                <label for="items[{{ $id }}][title]">
+                                                    Titre du chapitre
+                                                </label>
+                                                <input type="text" name="items[{{ $id }}][title]" id="items[{{ $id }}][title]"
+                                                       value="{{ $item['title'] ?? '' }}" required/>
+                                            </div>
+                                            <div class="flex flex-col gap-2">
+                                                <label for="items[{{ $id }}][duration]">
+                                                    Durée du chapitre
+                                                    <span class="text-xs">(en minutes)</span>
+                                                </label>
+                                                <input type="number" name="items[{{ $id }}][duration]" id="items[{{ $id }}][duration]"
+                                                       value="{{ $item['duration'] ?? '' }}" required/>
+                                            </div>
+                                            <div class="flex flex-col gap-2">
+                                                <label for="items[{{ $id }}][description]">
+                                                    Contenu / Description du chapitre
+                                                </label>
+                                                <textarea name="items[{{ $id }}][description]" id="items[{{ $id }}][description]"
+                                                          rows="4" required>{{ $item['description'] ?? '' }}</textarea>
+                                            </div>
+
+                                            <div class="flex flex-col gap-2">
+                                                <label for="items[{{ $id }}][video]">
+                                                    Lien video du chapitre
+                                                    <span class="text-xs">(Lien video)</span>
+                                                </label>
+                                                <input type="text" name="items[{{ $id }}][video]" id="items[{{ $id }}][video]"
+                                                       value="{{ $item['video'] ?? '' }}"/>
+                                            </div>
+
+                                            <div class="flex flex-col gap-2">
+                                                <label for="items[{{ $id }}][order]">
+                                                    Ordre du chapitre
+                                                </label>
+                                                <input type="number" name="items[{{ $id }}][order]" id="items[{{ $id }}][order]"
+                                                       value="{{ $item['order'] ?? '' }}" />
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="w-16 h-16" onclick="deleteItem(`{{ $id }}`)">
+                                            <i class="fa fa-trash mr-1"></i>
+                                        </button>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                        @error('items')
+                        <p class="text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <div class="flex mt-5 w-full">
                         <button type="submit" class="bg-blue-500 hover:bg-bleu-600 text-white p-2 ml-auto rounded">
                             Modifier
@@ -217,6 +352,82 @@
                         _span.classList.remove('hidden');
                     }
                 }
+            }
+        }
+    </script>
+
+    <script>
+        let _id = {{ $itemsId }};
+
+        function addItem() {
+            let _document = document.getElementById('items');
+            if (_document) {
+                _id++;
+                let _node = document.createElement('div');
+                _node.setAttribute('class', 'flex items-center gap-2');
+                _node.setAttribute('id', 'items-' + _id);
+                _node.innerHTML = `<div class="flex gap-2 items-baseline w-full" id="items-${_id})">
+                    <div class="bg-gray-100 p-2 rounded flex-1">
+                        <div class="flex flex-col gap-2">
+                            <input type="hidden" name="items[${_id})][id]"
+                                   value="{{ $id ?? '' }}" required/>
+                            <label for="items[${_id})][title]">
+                                Titre du chapitre
+                            </label>
+                            <input type="text" name="items[${_id})][title]" id="items[${_id})][title]"
+                                   value="" required/>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="items[${_id})][duration]">
+                                Durée du chapitre
+                                <span class="text-xs">(en minutes)</span>
+                            </label>
+                            <input type="number" name="items[${_id})][duration]" id="items[${_id})][duration]"
+                                   value="" required/>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="items[${_id})][description]">
+                                Contenu / Description du chapitre
+                            </label>
+                            <textarea name="items[${_id})][description]" id="items[${_id})][description]"
+                                      rows="4" required></textarea>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label for="items[${_id})][video]">
+                                Lien video du chapitre
+                                <span class="text-xs">(Lien video)</span>
+                            </label>
+                            <input type="text" name="items[${_id})][video]" id="items[${_id})][video]"
+                                   value=""/>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label for="items[${_id})][order]">
+                                Ordre du chapitre
+                            </label>
+                            <input type="number" name="items[${_id})][order]" id="items[${_id})][order]"
+                                   value="" />
+                        </div>
+                    </div>
+
+                    <button type="button" class="w-16 h-16" onclick="deleteItem(${_id})">
+                        <i class="fa fa-trash mr-1"></i>
+                    </button>
+                </div>`;
+                _document.appendChild(_node);
+            }
+        }
+
+        function deleteItem(id) {
+            let _items = document.querySelectorAll('[id^="items-"]');
+            if (_items.length > 1) {
+                let _item = document.getElementById('items-' + id);
+                if (_item) {
+                    _item.remove();
+                }
+            } else {
+                alert('Quiz required at least 1 item');
             }
         }
     </script>

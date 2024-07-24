@@ -27,6 +27,8 @@ class Course extends Model
     protected $with = [
         'level',
         'subject',
+        'items',
+        'quizzes',
     ];
 
     protected $appends = [

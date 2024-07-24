@@ -15,21 +15,28 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = [
-            'Informatique',
-            'Physique',
-            'Digital',
-            'Marketing',
-            'SEO',
-            'Mathématiques',
-        ];
-
-        foreach ($categories as $category) {
+        foreach (self::getCategories() as $category) {
             Category::query()
                 ->firstOrCreate([
                     'label' => $category,
                     'slug' => Str::slug($category),
                 ]);
         }
+    }
+
+    /**
+     * @return array
+     */
+    public static function getCategories(): array
+    {
+        return [
+            'Informatique',
+            'Physique',
+            'Digital',
+            'Marketing',
+            'SEO',
+            'Structure de données',
+            'Langues',
+        ];
     }
 }

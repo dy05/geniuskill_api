@@ -40,7 +40,7 @@ class QuizController extends Controller
         }
 
         return view('quizzes.index', [
-            'quizzes' => $quizzesQuery->get(),
+            'quizzes' => $quizzesQuery->paginate(10),
             'search' => $search,
             'type' => $type,
         ]);

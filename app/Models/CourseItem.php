@@ -13,6 +13,7 @@ class CourseItem extends Model
         'duration',
         'order',
         'course_id',
+        'video',
     ];
 
     /**
