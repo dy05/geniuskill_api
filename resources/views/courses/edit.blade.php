@@ -23,11 +23,41 @@
                     </div>
 
                     <div class="flex flex-col gap-3 mb-5">
-                        <label for="slug">
+                        <label for="video">
+                            Lien video
+                        </label>
+                        <input type="text" id="video" name="video" value="{{ $course->video }}"/>
+                        @error('video')
+                        <p class="text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-col gap-3 mb-5">
+                        <label for="objectifs">
+                            Objectifs
+                        </label>
+                        <textarea type="text" id="objectifs" name="objectifs">{{ $course->objectifs }}</textarea>
+                        @if($errors->has('objectifs'))
+                            <p class="text-red-500">{{ $errors->first('objectifs') }}</p>
+                        @endif
+                    </div>
+
+                    <div class="flex flex-col gap-3 mb-5">
+                        <label for="details">
+                            Details
+                        </label>
+                        <textarea type="text" id="details" name="details">{{ $course->details }}</textarea>
+                        @if($errors->has('details'))
+                            <p class="text-red-500">{{ $errors->first('details') }}</p>
+                        @endif
+                    </div>
+
+                    <div class="flex flex-col gap-3 mb-5">
+                        <label for="description">
                             Slug
                         </label>
-                        <input type="text" id="slug" name="slug" value="{{ $course->slug }}"/>
-                        @error('slug')
+                        <textarea type="text" id="description" name="description">{{ $course->description }}</textarea>
+                        @error('description')
                         <p class="text-red-500">{{ $message }}</p>
                         @enderror
                     </div>

@@ -15,13 +15,37 @@ use Illuminate\Http\Request;
 class CourseController extends Controller
 {
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return response()->json([
-            'courses' => Course::all()
-        ]);
+        $data = [];
+        $search = $request->get('search');
+
+        if ($search) {
+            $search = '%' . $search . '%';
+
+            $data['courses'] = Course::query()
+                ->where(function ($q) use ($search) {
+                    $q->where('label', 'like', $search)
+                        ->orWhere('description', 'like', $search)
+                        ->orWhereHas('subject', function ($query) use ($search) {
+                            $query->where('label', 'like', $search);
+                        });
+                });
+        } else {
+            $data['courses'] = Course::query()
+                ->whereHas('level', function($query) { $query->where('label', '=', 'Débutant'); })
+                ->get();
+            $data['otherCourses'] = Course::query()
+                ->whereDoesntHave('level')
+                ->orWhereHas('level', function($query) { $query->where('label', '!=', 'Débutant'); })
+                ->get();
+        }
+
+        return response()->json($data);
     }
 
     /**

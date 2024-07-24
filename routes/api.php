@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth:sanctum', 'as' => 'api.'], function() {
     Route::post('/professors', [UserController::class, 'addProfessor']);
     Route::get('/professors', [UserController::class, 'getProfessors']);
     Route::resource('categories', CategoryController::class);
+    Route::get('/subjects/top', [SubjectController::class, 'topSubjects']);
     Route::resource('subjects', SubjectController::class);
     Route::resource('levels', LevelController::class);
     Route::get('courses/favorites', [CourseController::class, 'favorites']);

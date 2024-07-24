@@ -11,12 +11,37 @@ use Illuminate\Http\Request;
 class SubjectController extends Controller
 {
     /**
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
+    {
+        $query = Subject::query();
+
+        $search = $request->get('search');
+
+        if ($search) {
+            $search = '%' . $search . '%';
+            $query = $query->where('label', 'like', $search);
+        }
+
+        return response()->json([
+            'subjects' => $query->get(),
+        ]);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function topSubjects(): JsonResponse
     {
         return response()->json([
-            'subjects' => Subject::all()
+            'subjects' => Subject::query()
+                ->with('courses')
+                ->withCount('courses')
+                ->orderByDesc('courses_count')
+                ->limit(8)
+                ->get(),
         ]);
     }
 

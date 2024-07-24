@@ -22,11 +22,41 @@
                     </div>
 
                     <div class="flex flex-col gap-3 mb-5">
-                        <label for="slug">
+                        <label for="video">
+                            Lien video
+                        </label>
+                        <input type="text" id="video" name="video" value="{{ old('video') }}"/>
+                        @error('video')
+                        <p class="text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-col gap-3 mb-5">
+                        <label for="objectifs">
+                            Objectifs
+                        </label>
+                        <textarea type="text" id="objectifs" name="objectifs">{{ old('objectifs') }}</textarea>
+                        @if($errors->has('objectifs'))
+                            <p class="text-red-500">{{ $errors->first('objectifs') }}</p>
+                        @endif
+                    </div>
+
+                    <div class="flex flex-col gap-3 mb-5">
+                        <label for="details">
+                            Details
+                        </label>
+                        <textarea type="text" id="details" name="details">{{ old('details') }}</textarea>
+                        @if($errors->has('details'))
+                            <p class="text-red-500">{{ $errors->first('details') }}</p>
+                        @endif
+                    </div>
+
+                    <div class="flex flex-col gap-3 mb-5">
+                        <label for="description">
                             Slug
                         </label>
-                        <input type="text" id="slug" name="slug" value="{{ old('slug') }}"/>
-                        @error('slug')
+                        <textarea type="text" id="description" name="description">{{ old('description') }}</textarea>
+                        @error('description')
                         <p class="text-red-500">{{ $message }}</p>
                         @enderror
                     </div>

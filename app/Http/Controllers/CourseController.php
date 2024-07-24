@@ -57,7 +57,7 @@ class CourseController extends Controller
             if ($imageFile) {
                 $filename = time() . '-' . $imageFile->getClientOriginalName();
                 $imageFile->storeAs('public/images', $filename);
-                $data['image'] = 'images/' . $filename;
+                $data['image'] = 'storage/images/' . $filename;
             }
 
             Course::query()->create($data);
@@ -112,7 +112,7 @@ class CourseController extends Controller
             if ($imageFile) {
                 $filename = time() . '-' . $imageFile->getClientOriginalName();
                 $imageFile->storeAs('public/images', $filename);
-                $data['image'] = 'images/' . $filename;
+                $data['image'] = 'storage/images/' . $filename;
             } else if (!$filename) {
                 $data['image'] = null;
             }

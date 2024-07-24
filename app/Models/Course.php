@@ -19,11 +19,18 @@ class Course extends Model
         'level_id',
         'subject_id',
         'image',
+        'description',
+        'objectifs',
+        'details',
     ];
 
     protected $with = [
         'level',
         'subject',
+    ];
+
+    protected $appends = [
+        'duration',
     ];
 
     /**
@@ -59,6 +66,15 @@ class Course extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function items(): HasMany
+    {
+        return $this->hasMany(CourseItem::class, 'course_id')
+            ->orderBy('order');
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function users(): BelongsToMany
@@ -77,6 +93,14 @@ class Course extends Model
             return asset('images/book.png');
         }
 
-        return asset('storage/' . $image);
+        return asset($image);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDurationAttribute(): string
+    {
+        return $this->items()->sum('duration');
     }
 }
