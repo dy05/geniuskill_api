@@ -19,19 +19,23 @@ class SubjectSeeder extends Seeder
     {
         $categoryIds = Category::query()->get()->pluck('id');
 
-        if (!count($categoryIds)) {
+        $countCategories = count($categoryIds);
+        if (!$countCategories) {
             $this->call(CategorySeeder::class);
             $categoryIds = Category::query()->get()->pluck('id');
+            $countCategories = count($categoryIds);
         }
 
-        $levelIds = Category::query()->get()->pluck('id');
+        $levelIds = Level::query()->get()->pluck('id');
+        $countLevels = count($levelIds);
 
-        if (!count($levelIds)) {
+        if (!$countLevels) {
             $this->call(LevelSeeder::class);
             $levelIds = Level::query()->get()->pluck('id');
+            $countLevels = count($levelIds);
         }
 
-        if (count($categoryIds) && count($levelIds)) {
+        if ($countCategories && $countLevels) {
             $subjects = [
                 [
                     'label' => 'Algorithme',
@@ -90,8 +94,7 @@ class SubjectSeeder extends Seeder
             ];
 
             foreach ($subjects as $subject) {
-                Subject::query()
-                    ->firstOrCreate($subject);
+                Subject::query()->firstOrCreate($subject);
             }
         }
     }
