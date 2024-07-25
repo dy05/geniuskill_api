@@ -286,7 +286,7 @@ class CourseController extends Controller
             ->get();
 
         return response()->json([
-            'user_courses' => $courses
+            'courses' => $courses
         ]);
     }
 

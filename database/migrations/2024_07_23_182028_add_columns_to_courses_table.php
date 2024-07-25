@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +21,10 @@ return new class extends Migration
             $table->text('objectifs')->nullable();
             $table->text('video')->nullable();
             $table->text('details')->nullable();
+            $table->foreignId('author_id')
+                ->nullable()
+                ->constrained('users')
+                ->onDelete('SET NULL');
         });
 
         Schema::create('course_items', function (Blueprint $table) {
@@ -32,6 +37,13 @@ return new class extends Migration
             $table->foreignIdFor(Course::class, 'course_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
+
+        Schema::create('course_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Course::class, 'course_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -42,9 +54,13 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('courses', function (Blueprint $table) {
+            if (config('database.default') !== 'sqlite') {
+                $table->dropConstrainedForeignId('author_id');
+            }
             $table->dropColumn(['image', 'description', 'objectifs', 'video', 'details']);
         });
 
         Schema::drop('course_items');
+        Schema::drop('course_user');
     }
 };

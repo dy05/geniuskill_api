@@ -16,6 +16,7 @@ class Course extends Model
     protected $fillable = [
         'label',
         'slug',
+        'author_id',
         'level_id',
         'subject_id',
         'image',
@@ -34,6 +35,14 @@ class Course extends Model
     protected $appends = [
         'duration',
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(Level::class, 'author_id');
+    }
 
     /**
      * @return BelongsTo
@@ -81,8 +90,7 @@ class Course extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)
-            ->using(UserCourse::class);
+        return $this->belongsToMany(User::class, 'course_user');
     }
 
     /**

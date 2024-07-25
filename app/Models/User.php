@@ -28,6 +28,10 @@ class User extends Authenticatable
         'role',
     ];
 
+    protected $with = [
+        'courses',
+    ];
+
     protected $appends = [
         'name',
         'age',
