@@ -149,7 +149,7 @@
                             <div class="flex flex-col gap-3 w-full divide-y divide-gray-400" id="items">
                                 @forelse($course->items as $item)
                                     @php
-                                        $id = (int)$item['id'] ?? 0;
+                                        $id = (int)$item->id ?? 0;
                                         if ($id > $itemsId) {
                                             $itemsId = $id;
                                         }

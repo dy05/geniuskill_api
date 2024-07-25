@@ -27,13 +27,13 @@ class CourseSeeder extends Seeder
                 'image' => 'images/dev.jpg',
                 'label' => 'Introduction au Développement Web',
                 'description' => 'Le cours "Introduction au Développement Web" est conçu pour fournir aux participants une compréhension complète des technologies et des pratiques du développement web. Ce cours couvre les fondamentaux du HTML, CSS, et JavaScript, ainsi que des concepts plus avancés tels que les frameworks modernes et les bonnes pratiques de développement. Les étudiants apprendront à créer des sites web dynamiques et interactifs, à optimiser les performances et à assurer la compatibilité entre les navigateurs.',
-                'objectifs' => "- Maîtriser les bases du HTML, CSS, et JavaScript.\n
-                    - Apprendre à utiliser les frameworks modernes comme React ou Vue.js.\n
-                    - Comprendre les principes de responsive design et d'accessibilité.\n
-                    - Optimiser les performances des sites web.\n
-                    - Gérer les versions et collaborer sur des projets de développement.",
-                'details' => "Durée : 12 semaines\n
-                    Niveau : Débutant à Avancé",
+                'objectifs' => "- Maîtriser les bases du HTML, CSS, et JavaScript.
+- Apprendre à utiliser les frameworks modernes comme React ou Vue.js.
+- Comprendre les principes de responsive design et d'accessibilité.
+- Optimiser les performances des sites web.
+- Gérer les versions et collaborer sur des projets de développement.",
+                'details' => "Durée : 12 semaines
+Niveau : Débutant à Avancé",
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ]);
 
@@ -42,9 +42,9 @@ class CourseSeeder extends Seeder
                 'order' => 0,
                 'course_id' => $course->id,
                 'title' => '1. Introduction au HTML',
-                'description' => "- Structure de base d'une page HTML\n
-                  - Éléments et attributs HTML\n
-                  - Mise en forme du texte et des images",
+                'description' => "- Structure de base d'une page HTML
+- Éléments et attributs HTML
+- Mise en forme du texte et des images",
                 'duration' => 120,
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ],
@@ -52,9 +52,9 @@ class CourseSeeder extends Seeder
                 'order' => 1,
                 'course_id' => $course->id,
                 'title' => '2. Introduction au CSS',
-                'description' => '- Sélecteurs et propriétés CSS\n
-                    - Mise en page avec Flexbox et Grid\n
-                    - Styles réactifs pour les différents écrans',
+                'description' => '- Sélecteurs et propriétés CSS
+- Mise en page avec Flexbox et Grid
+- Styles réactifs pour les différents écrans',
                 'duration' => 150,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -62,9 +62,9 @@ class CourseSeeder extends Seeder
                 'order' => 2,
                 'course_id' => $course->id,
                 'title' => '3. Introduction au JavaScript',
-                'description' => "- Variables et types de données\n
-                    - Fonctions et événements\n
-                    - Manipulation du DOM et AJAX",
+                'description' => "- Variables et types de données
+- Fonctions et événements
+- Manipulation du DOM et AJAX",
                 'duration' => 180,
                 'video' => 'https://www.youtube.com/watch?v=ZkMP6YD52L8',
             ],
@@ -72,9 +72,9 @@ class CourseSeeder extends Seeder
                 'order' => 3,
                 'course_id' => $course->id,
                 'title' => '4. Frameworks Modernes',
-                'description' => "- Introduction à React et Vue.js\n
-                    - Composants et gestion d'état\n
-                    - Routage et gestion des données",
+                'description' => "- Introduction à React et Vue.js
+- Composants et gestion d'état
+- Routage et gestion des données",
                 'duration' => 210,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -82,9 +82,9 @@ class CourseSeeder extends Seeder
                 'order' => 4,
                 'course_id' => $course->id,
                 'title' => '5. Responsive Design',
-                'description' => "- Techniques de responsive design\n
-                  - Utilisation de media queries\n
-                  - Création de mises en page adaptatives",
+                'description' => "- Techniques de responsive design
+- Utilisation de media queries
+- Création de mises en page adaptatives",
                 'duration' => 165,
                 'video' => 'https://www.youtube.com/watch?v=ZkMP6YD52L8',
             ],
@@ -92,9 +92,9 @@ class CourseSeeder extends Seeder
                 'order' => 5,
                 'course_id' => $course->id,
                 'title' => '6. Optimisation des Performances',
-                'description' => "- Techniques d'optimisation des temps de chargement\n
-                    - Minification et compression des fichiers\n
-                    - Caching et gestion des ressources",
+                'description' => "- Techniques d'optimisation des temps de chargement
+- Minification et compression des fichiers
+- Caching et gestion des ressources",
                 'duration' => 150,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -102,9 +102,9 @@ class CourseSeeder extends Seeder
                 'order' => 6,
                 'course_id' => $course->id,
                 'title' => '7. Accessibilité Web',
-                'description' => "- Principes de l'accessibilité web\n
-                  - Utilisation des attributs ARIA\n
-                  - Test des interfaces pour les personnes handicapées",
+                'description' => "- Principes de l'accessibilité web
+- Utilisation des attributs ARIA
+- Test des interfaces pour les personnes handicapées",
                 'duration' => 135,
                 'video' => 'https://www.youtube.com/watch?v=ITE8c7dMHEk&t=5s',
             ],
@@ -112,9 +112,9 @@ class CourseSeeder extends Seeder
                 'order' => 7,
                 'course_id' => $course->id,
                 'title' => '8. Gestion des Versions et Collaboration',
-                'description' => "- Introduction à Git et GitHub\n
-                  - Branches, commits et fusion\n
-                  - Collaboration et gestion des conflits",
+                'description' => "- Introduction à Git et GitHub
+- Branches, commits et fusion
+- Collaboration et gestion des conflits",
                 'duration' => 180,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -122,9 +122,9 @@ class CourseSeeder extends Seeder
                 'order' => 8,
                 'course_id' => $course->id,
                 'title' => '9. Examen Final',
-                'description' => "- Évaluation des connaissances et des compétences acquises\n
-                  - Projet pratique de développement web\n
-                  - Certification en Développement Web",
+                'description' => "- Évaluation des connaissances et des compétences acquises
+- Projet pratique de développement web
+- Certification en Développement Web",
                 'duration' => 240,
                 'video' => 'https://www.youtube.com/watch?v=ITE8c7dMHEk&t=5s',
             ],
@@ -235,12 +235,13 @@ class CourseSeeder extends Seeder
                     . "Le cours couvre un large éventail de sujets allant des concepts fondamentaux de l\'UX aux techniques avancées de conception centrée sur l\'utilisateur. "
                     . "Les étudiants apprendront à identifier les besoins des utilisateurs, " .
                     "à créer des prototypes et à tester les interfaces pour améliorer l\'expérience utilisateur.',
-                'objectifs' => "- Comprendre les concepts fondamentaux du UX Design.\n
-                    - Apprendre les techniques de recherche utilisateur.\n
-                    - Maîtriser les outils de prototypage et de wireframing.\n
-                    - Savoir réaliser des tests utilisateurs et analyser les résultats.\n
-                    - Connaître les bonnes pratiques de conception centrée sur l'utilisateur.",
-                'details' => "Durée : 10 semaines\nNiveau : Débutant à Intermédiaire",
+                'objectifs' => "- Comprendre les concepts fondamentaux du UX Design.
+- Apprendre les techniques de recherche utilisateur.
+- Maîtriser les outils de prototypage et de wireframing.
+- Savoir réaliser des tests utilisateurs et analyser les résultats.
+- Connaître les bonnes pratiques de conception centrée sur l'utilisateur.",
+                'details' => "Durée : 10 semaines
+Niveau : Débutant à Intermédiaire",
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ]);
 
@@ -249,9 +250,9 @@ class CourseSeeder extends Seeder
                 'order' => 0,
                 'course_id' => $course->id,
                 'title' => '1. Introduction au UX Design',
-                'description' => "- Définition et importance du UX Design\n
-                  - Principes de base de l'expérience utilisateur\n
-                  - Évolution du design centré sur l'utilisateur",
+                'description' => "- Définition et importance du UX Design
+- Principes de base de l'expérience utilisateur
+- Évolution du design centré sur l'utilisateur",
                 'duration' => 120,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -259,9 +260,9 @@ class CourseSeeder extends Seeder
                 'order' => 1,
                 'course_id' => $course->id,
                 'title' => "2. Recherche Utilisateur",
-                'description' => '- Méthodes de recherche utilisateur (entretiens, sondages, etc.)\n
-                  - Analyse des besoins et des comportements des utilisateurs\n
-                  - Création de personas',
+                'description' => '- Méthodes de recherche utilisateur (entretiens, sondages, etc.)
+- Analyse des besoins et des comportements des utilisateurs
+- Création de personas',
                 'duration' => 150,
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ],
@@ -269,9 +270,9 @@ class CourseSeeder extends Seeder
                 'order' => 2,
                 'course_id' => $course->id,
                 'title' => '3. Architecture de l\'Information',
-                'description' => "- Organisation et structure de l'information\n
-                  - Cartes de site et navigation\n
-                  - Hiérarchie de l'information",
+                'description' => "- Organisation et structure de l'information
+- Cartes de site et navigation
+- Hiérarchie de l'information",
                 'duration' => 180,
                 'video' => 'https://www.youtube.com/watch?v=ZkMP6YD52L8',
             ],
@@ -279,9 +280,9 @@ class CourseSeeder extends Seeder
                 'order' => 3,
                 'course_id' => $course->id,
                 'title' => '4. Prototypage et Wireframing',
-                'description' => "- Outils et techniques de prototypage\n
-                  - Création de wireframes\n
-                  - Interaction et animation des prototypes",
+                'description' => "- Outils et techniques de prototypage
+- Création de wireframes
+- Interaction et animation des prototypes",
                 'duration' => 210,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -289,9 +290,9 @@ class CourseSeeder extends Seeder
                 'order' => 4,
                 'course_id' => $course->id,
                 'title' => '5. Design Visuel',
-                'description' => "- Principes de design graphique\n
-                  - Choix des couleurs et typographie\n
-                  - Design d'interfaces et d'interactions",
+                'description' => "- Principes de design graphique
+- Choix des couleurs et typographie
+- Design d'interfaces et d'interactions",
                 'duration' => 165,
                 'video' => 'https://www.youtube.com/watch?v=ZkMP6YD52L8',
             ],
@@ -299,9 +300,9 @@ class CourseSeeder extends Seeder
                 'order' => 5,
                 'course_id' => $course->id,
                 'title' => '6. Tests Utilisateurs',
-                'description' => "- Planification et réalisation des tests utilisateurs\n
-                  - Techniques d'observation et d'analyse\n
-                  - Amélioration des designs basés sur les retours utilisateurs",
+                'description' => "- Planification et réalisation des tests utilisateurs
+- Techniques d'observation et d'analyse
+- Amélioration des designs basés sur les retours utilisateurs",
                 'duration' => 150,
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ],
@@ -309,9 +310,9 @@ class CourseSeeder extends Seeder
                 'order' => 6,
                 'course_id' => $course->id,
                 'title' => '7. Accessibilité et Inclusivité',
-                'description' => "- Principes d'accessibilité numérique\n
-                  - Conception pour l'inclusivité\n
-                  - Normes et bonnes pratiques",
+                'description' => "- Principes d'accessibilité numérique
+- Conception pour l'inclusivité
+- Normes et bonnes pratiques",
                 'duration' => 135,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -319,9 +320,9 @@ class CourseSeeder extends Seeder
                 'order' => 7,
                 'course_id' => $course->id,
                 'title' => '8. Design Mobile',
-                'description' => "- Spécificités du design mobile\n
-                  - Conception d'interfaces mobiles\n
-                  - Techniques de responsive design",
+                'description' => "- Spécificités du design mobile
+- Conception d'interfaces mobiles
+- Techniques de responsive design",
                 'duration' => 180,
                 'video' => 'https://www.youtube.com/watch?v=ZkMP6YD52L8',
             ],
@@ -329,9 +330,9 @@ class CourseSeeder extends Seeder
                 'order' => 8,
                 'course_id' => $course->id,
                 'title' => '9. Examen Final',
-                'description' => "- Évaluation des connaissances et des compétences acquises\n
-                  - Étude de cas et résolution de problèmes pratiques\n
-                  - Certification en UX Design",
+                'description' => "- Évaluation des connaissances et des compétences acquises
+- Étude de cas et résolution de problèmes pratiques
+- Certification en UX Design",
                 'duration' => 240,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -516,11 +517,12 @@ class CourseSeeder extends Seeder
                     . 'Vous apprendrez les fondamentaux de cette technologie immersive, y compris la création de contenu VR, '
                     . 'le développement d\'applications, et les applications pratiques dans divers domaines. '
                     . 'Ce cours vous permettra de développer des compétences pratiques pour concevoir et déployer des expériences VR engageantes.',
-                'objectifs' => "- Comprendre les principes fondamentaux de la réalité virtuelle et de ses technologies associées.\n
-                    - Acquérir des compétences dans la création et le développement de contenus VR.\n
-                    - Explorer les différentes plateformes et outils de développement VR.\n
-                    - Développer des projets pratiques pour créer des expériences immersives.",
-                'details' => "Durée : 10 semaines\nNiveau : Débutant à Intermédiaire",
+                'objectifs' => "- Comprendre les principes fondamentaux de la réalité virtuelle et de ses technologies associées.
+- Acquérir des compétences dans la création et le développement de contenus VR.
+- Explorer les différentes plateformes et outils de développement VR.
+- Développer des projets pratiques pour créer des expériences immersives.",
+                'details' => "Durée : 10 semaines
+Niveau : Débutant à Intermédiaire",
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ]);
 
@@ -529,9 +531,9 @@ class CourseSeeder extends Seeder
                 'order' => 0,
                 'course_id' => $course->id,
                 'title' => '1. Introduction à la Réalité Virtuelle',
-                'description' => "- Définition et histoire de la réalité virtuelle\n
-                  - Matériel et logiciels utilisés en VR\n
-                  - Principes de conception pour des expériences immersives",
+                'description' => "- Définition et histoire de la réalité virtuelle
+- Matériel et logiciels utilisés en VR
+- Principes de conception pour des expériences immersives",
                 'duration' => 180,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -539,9 +541,9 @@ class CourseSeeder extends Seeder
                 'order' => 1,
                 'course_id' => $course->id,
                 'title' => "2. Développement d'Applications VR",
-                'description' => '- Introduction aux environnements de développement VR\n
-                  - Utilisation des outils de création de contenu VR (Unity, Unreal Engine)\n
-                  - Programmation et intégration d\'interactions VR',
+                'description' => '- Introduction aux environnements de développement VR
+- Utilisation des outils de création de contenu VR (Unity, Unreal Engine)
+- Programmation et intégration d\'interactions VR',
                 'duration' => 240,
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ],
@@ -549,9 +551,9 @@ class CourseSeeder extends Seeder
                 'order' => 2,
                 'course_id' => $course->id,
                 'title' => '3. Création de Contenus Immersifs',
-                'description' => "- Techniques de modélisation 3D pour VR\n
-                  - Conception de scènes et d'environnements immersifs\n
-                  - Utilisation de la réalité virtuelle pour la narration interactive",
+                'description' => "- Techniques de modélisation 3D pour VR
+- Conception de scènes et d'environnements immersifs
+- Utilisation de la réalité virtuelle pour la narration interactive",
                 'duration' => 270,
                 'video' => 'https://www.youtube.com/watch?v=ZkMP6YD52L8',
             ],
@@ -559,9 +561,9 @@ class CourseSeeder extends Seeder
                 'order' => 3,
                 'course_id' => $course->id,
                 'title' => '4. Applications et Cas d\'Utilisation',
-                'description' => "- Applications de la VR dans les jeux vidéo et la simulation\n
-                  - VR pour la formation et l'éducation\n
-                  - Utilisation de la VR dans la médecine et la réhabilitation",
+                'description' => "- Applications de la VR dans les jeux vidéo et la simulation
+- VR pour la formation et l'éducation
+- Utilisation de la VR dans la médecine et la réhabilitation",
                 'duration' => 240,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -569,9 +571,9 @@ class CourseSeeder extends Seeder
                 'order' => 4,
                 'course_id' => $course->id,
                 'title' => '5. Projets Pratiques',
-                'description' => "- Création d'une expérience VR interactive\n
-                  - Développement d'une application VR pour une utilisation spécifique\n
-                  - Analyse des projets et feedback",
+                'description' => "- Création d'une expérience VR interactive
+- Développement d'une application VR pour une utilisation spécifique
+- Analyse des projets et feedback",
                 'duration' => 360,
                 'video' => 'https://www.youtube.com/watch?v=ZkMP6YD52L8',
             ],
@@ -579,9 +581,9 @@ class CourseSeeder extends Seeder
                 'order' => 5,
                 'course_id' => $course->id,
                 'title' => '6. Examen Final',
-                'description' => "- Évaluation des compétences acquises\n
-                  - Réalisation d'un projet pratique en VR\n
-                  - Présentation du projet et certification",
+                'description' => "- Évaluation des compétences acquises
+- Réalisation d'un projet pratique en VR
+- Présentation du projet et certification",
                 'duration' => 300,
                 'video' => 'https://www.youtube.com/watch?v=9YRk_7pYWXo',
             ],
@@ -696,11 +698,12 @@ class CourseSeeder extends Seeder
                     . 'Les étudiants apprendront à concevoir et à mettre en œuvre des solutions d\'IA '
                     . 'pour résoudre des problèmes complexes et améliorer les processus d\'affaires. '
                     . 'Le cours couvre également les enjeux éthiques et sociaux liés à l\'IA.',
-                'objectifs' => "- Comprendre les principes de base de l'intelligence artificielle.\n
-                    - Appliquer les techniques d'apprentissage supervisé et non supervisé.\n
-                    - Concevoir et entraîner des réseaux neuronaux profonds.\n
-                    - Explorer les applications et les défis éthiques de l'IA.",
-                'details' => "Durée : 14 semaines\nNiveau : Intermédiaire à Avancé",
+                'objectifs' => "- Comprendre les principes de base de l'intelligence artificielle.
+- Appliquer les techniques d'apprentissage supervisé et non supervisé.
+- Concevoir et entraîner des réseaux neuronaux profonds.
+- Explorer les applications et les défis éthiques de l'IA.",
+                'details' => "Durée : 14 semaines
+Niveau : Intermédiaire à Avancé",
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ]);
 
@@ -709,9 +712,9 @@ class CourseSeeder extends Seeder
                 'order' => 0,
                 'course_id' => $course->id,
                 'title' => '1. Introduction à l\'IA',
-                'description' => "- Définition et histoire de l'IA\n
-                    - Applications actuelles et futures de l'IA\n
-                    - Outils et environnements de développement",
+                'description' => "- Définition et histoire de l'IA
+- Applications actuelles et futures de l'IA
+- Outils et environnements de développement",
                 'duration' => 150,
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ],
@@ -719,45 +722,45 @@ class CourseSeeder extends Seeder
                 'order' => 1,
                 'course_id' => $course->id,
                 'title' => '2. Algorithmes d\'Apprentissage Automatique',
-                'description' => "- Régression linéaire et logistique\n
-                  - Algorithmes de clustering comme K-means\n
-                  - Évaluation et validation des modèles",
+                'description' => "- Régression linéaire et logistique
+- Algorithmes de clustering comme K-means
+- Évaluation et validation des modèles",
                 'duration' => 240,
             ],
             [
                 'order' => 2,
                 'course_id' => $course->id,
                 'title' => '3. Réseaux Neuronaux',
-                'description' => "- Perceptron multicouche (MLP)\n
-                  - Réseaux de neurones convolutifs (CNN)\n
-                  - Réseaux de neurones récurrents (RNN)",
+                'description' => "- Perceptron multicouche (MLP)
+- Réseaux de neurones convolutifs (CNN)
+- Réseaux de neurones récurrents (RNN)",
                 'duration' => 330,
             ],
             [
                 'order' => 3,
                 'course_id' => $course->id,
                 'title' => '4. IA et Éthique',
-                'description' => "- Enjeux éthiques et biais des algorithmes\n
-                  - Confidentialité et sécurité des données\n
-                  - Régulations et législation autour de l'IA",
+                'description' => "- Enjeux éthiques et biais des algorithmes
+- Confidentialité et sécurité des données
+- Régulations et législation autour de l'IA",
                 'duration' => 150,
             ],
             [
                 'order' => 4,
                 'course_id' => $course->id,
                 'title' => '5. Projets Pratiques en IA',
-                'description' => "- Développement d'un modèle d'IA pour une application réelle\n
-                  - Analyse des résultats et optimisation des performances\n
-                  - Présentation des projets et recommandations",
+                'description' => "- Développement d'un modèle d'IA pour une application réelle
+- Analyse des résultats et optimisation des performances
+- Présentation des projets et recommandations",
                 'duration' => 360,
             ],
             [
                 'order' => 5,
                 'course_id' => $course->id,
                 'title' => '6. Examen Final',
-                'description' => "- Évaluation des compétences et des connaissances acquises\n
-                  - Réalisation d'un projet pratique d'IA\n
-                  - Certification en Intelligence Artificielle",
+                'description' => "- Évaluation des compétences et des connaissances acquises
+- Réalisation d'un projet pratique d'IA
+- Certification en Intelligence Artificielle",
                 'duration' => 250,
             ],
         ];
@@ -901,11 +904,12 @@ class CourseSeeder extends Seeder
                     . 'y compris les concepts de cryptographie, les mécanismes de consensus, et les applications décentralisées. '
                     . 'Les étudiants apprendront à développer des smart contracts, à comprendre les différentes plateformes de blockchain, '
                     . 'et à analyser les cas d\'utilisation dans divers secteurs.',
-                'objectifs' => "- Comprendre les principes de base de la blockchain et des cryptomonnaies.\n
-                    - Apprendre les mécanismes de consensus et la cryptographie utilisée dans la blockchain.\n
-                    - Développer et déployer des smart contracts sur une plateforme blockchain.\n
-                    - Explorer les applications de la blockchain dans divers secteurs tels que la finance, la supply chain, et la santé.",
-                'details' => "Durée : 12 semaines\nNiveau : Intermédiaire",
+                'objectifs' => "- Comprendre les principes de base de la blockchain et des cryptomonnaies.
+- Apprendre les mécanismes de consensus et la cryptographie utilisée dans la blockchain.
+- Développer et déployer des smart contracts sur une plateforme blockchain.
+- Explorer les applications de la blockchain dans divers secteurs tels que la finance, la supply chain, et la santé.",
+                'details' => "Durée : 12 semaines
+Niveau : Intermédiaire",
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ]);
 
@@ -914,54 +918,54 @@ class CourseSeeder extends Seeder
                 'order' => 0,
                 'course_id' => $course->id,
                 'title' => '1. Introduction à la Blockchain',
-                'description' => "- Définition et histoire de la blockchain\n
-                  - Structure des blocs et fonctionnement des chaînes\n
-                  - Concepts de cryptographie et de décentralisation",
+                'description' => "- Définition et histoire de la blockchain
+- Structure des blocs et fonctionnement des chaînes
+- Concepts de cryptographie et de décentralisation",
                 'duration' => 180,
             ],
             [
                 'order' => 1,
                 'course_id' => $course->id,
                 'title' => '2. Mécanismes de Consensus',
-                'description' => "- Preuve de travail (PoW) et preuve d'enjeu (PoS)\n
-                  - Algorithmes de consensus pour les réseaux blockchain\n
-                  - Comparaison des mécanismes de consensus",
+                'description' => "- Preuve de travail (PoW) et preuve d'enjeu (PoS)
+- Algorithmes de consensus pour les réseaux blockchain
+- Comparaison des mécanismes de consensus",
                 'duration' => 240,
             ],
             [
                 'order' => 2,
                 'course_id' => $course->id,
                 'title' => '3. Smart Contracts',
-                'description' => "- Introduction aux smart contracts\n
-                  - Développement et déploiement de smart contracts sur Ethereum\n
-                  - Cas d'utilisation et sécurité des smart contracts",
+                'description' => "- Introduction aux smart contracts
+- Développement et déploiement de smart contracts sur Ethereum
+- Cas d'utilisation et sécurité des smart contracts",
                 'duration' => 300,
             ],
             [
                 'order' => 3,
                 'course_id' => $course->id,
                 'title' => '4. Applications de la Blockchain',
-                'description' => "- Applications dans la finance (DeFi, crypto-monnaies)\n
-                  - Gestion de la chaîne d'approvisionnement\n
-                  - Blockchain dans la santé et l'identité numérique",
+                'description' => "- Applications dans la finance (DeFi, crypto-monnaies)
+- Gestion de la chaîne d'approvisionnement
+- Blockchain dans la santé et l'identité numérique",
                 'duration' => 270,
             ],
             [
                 'order' => 4,
                 'course_id' => $course->id,
                 'title' => '5. Projets Pratiques en Blockchain',
-                'description' => "- Création d'une application décentralisée (dApp)\n
-                  - Développement d'un smart contract pour un cas d'utilisation spécifique\n
-                  - Analyse des performances et déploiement en production",
+                'description' => "- Création d'une application décentralisée (dApp)
+- Développement d'un smart contract pour un cas d'utilisation spécifique
+- Analyse des performances et déploiement en production",
                 'duration' => 360,
             ],
             [
                 'order' => 5,
                 'course_id' => $course->id,
                 'title' => '6. Examen Final',
-                'description' => "- Évaluation des compétences et des connaissances acquises\n
-                  - Réalisation d'un projet pratique de blockchain\n
-                  - Certification en Blockchain",
+                'description' => "- Évaluation des compétences et des connaissances acquises
+- Réalisation d'un projet pratique de blockchain
+- Certification en Blockchain",
                 'duration' => 270,
             ],
         ];
@@ -1248,12 +1252,13 @@ class CourseSeeder extends Seeder
                 'description' => 'Le cours "Introduction à la Cyber Sécurité" est conçu pour fournir aux participants une compréhension approfondie des principes et pratiques de la sécurité informatique. '
                     . 'Le cours couvre un large éventail de sujets allant des concepts fondamentaux de la sécurité aux techniques avancées de protection des systèmes et des données contre les cybermenaces. '
                     . 'Les étudiants apprendront à identifier les vulnérabilités, à mettre en place des mesures de protection, et à réagir efficacement aux incidents de sécurité.',
-                'objectifs' => "- Comprendre les concepts fondamentaux de la cybersécurité.\n
-                    - Identifier les principales menaces et vulnérabilités informatiques.\n
-                    - Apprendre les méthodes de protection des systèmes et des données.\n
-                    - Acquérir des compétences en gestion des incidents de sécurité.\n
-                    - Connaître les cadres et les normes de sécurité informatique.",
-                'details' => "Durée : 12 semaines\nNiveau : Débutant à Intermédiaire",
+                'objectifs' => "- Comprendre les concepts fondamentaux de la cybersécurité.
+- Identifier les principales menaces et vulnérabilités informatiques.
+- Apprendre les méthodes de protection des systèmes et des données.
+- Acquérir des compétences en gestion des incidents de sécurité.
+- Connaître les cadres et les normes de sécurité informatique.",
+                'details' => "Durée : 12 semaines
+Niveau : Débutant à Intermédiaire",
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ]);
 
@@ -1262,9 +1267,9 @@ class CourseSeeder extends Seeder
                 'order' => 0,
                 'course_id' => $course->id,
                 'title' => '1. Introduction à la Cyber Sécurité',
-                'description' => "- Définition et importance de la cybersécurité\n
-                  - Principes de base de la sécurité informatique\n
-                  - Évolution des cybermenaces",
+                'description' => "- Définition et importance de la cybersécurité
+- Principes de base de la sécurité informatique
+- Évolution des cybermenaces",
                 'duration' => 120,
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ],
@@ -1272,72 +1277,72 @@ class CourseSeeder extends Seeder
                 'order' => 1,
                 'course_id' => $course->id,
                 'title' => '2. Menaces et Vulnérabilités',
-                'description' => "- Types de menaces (malwares, ransomwares, phishing, etc.)\n
-                  - Vulnérabilités des systèmes d'information\n
-                  - Techniques d'attaque courantes (DDoS, SQL injection, etc.)",
+                'description' => "- Types de menaces (malwares, ransomwares, phishing, etc.)
+- Vulnérabilités des systèmes d'information
+- Techniques d'attaque courantes (DDoS, SQL injection, etc.)",
                 'duration' => 150,
             ],
             [
                 'order' => 2,
                 'course_id' => $course->id,
                 'title' => '3. Cryptographie et Sécurité des Communications',
-                'description' => "- Concepts de base de la cryptographie\n
-                  - Algorithmes de chiffrement symétrique et asymétrique\n
-                  - Protocoles de sécurité des communications (SSL/TLS, VPN)",
+                'description' => "- Concepts de base de la cryptographie
+- Algorithmes de chiffrement symétrique et asymétrique
+- Protocoles de sécurité des communications (SSL/TLS, VPN)",
                 'duration' => 180,
             ],
             [
                 'order' => 3,
                 'course_id' => $course->id,
                 'title' => '4. Sécurité des Réseaux',
-                'description' => "- Architecture de sécurité des réseaux\n
-                  - Pare-feu, systèmes de détection et de prévention des intrusions (IDS/IPS)\n
-                  - Sécurité des réseaux sans fil",
+                'description' => "- Architecture de sécurité des réseaux
+- Pare-feu, systèmes de détection et de prévention des intrusions (IDS/IPS)
+- Sécurité des réseaux sans fil",
                 'duration' => 210,
             ],
             [
                 'order' => 4,
                 'course_id' => $course->id,
                 'title' => '5. Sécurité des Applications et des Systèmes',
-                'description' => "- Principes de sécurité des systèmes d'exploitation\n
-                  - Sécurité des applications web\n
-                  - Pratiques de codage sécurisé",
+                'description' => "- Principes de sécurité des systèmes d'exploitation
+- Sécurité des applications web
+- Pratiques de codage sécurisé",
                 'duration' => 165,
             ],
             [
                 'order' => 5,
                 'course_id' => $course->id,
                 'title' => '6. Gestion des Incidents de Sécurité',
-                'description' => "- Identification et analyse des incidents de sécurité\n
-                  - Réponse aux incidents et récupération\n
-                  - Établissement de plans de continuité des activités",
+                'description' => "- Identification et analyse des incidents de sécurité
+- Réponse aux incidents et récupération
+- Établissement de plans de continuité des activités",
                 'duration' => 150,
             ],
             [
                 'order' => 6,
                 'course_id' => $course->id,
                 'title' => '7. Conformité et Réglementation',
-                'description' => "- Cadres et normes de sécurité (ISO 27001, NIST, GDPR)\n
-                  - Politiques de sécurité et meilleures pratiques\n
-                  - Audits de sécurité et évaluation de la conformité",
+                'description' => "- Cadres et normes de sécurité (ISO 27001, NIST, GDPR)
+- Politiques de sécurité et meilleures pratiques
+- Audits de sécurité et évaluation de la conformité",
                 'duration' => 135,
             ],
             [
                 'order' => 7,
                 'course_id' => $course->id,
                 'title' => '8. Sécurité dans le Cloud',
-                'description' => "- Risques et défis de la sécurité dans le cloud\n
-                  - Stratégies de protection des données dans le cloud\n
-                  - Sécurité des services cloud (IaaS, PaaS, SaaS)",
+                'description' => "- Risques et défis de la sécurité dans le cloud
+- Stratégies de protection des données dans le cloud
+- Sécurité des services cloud (IaaS, PaaS, SaaS)",
                 'duration' => 180,
             ],
             [
                 'order' => 8,
                 'course_id' => $course->id,
                 'title' => '9. Examen Final',
-                'description' => "- Évaluation des connaissances et des compétences acquises\n
-                  - Étude de cas et résolution de problèmes pratiques\n
-                  - Certification en cybersécurité",
+                'description' => "- Évaluation des connaissances et des compétences acquises
+- Étude de cas et résolution de problèmes pratiques
+- Certification en cybersécurité",
                 'duration' => 240,
             ],
         ];
@@ -1462,12 +1467,13 @@ class CourseSeeder extends Seeder
                     . 'Il couvre les bases de la manipulation de données, l\'analyse statistique, '
                     . 'et les méthodes d\'apprentissage automatique. Les participants apprendront à utiliser des outils comme Python, R, '
                     . 'et SQL pour traiter des ensembles de données, créer des modèles prédictifs, et visualiser les résultats.',
-                'objectifs' => "- Comprendre les principes fondamentaux de la data science.\n
-                    - Maîtriser les techniques de nettoyage et de préparation des données.\n
-                    - Appliquer des méthodes d'analyse statistique pour extraire des insights.\n
-                    - Construire et évaluer des modèles prédictifs.\n
-                    - Utiliser des outils de visualisation pour communiquer les résultats.",
-                'details' => "Durée : 16 semaines\nNiveau : Débutant à Avancé",
+                'objectifs' => "- Comprendre les principes fondamentaux de la data science.
+- Maîtriser les techniques de nettoyage et de préparation des données.
+- Appliquer des méthodes d'analyse statistique pour extraire des insights.
+- Construire et évaluer des modèles prédictifs.
+- Utiliser des outils de visualisation pour communiquer les résultats.",
+                'details' => "Durée : 16 semaines
+Niveau : Débutant à Avancé",
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ]);
 
@@ -1476,54 +1482,54 @@ class CourseSeeder extends Seeder
                 'order' => 0,
                 'course_id' => $course->id,
                 'title' => '1. Introduction à la Data Science',
-                'description' => "- Qu'est-ce que la data science ?\n
-                  - Applications et importance dans l'industrie\n
-                  - Outils et environnements de travail",
+                'description' => "- Qu'est-ce que la data science ?
+- Applications et importance dans l'industrie
+- Outils et environnements de travail",
                 'duration' => 120,
             ],
             [
                 'order' => 1,
                 'course_id' => $course->id,
                 'title' => '2. Manipulation des Données',
-                'description' => "- Nettoyage et préparation des données\n
-                  - Utilisation de pandas en Python et d.dplyr en R\n
-                  - Gestion des valeurs manquantes et des anomalies",
+                'description' => "- Nettoyage et préparation des données
+- Utilisation de pandas en Python et d.dplyr en R
+- Gestion des valeurs manquantes et des anomalies",
                 'duration' => 180,
             ],
             [
                 'order' => 2,
                 'course_id' => $course->id,
                 'title' => '3. Analyse Statistique',
-                'description' => "- Statistiques descriptives et inférentielles\n
-                  - Tests d'hypothèses et intervalles de confiance\n
-                  - Corrélations et régressions",
+                'description' => "- Statistiques descriptives et inférentielles
+- Tests d'hypothèses et intervalles de confiance
+- Corrélations et régressions",
                 'duration' => 240,
             ],
             [
                 'order' => 3,
                 'course_id' => $course->id,
                 'title' => '4. Apprentissage Supervisé',
-                'description' => "- Classification et régression\n
-                  - Modèles de décision, SVM, et forêts aléatoires\n
-                  - Évaluation des modèles et validation croisée",
+                'description' => "- Classification et régression
+- Modèles de décision, SVM, et forêts aléatoires
+- Évaluation des modèles et validation croisée",
                 'duration' => 300,
             ],
             [
                 'order' => 4,
                 'course_id' => $course->id,
                 'title' => '5. Apprentissage Non Supervisé ',
-                'description' => "- Clustering et réduction de dimension\n
-                  - K-means, PCA, et t-SNE\n
-                  - Applications et évaluation des résultats",
+                'description' => "- Clustering et réduction de dimension
+- K-means, PCA, et t-SNE
+- Applications et évaluation des résultats",
                 'duration' => 240,
             ],
             [
                 'order' => 5,
                 'course_id' => $course->id,
                 'title' => '6. Visualisation des Données',
-                'description' => "- Création de graphiques avec Matplotlib et Seaborn\n
-                  - Visualisation interactive avec Plotly et Tableau\n
-                  - Meilleures pratiques pour la présentation des résultats",
+                'description' => "- Création de graphiques avec Matplotlib et Seaborn
+- Visualisation interactive avec Plotly et Tableau
+- Meilleures pratiques pour la présentation des résultats",
                 'duration' => 20,
             ],
             [
@@ -1537,9 +1543,9 @@ class CourseSeeder extends Seeder
                 'order' => 7,
                 'course_id' => $course->id,
                 'title' => '7. Projets Pratiques',
-                'description' => "- Analyse d'un ensemble de données réel\n
-                  - Construction d'un modèle prédictif{\n
-                  - Présentation des résultats et recommandations",
+                'description' => "- Analyse d'un ensemble de données réel
+- Construction d'un modèle prédictif{
+- Présentation des résultats et recommandations",
                 'duration' => 20,
             ],
             [
@@ -1730,12 +1736,13 @@ class CourseSeeder extends Seeder
                     . 'outils et techniques du marketing numérique. Vous apprendrez à concevoir et à mettre en œuvre des campagnes efficaces '
                     . 'pour atteindre vos objectifs commerciaux en ligne. Ce cours couvre tout, de la création de contenu à l\'analyse des données, '
                     . 'en passant par les publicités en ligne et le SEO.',
-                'objectifs' => "- Comprendre les principes fondamentaux du marketing digital.\n
-                    - Maîtriser les outils et techniques de SEO et SEM.\n
-                    - Créer et gérer des campagnes publicitaires en ligne.\n
-                    - Utiliser les réseaux sociaux pour améliorer la visibilité et l'engagement.\n
-                    - Analyser et interpréter les données pour optimiser les performances.",
-                'details' => "Durée : 12 semaines\nNiveau : Débutant à Avancé",
+                'objectifs' => "- Comprendre les principes fondamentaux du marketing digital.
+- Maîtriser les outils et techniques de SEO et SEM.
+- Créer et gérer des campagnes publicitaires en ligne.
+- Utiliser les réseaux sociaux pour améliorer la visibilité et l'engagement.
+- Analyser et interpréter les données pour optimiser les performances.",
+                'details' => "Durée : 12 semaines
+Niveau : Débutant à Avancé",
             ]);
 
         $items = [
@@ -1743,18 +1750,18 @@ class CourseSeeder extends Seeder
                 'order' => 0,
                 'course_id' => $course->id,
                 'title' => '1. Introduction au Marketing Digital',
-                'description' => "- Concepts clés du marketing digital\n
-                  - L'importance du marketing digital dans le paysage commercial moderne\n
-                  - Aperçu des canaux et outils de marketing",
+                'description' => "- Concepts clés du marketing digital
+- L'importance du marketing digital dans le paysage commercial moderne
+- Aperçu des canaux et outils de marketing",
                 'duration' => 150,
             ],
             [
                 'order' => 1,
                 'course_id' => $course->id,
                 'title' => '2. Stratégies de SEO',
-                'description' => "- Introduction au référencement naturel (SEO)\n
-                  - Optimisation des mots-clés et du contenu\n
-                  - Techniques de création de liens et d'optimisation technique",
+                'description' => "- Introduction au référencement naturel (SEO)
+- Optimisation des mots-clés et du contenu
+- Techniques de création de liens et d'optimisation technique",
                 'duration' => 240,
                 'video' => 'https://www.youtube.com/watch?v=KoRFf7zjmmc',
             ],
@@ -1762,45 +1769,45 @@ class CourseSeeder extends Seeder
                 'order' => 2,
                 'course_id' => $course->id,
                 'title' => '3. Publicité en Ligne (SEM)',
-                'description' => "- Introduction à la publicité payante (PPC)\n
-                  - Création et gestion de campagnes Google Ads\n
-                  - Analyse des performances des annonces et optimisation",
+                'description' => "- Introduction à la publicité payante (PPC)
+- Création et gestion de campagnes Google Ads
+- Analyse des performances des annonces et optimisation",
                 'duration' => 210,
             ],
             [
                 'order' => 3,
                 'course_id' => $course->id,
                 'title' => '4. Marketing sur les Réseaux Sociaux',
-                'description' => "- Création et gestion de contenu pour les réseaux sociaux\n
-                  - Stratégies pour augmenter l'engagement et la visibilité\n
-                  - Utilisation des outils d'analyse pour mesurer l'impact",
+                'description' => "- Création et gestion de contenu pour les réseaux sociaux
+- Stratégies pour augmenter l'engagement et la visibilité
+- Utilisation des outils d'analyse pour mesurer l'impact",
                 'duration' => 240,
             ],
             [
                 'order' => 4,
                 'course_id' => $course->id,
                 'title' => '5. Analyse des Données et Optimisation',
-                'description' => "- Introduction à Google Analytics et autres outils d'analyse\n
-                  - Interprétation des données pour optimiser les campagnes\n
-                  - Techniques d'A/B testing et d'optimisation continue",
+                'description' => "- Introduction à Google Analytics et autres outils d'analyse
+- Interprétation des données pour optimiser les campagnes
+- Techniques d'A/B testing et d'optimisation continue",
                 'duration' => 300,
             ],
             [
                 'order' => 5,
                 'course_id' => $course->id,
                 'title' => '6. Projets Pratiques',
-                'description' => "- Création d'une stratégie de marketing digital\n
-                  - Développement d'une campagne publicitaire complète\n
-                  - Analyse et optimisation des performances",
+                'description' => "- Création d'une stratégie de marketing digital
+- Développement d'une campagne publicitaire complète
+- Analyse et optimisation des performances",
                 'duration' => 360,
             ],
             [
                 'order' => 6,
                 'course_id' => $course->id,
                 'title' => '7. Examen Final',
-                'description' => "- Évaluation des compétences acquises\n
-                  - Réalisation d'un projet pratique en marketing digital\n
-                  - Présentation du projet et certification",
+                'description' => "- Évaluation des compétences acquises
+- Réalisation d'un projet pratique en marketing digital
+- Présentation du projet et certification",
                 'duration' => 330,
             ],
         ];
@@ -2087,12 +2094,13 @@ class CourseSeeder extends Seeder
                 'description' => 'Le cours "Introduction aux Réseaux et Télécommunications" fournit une compréhension approfondie des principes fondamentaux des réseaux informatiques '
                     . 'et des systèmes de télécommunication. Vous apprendrez les concepts de base des réseaux, la configuration et la gestion des équipements réseau, '
                     . 'ainsi que les protocoles et technologies utilisés pour la communication à distance.',
-                'objectifs' => "- Comprendre les concepts de base des réseaux et télécommunications.\n
-                    - Configurer et gérer les équipements réseau tels que les routeurs et les commutateurs.\n
-                    - Apprendre les protocoles de communication et les normes de télécommunication.\n
-                    - Diagnostiquer et résoudre les problèmes réseau.\n
-                    - Mettre en œuvre des solutions de sécurité pour les réseaux.",
-                'details' => "Durée : 14 semaines\nNiveau : Débutant à Avancé",
+                'objectifs' => "- Comprendre les concepts de base des réseaux et télécommunications.
+- Configurer et gérer les équipements réseau tels que les routeurs et les commutateurs.
+- Apprendre les protocoles de communication et les normes de télécommunication.
+- Diagnostiquer et résoudre les problèmes réseau.
+- Mettre en œuvre des solutions de sécurité pour les réseaux.",
+                'details' => "Durée : 14 semaines
+Niveau : Débutant à Avancé",
             ]);
 
         $items = [
@@ -2100,72 +2108,72 @@ class CourseSeeder extends Seeder
                 'order' => 0,
                 'course_id' => $course->id,
                 'title' => '1. Introduction aux Réseaux',
-                'description' => "- Concepts de base des réseaux informatiques\n
-                  - Types de réseaux (LAN, WAN, MAN)\n
-                  - Modèle OSI et TCP/IP",
+                'description' => "- Concepts de base des réseaux informatiques
+- Types de réseaux (LAN, WAN, MAN)
+- Modèle OSI et TCP/IP",
                 'duration' => 180,
             ],
             [
                 'order' => 1,
                 'course_id' => $course->id,
                 'title' => '2. Équipements Réseau',
-                'description' => "- Routeurs, commutateurs et points d'accès\n
-                  - Configuration des équipements réseau\n
-                  - Surveillance et gestion des équipements",
+                'description' => "- Routeurs, commutateurs et points d'accès
+- Configuration des équipements réseau
+- Surveillance et gestion des équipements",
                 'duration' => 240,
             ],
             [
                 'order' => 2,
                 'course_id' => $course->id,
                 'title' => '3. Protocoles de Communication',
-                'description' => "- Protocoles TCP/IP et UDP\n
-                  - Protocoles de routage (BGP, OSPF)\n
-                  - Sécurité et gestion des protocoles",
+                'description' => "- Protocoles TCP/IP et UDP
+- Protocoles de routage (BGP, OSPF)
+- Sécurité et gestion des protocoles",
                 'duration' => 210,
             ],
             [
                 'order' => 3,
                 'course_id' => $course->id,
                 'title' => '4. Gestion des Réseaux',
-                'description' => "- Surveillance et optimisation des performances réseau\n
-                  - Dépannage et résolution des problèmes\n
-                  - Outils de gestion réseau",
+                'description' => "- Surveillance et optimisation des performances réseau
+- Dépannage et résolution des problèmes
+- Outils de gestion réseau",
                 'duration' => 270,
             ],
             [
                 'order' => 4,
                 'course_id' => $course->id,
                 'title' => '5. Télécommunications',
-                'description' => "- Concepts de base des systèmes de télécommunication\n
-                  - Technologies de communication à distance (5G, fibre optique)\n
-                  - Mise en œuvre et gestion des systèmes de télécommunication",
+                'description' => "- Concepts de base des systèmes de télécommunication
+- Technologies de communication à distance (5G, fibre optique)
+- Mise en œuvre et gestion des systèmes de télécommunication",
                 'duration' => 240,
             ],
             [
                 'order' => 5,
                 'course_id' => $course->id,
                 'title' => '6. Sécurité des Réseaux',
-                'description' => "- Principes de base de la sécurité des réseaux\n
-                  - Techniques de prévention et de détection des intrusions\n
-                  - Mise en œuvre de politiques de sécurité",
+                'description' => "- Principes de base de la sécurité des réseaux
+- Techniques de prévention et de détection des intrusions
+- Mise en œuvre de politiques de sécurité",
                 'duration' => 210,
             ],
             [
                 'order' => 6,
                 'course_id' => $course->id,
                 'title' => '7. Projets Pratiques',
-                'description' => "- Conception et mise en place d'un réseau local\n
-                  - Configuration de dispositifs réseau\n
-                  - Analyse des performances et sécurité d'un réseau",
+                'description' => "- Conception et mise en place d'un réseau local
+- Configuration de dispositifs réseau
+- Analyse des performances et sécurité d'un réseau",
                 'duration' => 300,
             ],
             [
                 'order' => 7,
                 'course_id' => $course->id,
                 'title' => '8. Examen Final',
-                'description' => "- Évaluation des compétences acquises\n
-                  - Réalisation d'un projet final en réseaux et télécommunications\n
-                  - Présentation et certification",
+                'description' => "- Évaluation des compétences acquises
+- Réalisation d'un projet final en réseaux et télécommunications
+- Présentation et certification",
                 'duration' => 300,
             ],
         ];
@@ -2449,10 +2457,11 @@ class CourseSeeder extends Seeder
                 'image' => 'images/english.jpg',
                 'label' => 'Anglais',
                 'description' => 'Le cours "Anglais" fournit une compréhension approfondie des principes fondamentaux de la langue anglaise',
-                'objectifs' => "- Comprendre la conjugaison et les differents temps.\n
-                    - Faire une lettre.\n
-                    - Rediger une invitation a un evenement.",
-                'details' => "Durée : 2 semaines\nNiveau : Débutant à Intermédiaire",
+                'objectifs' => "- Comprendre la conjugaison et les différents temps.
+- Faire une lettre.
+- Rediger une invitation a un évènement.",
+                'details' => "Durée : 2 semaines
+Niveau : Débutant à Intermédiaire",
                 'video' => 'https://www.youtube.com/watch?v=v5kZekynt-8',
             ]);
 

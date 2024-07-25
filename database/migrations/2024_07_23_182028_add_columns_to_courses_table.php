@@ -23,6 +23,7 @@ return new class extends Migration
         });
 
         Schema::create('course_items', function (Blueprint $table) {
+            $table->id();
             $table->string('title');
             $table->text('description')->nullable();
             $table->integer('order')->nullable();
