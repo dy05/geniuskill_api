@@ -147,8 +147,7 @@ const MainNavigator = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Main"
-                // initialRouteName="Splash"
+                initialRouteName="Splash"
                 screenOptions={{headerShown: false}}
             >
                 <Stack.Screen name="Splash" component={SplashScreen}/>
