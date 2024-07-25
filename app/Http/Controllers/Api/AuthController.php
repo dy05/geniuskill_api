@@ -33,10 +33,9 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'email' => 'string',
+            'email' => 'email|unique:users',
             'password' => 'string|confirmed',
-            'passwordl' => 'string',
-            'birth_date' => 'nullable|date_format:Y-m-d',
+//            'birth_date' => 'nullable|date_format:Y-m-d',
         ]);
 
         $data = $request->all();

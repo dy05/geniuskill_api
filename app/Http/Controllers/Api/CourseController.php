@@ -280,9 +280,8 @@ class CourseController extends Controller
         $userId = $request->get('user_id', $request->user()->id);
 
         $courses = Course::query()
-            ->whereHas('users', function ($query) use ($userId) {
-                $query->where(['user_id' => $userId]);
-            })
+            ->leftJoin('course_user', 'courses.id', '=', 'course_user.course_id')
+            ->where('course_user.user_id', '=', $userId)
             ->get();
 
         return response()->json([
