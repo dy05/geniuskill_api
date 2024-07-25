@@ -14,14 +14,11 @@ import {Ionicons, MaterialIcons} from '@expo/vector-icons';
 import PasswordResetScreen from "../screens/PasswordReset";
 import RegisterScreen from "../screens/Register";
 import EditProfile from "../screens/EditProfile";
-import {Button} from "react-native";
 import CourseDetails from "../screens/CourseDetails";
 //import CoursePage from "../screens/CoursePage";
 import BackButton from "./BackButton";
 import RewardsScreen from '../screens/Rewards';
 import langueScreen from '../screens/langue';
-import ArtificialCoursePage from'../screens/ArtificialCoursePage';
-import BlockCoursePage from'../screens/BlockCoursePage';
 
 
 

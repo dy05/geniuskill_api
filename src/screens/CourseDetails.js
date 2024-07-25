@@ -14,8 +14,9 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { Color } from "../components/GlobalStyles";
-import { getCourseDetails } from "../services/courseService";
+import {addUserCourse, getCourseDetails} from "../services/courseService";
 import Svg, { Path } from 'react-native-svg';
+import {getAuthUser, setAuthUser} from "../services/authService";
 
 const CoursePage = ({ route }) => {
   const courseProgress = 0.5; // 50% de progression
@@ -23,18 +24,23 @@ const CoursePage = ({ route }) => {
   const [sections, setSections] = useState([]);
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [formLoading, setFormLoading] = useState(false);
   const { id } = route.params;
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [activeUser, setActiveUser] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [notificationMessage, setNotificationMessage] = useState(null);
+  const [notificationVisible, setNotificationVisible] = useState(false);
+  const [quizVisible, setQuizVisible] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerValidationVisible, setAnswerValidationVisible] = useState(false);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
   const [score, setScore] = useState(0);
+  const [canShowAddCourseButton, setCanShowAddCourseButton] = useState(true);
 
   const handleAnswerSelection = (option) => {
     setSelectedAnswer(option);
-    const isCorrect = option === mockQuizData[1][currentQuestion].answer;
+    const isCorrect = option.toString() === getCurrentQuestion()?.response?.toString();
     setIsAnswerCorrect(isCorrect);
     setScore(isCorrect ? score + 1 : score);
     setAnswerValidationVisible(true);
@@ -42,8 +48,8 @@ const CoursePage = ({ route }) => {
 
   const handleNextQuestion = () => {
     setAnswerValidationVisible(false);
-    if (currentQuestion < mockQuizData[1].length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+    if (currentQuestionIndex < course.quizzes?.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedAnswer(null);
     } else {
       setQuizFinished(true);
@@ -53,31 +59,18 @@ const CoursePage = ({ route }) => {
 
   const handleQuizStart = () => {
     setQuizVisible(true);
-    setCurrentQuestion(0);
-    setSelectedAnswer(null);
-    setQuizFinished(false);
-    setScore(0);
-  };
-
-  const handleAnswer = (answer) => {
-    if (getCurrentQuestion()?.response.toString() === answer.toString()) {
-      setScore(score + 1);
-      Alert.alert('Correct!', 'Bonne réponse.');
-    } else {
-      Alert.alert('Incorrect!', 'Mauvaise réponse.');
-    }
-
-    if (currentQuestionIndex < course.quizzes?.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      setShowResult(true);
-      setIsModalVisible(false);
+    if (currentQuestionIndex === null) {
+      setCurrentQuestionIndex(9);
+      setQuizFinished(false);
+      setScore(7);
+      setSelectedAnswer(null);
     }
   };
 
   const handleCloseResultModal = () => {
-    setShowResult(false);
-    setCurrentQuestionIndex(0);
+    setQuizVisible(false);
+    setQuizFinished(false);
+    setCurrentQuestionIndex(null);
     setScore(0);
   };
 
@@ -91,8 +84,58 @@ const CoursePage = ({ route }) => {
     return null;
   };
 
+  const hasCourse = () => {
+    let _courses = activeUser?.courses ?? [];
+    let _coursesLength = _courses.length;
+    console.log('courses');
+    console.log(_courses);
+    for (let i = 0; i < _coursesLength; i++) {
+      if (_courses[i]?.id?.toString() === course?.id?.toString()) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const hideNotification = () => {
+    setNotificationMessage(null);
+    setNotificationVisible(false);
+  };
+
+  const addCourseToUserCoursesRequest = () => {
+    if (!formLoading && course?.id) {
+      setFormLoading(true);
+      addUserCourse(course.id)
+          .then(() => {
+            if (activeUser) {
+              let _authUser = {...activeUser};
+              let _courses = _authUser.courses ?? [];
+              _courses.push({id: course.id});
+              _authUser.courses = [..._courses];
+              setAuthUser(_authUser).then();
+            }
+            setNotificationMessage("Cours ajouté avec succès !");
+            setNotificationVisible(true);
+            setCanShowAddCourseButton(false);
+          })
+          .catch((response) => {
+            setNotificationMessage("Erreur inattendue !");
+            setNotificationVisible(true);
+          })
+          .finally(() => {
+            setFormLoading(false);
+          })
+    }
+  };
+
   useEffect(() => {
     if (!loading) {
+      getAuthUser()
+          .then((data) => {
+            setActiveUser(data);
+          });
+
       let _course = null;
       getCourseDetails(id)
           .then((response) => {
@@ -114,10 +157,6 @@ const CoursePage = ({ route }) => {
       setLoading(false);
     }
   }, [id, loading]);
-
-  // const navigateToQuiz = (quizId) => {
-  //   navigation.navigate('QuizScreen', { quizId });
-  // };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -167,19 +206,19 @@ const CoursePage = ({ route }) => {
                       fill="#1B5091"/>
                 </Svg>
                 <Text style={styles.quizButtonText}>
-                  Quiz
+                  Quiz - {course.quizzes?.length} Questions
                 </Text>
               </TouchableOpacity>
             </View>
 
-            {isModalVisible? (
+            {quizVisible? (
                 <Modal
                     isVisible={true}
-                    onBackdropPress={() => setIsModalVisible(false)}
+                    onBackdropPress={() => setQuizVisible(false)}
                 >
-                  <View style={styles.modalContent}>
+                  <View style={addStyles.modalContent}>
                     {getCurrentQuestion() ? (
-                        <>
+                        <View style={addStyles.questions}>
                           <Text style={addStyles.question}>
                             {getCurrentQuestion().title}
                           </Text>
@@ -188,34 +227,53 @@ const CoursePage = ({ route }) => {
                               renderItem={({ item }) => (
                                 <TouchableOpacity
                                     key={item.id}
-                                    style={styles.option}
+                                    style={addStyles.option}
                                     onPress={() => handleAnswerSelection(item.id)}
                                 >
-                                  <Text style={styles.optionText}>{item.text}</Text>
+                                  <Text style={addStyles.optionText}>{item.text}</Text>
                                 </TouchableOpacity>
                               )}
                               keyExtractor={(item, index) => index.toString()}
                           />
-                        </>
+                        </View>
                     ) : (
                         <Text>Loading...</Text>
                     )}
 
                     <Button
+                        style={styles.closeButton}
                         title={"Fermer"}
-                        onPress={() => setIsModalVisible(false)}
+                        onPress={() => setQuizVisible(false)}
                     />
                   </View>
                 </Modal>
             ) : null}
 
             {answerValidationVisible ? (
-              <Modal isVisible={answerValidationVisible}>
-                <View style={styles.modalContent}>
-                  <Text style={styles.feedback}>
+              <Modal isVisible={true}>
+                <View style={addStyles.modalContent}>
+                  <Text style={addStyles.feedback}>
                     {isAnswerCorrect ? 'Correct!' : 'Incorrect!'}
                   </Text>
-                  <Button title="Next" onPress={handleNextQuestion} />
+                  <Button
+                      title={"Suivant"}
+                          onPress={handleNextQuestion} />
+                </View>
+              </Modal>
+            ) : null}
+
+            {notificationVisible && notificationMessage ? (
+              <Modal isVisible={true}
+                     onBackdropPress={() => hideNotification()}
+              >
+                <View style={addStyles.modalContent}>
+                  <Text style={addStyles.feedback}>
+                    {notificationMessage}
+                  </Text>
+                  <Button
+                      style={styles.closeButton}
+                      title={"Fermer"}
+                      onPress={() => hideNotification()} />
                 </View>
               </Modal>
             ) : null}
@@ -223,14 +281,21 @@ const CoursePage = ({ route }) => {
             {quizFinished ? (
                 <Modal
                     isVisible={true}
-                    onBackdropPress={setQuizFinished(false)}
+                    onBackdropPress={() => handleCloseResultModal()}
                 >
                   <View style={addStyles.modalContent}>
                     <Text style={addStyles.resultText}>Quiz terminé!</Text>
                     <Text style={addStyles.resultText}>Your Score: {score}/{course.quizzes?.length}</Text>
-                    <Button title="Close" onPress={setQuizFinished(false)} />
+                    <Button
+                        style={styles.closeButton}
+                        title="Close"
+                            onPress={() => handleCloseResultModal()} />
                   </View>
                 </Modal>
+            ) : null}
+
+            {!hasCourse() && canShowAddCourseButton ? (
+                <Button onPress={() => addCourseToUserCoursesRequest()} style={styles.button} title={"Ajouter le cours"}/>
             ) : null}
           </View>
       ) : (
@@ -243,6 +308,20 @@ const CoursePage = ({ route }) => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     paddingBottom: 20,
+  },
+  answerQuestion: {
+    flexDirection: 'row',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   pageDuCours: {
     flex: 1,
@@ -329,19 +408,26 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
     paddingVertical: 10,
     paddingHorizontal: 20,
+    display: 'flex',
+    gap: 5,
     borderRadius: 8,
     alignItems: "center",
   },
   quizButtonText: {
-    color: "white",
+    color: "#0288d1",
     fontSize: 16,
     fontWeight: "bold",
   },
+  closeButton: {
+    flexDirection: 'row',
+    marginTop: 40,
+  }
 });
 
 const addStyles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -353,12 +439,17 @@ const addStyles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
+    marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   question: {
     fontSize: 18,
     marginBottom: 20,
+  },
+  questions: {
+    padding: 20,
+    marginBottom: 60,
   },
   option: {
     padding: 10,
@@ -372,6 +463,13 @@ const addStyles = StyleSheet.create({
   feedback: {
     fontSize: 20,
     marginBottom: 20,
+  },
+  button: {
+    width: 'fit-content',
+    padding: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#0288d1', // Couleur bleue pour le titre
   },
 });
 

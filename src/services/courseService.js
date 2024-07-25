@@ -13,3 +13,13 @@ export function getCourses(query = null) {
 export function getCourseDetails(id) {
     return axios.get('/courses/' + id);
 }
+
+export function getAuthCourses() {
+    return axios.get('/courses/user');
+}
+
+export function addUserCourse(id) {
+    return axios.post('/courses/add', {
+        course_id: id,
+    });
+}
