@@ -1,32 +1,45 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {getCourses} from "../services/courseService";
+import {getTopSubjects} from "../services/appService";
 
-const RechercherScreen = () => {
+const RechercherScreen = ({ navigation }) => {
+  const [loading, setLoading] = useState(true);
+  const [formLoading, setFormLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [topSubjects, setTopSubjects] = useState([]);
+
+  useEffect(() => {
+    if (!loading) {
+      getTopSubjects()
+          .then((response) => {
+            setTopSubjects(response.data?.subjects);
+          });
+    } else {
+      setLoading(false);
+    }
+  }, [loading]);
 
   const handleSearch = () => {
-    // Ici vous pouvez implémenter la logique de recherche en fonction de searchQuery
-    // Par exemple, vous pouvez utiliser une API pour récupérer les résultats de recherche
-    // Dans cette démo, nous n'affichons que des résultats statiques
-    const results = [
-      { id: 1, title: 'Cours 1', description: 'Description du cours 1', image: require('./../../assets/images/cour1.png') },
-      { id: 2, title: 'Cours 2', description: 'Description du cours 2', image: require('./../../assets/images/cour2.png') },
-      { id: 3, title: 'Cours 3', description: 'Description du cours 3', image: require('./../../assets/images/cour3.png') },
-    ];
-    setSearchResults(results);
+    setFormLoading(true);
+    getCourses(searchQuery)
+        .then((response) => {
+          setSearchResults(response.data?.courses);
+        })
+        .catch((e) => {
+          console.log(e.message);
+          setSearchResults([]);
+        })
+        .finally(() => {
+          setFormLoading(false);
+        });
   };
 
-  const topMatieres = [
-    'UX/UI',
-    'Design graphique',
-    'Figma',
-    'Structure de données',
-    'Marketing',
-    'Cybersécurité',
-    'Développement Mobile',
-  ];
+  const navigateToDetails = (id) => {
+    navigation.navigate('CourseDetails', { id: id });
+  };
 
   return (
     <View style={styles.container}>
@@ -45,24 +58,31 @@ const RechercherScreen = () => {
           onSubmitEditing={handleSearch}
         />
       </View>
-      <FlatList
-        data={searchResults}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.resultCard}>
-            <Image source={item.image} style={styles.resultImage} />
-            <View style={styles.resultTextContainer}>
-              <Text style={styles.resultTitle}>{item.title}</Text>
-              <Text style={styles.resultDescription}>{item.description}</Text>
-            </View>
-          </View>
-        )}
-      />
-      <Text style={styles.topMatieresTitle}>Top des matières recherchées</Text>
-      <View style={styles.topMatieresContainer}>
-        {topMatieres.map((matiere, index) => (
-          <TouchableOpacity key={index} style={styles.matiereItem}>
-            <Text style={styles.matiereText}>{matiere}</Text>
+      {!formLoading ? (
+          <FlatList
+              data={searchResults}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({ item }) => (
+                  <TouchableOpacity id={item.id} onPress={() => navigateToDetails(item.id)}>
+                    <View style={styles.resultCard}>
+                      <Image source={item.image} style={styles.resultImage} />
+                      <View style={styles.resultTextContainer}>
+                        <Text style={styles.resultTitle}>{item.label}</Text>
+                        <Text style={styles.resultDescription}>{item.description}</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+              )}
+          />
+      ) : (
+          <Text>Loading...</Text>
+      )}
+
+      <Text style={styles.topSubjectsTitle}>Top des matières recherchées</Text>
+      <View style={styles.topSubjectsContainer}>
+        {topSubjects.map((subject) => (
+          <TouchableOpacity key={subject.id} style={styles.subjectItem}>
+            <Text style={styles.subjectText}>{subject.label}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -149,18 +169,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#757575',
   },
-  topMatieresTitle: {
+  topSubjectsTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 10,
     marginBottom: 10,
     color: '#0288d1', // Couleur bleue pour le titre des matières
   },
-  topMatieresContainer: {
+  topSubjectsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  matiereItem: {
+  subjectItem: {
     backgroundColor: '#bbdefb', // Fond bleu clair pour les matières
     borderRadius: 10,
     padding: 10,
@@ -171,7 +191,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  matiereText: {
+  subjectText: {
     color: '#0288d1', // Couleur bleue pour le texte des matières
     fontWeight: 'bold',
   },

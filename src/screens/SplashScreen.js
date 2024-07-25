@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import {useTailwind} from "tailwind-rn";
-import { getAuthUser } from '../services/authService';
+import { useTailwind } from "tailwind-rn";
+import { getAuthToken, getTokenAuthUser, setAuthToken, setAuthUser } from '../services/authService';
 
 const SplashScreen = ({ navigation }) => {
     const tailwind = useTailwind();
@@ -10,10 +10,25 @@ const SplashScreen = ({ navigation }) => {
     useEffect(() => {
         if (loadingProgress >= 100) {
             setTimeout(async () => {
-                let authToken = await getAuthUser();
+                const authToken = await getAuthToken();
+                let _mustLogin = true;
                 if (authToken) {
-                    navigation.navigate('Home');
-                } else {
+                    try {
+                        const response = await getTokenAuthUser();
+                        let _authUser = response?.data?.user ?? null;
+                        if (_authUser) {
+                            _mustLogin = false;
+                            await setAuthUser(_authUser);
+                            navigation.navigate('Main');
+                        } else {
+                            await setAuthToken();
+                        }
+                    } catch (e) {
+                        await setAuthToken();
+                    }
+                }
+
+                if (_mustLogin) {
                     navigation.navigate('Login');
                 }
             }, 2000); // 2 seconds
@@ -38,8 +53,6 @@ const SplashScreen = ({ navigation }) => {
       <View style={[tailwind('flex h-full w-full justify-center items-center'), { backgroundColor: '#1B5091' }]}>
           <View style={tailwind('flex w-3/5 justify-center items-center')}>
               <Text style={tailwind('text-4xl text-white mb-8')}>
-                   
-
               </Text>
               <Image source={require('../../assets/images/logomds.png')} style={styles.logo} />
               <View style={tailwind('w-11/12 mt-8 h-[30vh]')}>

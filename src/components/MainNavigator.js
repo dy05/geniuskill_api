@@ -142,7 +142,6 @@ const BottomTabNavigator = () => {
             <Tab.Screen name="Sauvegarder" component={SauvegarderScreen}/>
             <Tab.Screen name="Mes cours" component={CoursesStack}/>
             <Tab.Screen name="Profil" component={ProfileStack}/>
-
         </Tab.Navigator>
     );
 };
@@ -151,7 +150,8 @@ const MainNavigator = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Splash"
+                initialRouteName="Main"
+                // initialRouteName="Splash"
                 screenOptions={{headerShown: false}}
             >
                 <Stack.Screen name="Splash" component={SplashScreen}/>

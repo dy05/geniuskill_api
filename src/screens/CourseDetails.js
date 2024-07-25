@@ -1,112 +1,241 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+  Alert,
+  FlatList,
+  Button
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { Color } from "../components/GlobalStyles";
+import { getCourseDetails } from "../services/courseService";
+import Svg, { Path } from 'react-native-svg';
 
-const CoursePage = () => {
+const CoursePage = ({ route }) => {
   const courseProgress = 0.5; // 50% de progression
   const navigation = useNavigation();
+  const [sections, setSections] = useState([]);
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { id } = route.params;
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [answerValidationVisible, setAnswerValidationVisible] = useState(false);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
+  const [quizFinished, setQuizFinished] = useState(false);
+  const [score, setScore] = useState(0);
 
-  const sections = [
-    {
-      title: '1. Introduction au HTML',
-      text: ' - Structure de base d\'une page HTML\n - Éléments et attributs HTML\n - Mise en forme du texte et des images',
-      hours: '2 : 00 hrs',
-      videoUrl: 'https://www.youtube.com/watch?v=pQN-pnXPaVg',
-      quizId: 1,
-    },
-    {
-      title: '2. Introduction au CSS',
-      text: ' - Sélecteurs et propriétés CSS\n - Mise en page avec Flexbox et Grid\n - Styles réactifs pour les différents écrans',
-      hours: '2 : 30 hrs',
-      videoUrl: 'https://www.youtube.com/watch?v=yfoY53QXEnI',
-      quizId: 2,
-    },
-    {
-      title: '3. Introduction au JavaScript',
-      text: ' - Variables et types de données\n - Fonctions et événements\n - Manipulation du DOM et AJAX',
-      hours: '3 : 00 hrs',
-      videoUrl: 'https://www.youtube.com/watch?v=W6NZfCO5SIk',
-      quizId: 3,
-    },
-    {
-      title: '5. Responsive Design',
-      text: ' - Techniques de responsive design\n - Utilisation de media queries\n - Création de mises en page adaptatives',
-      hours: '2 : 45 hrs',
-      videoUrl: 'https://www.youtube.com/watch?v=srvUrASNj0s',
-      quizId: 4,
-    },
-    {
-      title: '6. Optimisation des Performances',
-      text: ' - Techniques d\'optimisation des temps de chargement\n - Minification et compression des fichiers\n - Caching et gestion des ressources',
-      hours: '2 : 30 hrs',
-      videoUrl: 'https://www.youtube.com/watch?v=bdAIw9qBGvc',
-      quizId: 5,
-    },
-    {
-      title: '7. Accessibilité Web',
-      text: ' - Principes de l\'accessibilité web\n - Utilisation des attributs ARIA\n - Test des interfaces pour les personnes handicapées',
-      hours: '2 : 15 hrs',
-      videoUrl: 'https://www.youtube.com/watch?v=nM4FdQyIQGo',
-      quizId: 6,
-    },
-    {
-      title: '8. Gestion des Versions et Collaboration',
-      text: ' - Introduction à Git et GitHub\n - Flux de travail collaboratifs\n - Résolution des conflits et gestion des branches',
-      hours: '3 : 00 hrs',
-      videoUrl: 'https://www.youtube.com/watch?v=8JJ101D3knE',
-      quizId: 7,
-    },
-  ];
-
-  const navigateToQuiz = (quizId) => {
-    navigation.navigate('QuizScreen', { quizId });
+  const handleAnswerSelection = (option) => {
+    setSelectedAnswer(option);
+    const isCorrect = option === mockQuizData[1][currentQuestion].answer;
+    setIsAnswerCorrect(isCorrect);
+    setScore(isCorrect ? score + 1 : score);
+    setAnswerValidationVisible(true);
   };
+
+  const handleNextQuestion = () => {
+    setAnswerValidationVisible(false);
+    if (currentQuestion < mockQuizData[1].length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setSelectedAnswer(null);
+    } else {
+      setQuizFinished(true);
+      setQuizVisible(false);
+    }
+  };
+
+  const handleQuizStart = () => {
+    setQuizVisible(true);
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setQuizFinished(false);
+    setScore(0);
+  };
+
+  const handleAnswer = (answer) => {
+    if (getCurrentQuestion()?.response.toString() === answer.toString()) {
+      setScore(score + 1);
+      Alert.alert('Correct!', 'Bonne réponse.');
+    } else {
+      Alert.alert('Incorrect!', 'Mauvaise réponse.');
+    }
+
+    if (currentQuestionIndex < course.quizzes?.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      setShowResult(true);
+      setIsModalVisible(false);
+    }
+  };
+
+  const handleCloseResultModal = () => {
+    setShowResult(false);
+    setCurrentQuestionIndex(0);
+    setScore(0);
+  };
+
+  const getCurrentQuestion = () => {
+    const _quizzes = course.quizzes;
+    if (_quizzes?.length) {
+      let _quiz = _quizzes[currentQuestionIndex];
+      return _quiz ??  null;
+    }
+
+    return null;
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      let _course = null;
+      getCourseDetails(id)
+          .then((response) => {
+            _course = response?.data?.course ?? null;
+            if (_course) {
+              setCourse(_course);
+              setSections(_course.items);
+            }
+          })
+          .catch ((error) => {
+            console.error(error.message);
+          })
+          .finally(() => {
+            if (!_course) {
+              navigation.navigate('Home', {screen: 'HomeScreen'});
+            }
+          });
+    } else {
+      setLoading(false);
+    }
+  }, [id, loading]);
+
+  // const navigateToQuiz = (quizId) => {
+  //   navigation.navigate('QuizScreen', { quizId });
+  // };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
-      <View style={styles.pageDuCours}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.pageDuCoursChild}
-            contentFit="cover"
-            source={require("../../assets/images/webdevelopment.png")}
-          />
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Introduction au Développement Web</Text>
-        </View>
-        <Text style={styles.courseDescription}>
-          Le cours "Introduction au Développement Web" est conçu pour fournir aux participants une compréhension complète des technologies et des pratiques du développement web. Ce cours couvre les fondamentaux du HTML, CSS, et JavaScript, ainsi que des concepts plus avancés tels que les frameworks modernes et les bonnes pratiques de développement. Les étudiants apprendront à créer des sites web dynamiques et interactifs, à optimiser les performances et à assurer la compatibilité entre les navigateurs.
-        </Text>
-        <Text style={styles.courseDetails}>
-          Durée : 12 semaines{"\n"}
-          Niveau : Débutant à Avancé
-        </Text>
-        <View style={styles.sectionsContainer}>
-          {sections.map((section, index) => (
-            <View key={index} style={styles.section}>
-              <Text style={styles.sectionTitle}>{section.title}</Text>
-              <Text style={styles.sectionText}>{section.text}</Text>
-              <View style={styles.sectionFooter}>
-                <Text style={styles.sectionHours}>{section.hours}</Text>
-                <TouchableOpacity style={styles.playButton} onPress={() => navigation.navigate('VideoPlayer', { videoUrl: section.videoUrl })}>
-                  <Icon name="play-circle-outline" size={30} color="#1E90FF" />
-                </TouchableOpacity>
+      {course ? (
+          <View>
+            <View style={styles.pageDuCours}>
+              <View style={styles.imageContainer}>
+                <Image
+                    style={styles.pageDuCoursChild}
+                    contentFit="cover"
+                    source={require("../../assets/images/webdevelopment.png")}
+                />
               </View>
-              <View style={styles.progressBarContainer}>
-                <View style={[styles.progressBar, { width: `${courseProgress * 100}%` }]} />
+              <View style={styles.titleContainer}>
+                <Text style={styles.title}>{course.title}</Text>
               </View>
-              <View style={styles.quizButtonContainer}>
-                <TouchableOpacity style={styles.quizButton} onPress={() => navigateToQuiz(section.quizId)}>
-                  <Text style={styles.quizButtonText}>Commencer le Quizz</Text>
-                </TouchableOpacity>
+              <Text style={styles.courseDescription}>
+                {course.description}
+              </Text>
+              <Text style={styles.courseDetails}>
+                {course.details}
+              </Text>
+              <View style={styles.sectionsContainer}>
+                {sections.map((section, index) => (
+                    <View key={index} style={styles.section}>
+                      <Text style={styles.sectionTitle}>{section.title}</Text>
+                      <Text style={styles.sectionText}>{section.description}</Text>
+                      <View style={styles.sectionFooter}>
+                        <Text style={styles.sectionHours}>{section.duration} Mins</Text>
+                        <TouchableOpacity style={styles.playButton} onPress={() => navigation.navigate('VideoPlayer', { videoUrl: section.videoUrl })}>
+                          <Icon name="play-circle-outline" size={30} color="#1E90FF" />
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.progressBarContainer}>
+                        <View style={[styles.progressBar, { width: `${courseProgress * 100}%` }]} />
+                      </View>
+                    </View>
+                ))}
               </View>
             </View>
-          ))}
-        </View>
-      </View>
+
+            <View style={styles.quizButtonContainer}>
+              <TouchableOpacity style={styles.quizButton} onPress={() => handleQuizStart()}>
+                <Svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <Path
+                      d="M18 19.5C18.425 19.5 18.794 19.344 19.107 19.032C19.42 18.72 19.576 18.351 19.575 17.925C19.574 17.499 19.418 17.1305 19.107 16.8195C18.796 16.5085 18.427 16.352 18 16.35C17.573 16.348 17.2045 16.5045 16.8945 16.8195C16.5845 17.1345 16.428 17.503 16.425 17.925C16.422 18.347 16.5785 18.716 16.8945 19.032C17.2105 19.348 17.579 19.504 18 19.5ZM16.875 14.7H19.125C19.125 13.975 19.2 13.444 19.35 13.107C19.5 12.77 19.85 12.326 20.4 11.775C21.15 11.025 21.65 10.419 21.9 9.957C22.15 9.495 22.275 8.951 22.275 8.325C22.275 7.2 21.881 6.2815 21.093 5.5695C20.305 4.8575 19.274 4.501 18 4.5C16.975 4.5 16.0815 4.7875 15.3195 5.3625C14.5575 5.9375 14.026 6.7 13.725 7.65L15.75 8.475C15.975 7.85 16.2815 7.3815 16.6695 7.0695C17.0575 6.7575 17.501 6.601 18 6.6C18.6 6.6 19.0875 6.769 19.4625 7.107C19.8375 7.445 20.025 7.901 20.025 8.475C20.025 8.825 19.925 9.1565 19.725 9.4695C19.525 9.7825 19.175 10.176 18.675 10.65C17.85 11.375 17.344 11.944 17.157 12.357C16.97 12.77 16.876 13.551 16.875 14.7ZM6 24V0H30V24H6ZM0 30V6H3V27H24V30H0Z"
+                      fill="#1B5091"/>
+                </Svg>
+                <Text style={styles.quizButtonText}>
+                  Quiz
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            {isModalVisible? (
+                <Modal
+                    isVisible={true}
+                    onBackdropPress={() => setIsModalVisible(false)}
+                >
+                  <View style={styles.modalContent}>
+                    {getCurrentQuestion() ? (
+                        <>
+                          <Text style={addStyles.question}>
+                            {getCurrentQuestion().title}
+                          </Text>
+                          <FlatList
+                              data={getCurrentQuestion().choices}
+                              renderItem={({ item }) => (
+                                <TouchableOpacity
+                                    key={item.id}
+                                    style={styles.option}
+                                    onPress={() => handleAnswerSelection(item.id)}
+                                >
+                                  <Text style={styles.optionText}>{item.text}</Text>
+                                </TouchableOpacity>
+                              )}
+                              keyExtractor={(item, index) => index.toString()}
+                          />
+                        </>
+                    ) : (
+                        <Text>Loading...</Text>
+                    )}
+
+                    <Button
+                        title={"Fermer"}
+                        onPress={() => setIsModalVisible(false)}
+                    />
+                  </View>
+                </Modal>
+            ) : null}
+
+            {answerValidationVisible ? (
+              <Modal isVisible={answerValidationVisible}>
+                <View style={styles.modalContent}>
+                  <Text style={styles.feedback}>
+                    {isAnswerCorrect ? 'Correct!' : 'Incorrect!'}
+                  </Text>
+                  <Button title="Next" onPress={handleNextQuestion} />
+                </View>
+              </Modal>
+            ) : null}
+
+            {quizFinished ? (
+                <Modal
+                    isVisible={true}
+                    onBackdropPress={setQuizFinished(false)}
+                >
+                  <View style={addStyles.modalContent}>
+                    <Text style={addStyles.resultText}>Quiz terminé!</Text>
+                    <Text style={addStyles.resultText}>Your Score: {score}/{course.quizzes?.length}</Text>
+                    <Button title="Close" onPress={setQuizFinished(false)} />
+                  </View>
+                </Modal>
+            ) : null}
+          </View>
+      ) : (
+          <Text style={styles.title}>Loading...</Text>
+      )}
     </ScrollView>
   );
 };
@@ -207,6 +336,42 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+  },
+});
+
+const addStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  question: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  option: {
+    padding: 10,
+    marginVertical: 5,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+  },
+  optionText: {
+    fontSize: 16,
+  },
+  feedback: {
+    fontSize: 20,
+    marginBottom: 20,
   },
 });
 
