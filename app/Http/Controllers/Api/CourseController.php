@@ -296,7 +296,7 @@ class CourseController extends Controller
     public function addUserCourse(Request $request): JsonResponse
     {
         $request->validate([
-            'course_id' => 'required|exists:courses,id'
+            'course_id' => 'required|exists:courses,id',
         ]);
 
         try {
