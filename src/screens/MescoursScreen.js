@@ -1,19 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, FlatList, Button} from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; // Importez les icônes AntDesign depuis expo/vector-icons
 import { getAuthCourses } from "../services/courseService";
+import { useFocusEffect } from "@react-navigation/native";
 
 const MescoursScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState([]);
 
+  useFocusEffect(
+      useCallback(() => {
+        setLoading(true);
+
+        // Clean state
+        return () => {};
+      }, [])
+  );
+
   useEffect(() => {
     if (!loading) {
-      getAuthCourses().then((response) => {
-        console.log('response.data');
-        console.log(response.data); // Mettez à jour l'état avec les données de réponse
-        setCourses(response.data?.courses ?? []);
-      });
+      getAuthCourses()
+          .then((response) => {
+            setCourses(response.data?.courses ?? []);
+          });
     } else {
       setLoading(false);
     }
@@ -36,7 +45,9 @@ const MescoursScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="arrowleft" size={24} color="blue" />
         </TouchableOpacity>
-        <Text style={[styles.headerText, { color: 'blue' }]}>Mes cours</Text>
+        <Text style={[styles.headerText, { color: 'blue' }]}>
+          Mes cours
+        </Text>
       </View>
 
       {/* Contenu des cours */}
@@ -64,8 +75,10 @@ const MescoursScreen = ({ navigation }) => {
           </View>
       )}
 
-
-      <Button style={styles.button} title={"Voir tous les cours"} onPress={() => navigateToCourses()} />
+      <Button
+          style={styles.button}
+          title={"Voir tous les cours"}
+          onPress={() => navigateToCourses()} />
     </ScrollView>
   );
 }

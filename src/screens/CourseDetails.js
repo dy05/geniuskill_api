@@ -87,8 +87,6 @@ const CoursePage = ({ route }) => {
   const hasCourse = () => {
     let _courses = activeUser?.courses ?? [];
     let _coursesLength = _courses.length;
-    console.log('courses');
-    console.log(_courses);
     for (let i = 0; i < _coursesLength; i++) {
       if (_courses[i]?.id?.toString() === course?.id?.toString()) {
         return true;

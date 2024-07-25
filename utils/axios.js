@@ -2,9 +2,9 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //import SyncStorage from 'sync-storage';
 
-//axios.defaults.baseURL = 'http://localhost:8001/api';
+axios.defaults.baseURL = 'http://localhost:8000/api';
 // axios.defaults.baseURL = 'http://192.168.1.25:8001/api';
-axios.defaults.baseURL = 'https://services.geniuskill.fr/api';
+// axios.defaults.baseURL = 'https://services.geniuskill.fr/api';
 
 axios.interceptors.request.use(async function (config) {
     // const token = await AsyncStorage.getItem('token');

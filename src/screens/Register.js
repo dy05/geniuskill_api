@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Image, Button, Alert } from 'r
 import { useTailwind } from 'tailwind-rn';
 import travail from '../../assets/images/plant.png';
 import axios from "../../utils/axios";
+import {setAuthToken, setAuthUser} from "../services/authService";
 
 export default function Register({ navigation }) {
   const tailwind = useTailwind();
@@ -38,8 +39,10 @@ export default function Register({ navigation }) {
         lastname: lastname,
         firstname: firstname,
       })
-        .then((data) => {
-          Alert.alert('Register', JSON.stringify(data.response));
+        .then(async (response) => {
+          await setAuthToken(response.data.token);
+          await setAuthUser(response.data.user);
+          await navigation.navigate('Main', { screen: 'Home' });
         })
         .catch((error) => {
           Alert.alert('Error', JSON.stringify([error.message, error.response]));

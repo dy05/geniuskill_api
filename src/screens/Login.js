@@ -12,8 +12,6 @@ export default function Login({ navigation }) {
   const tailwind = useTailwind();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [token, setToken] = useState('');
-  const [authUser, setLocalAuthUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false); // État pour gérer l'affichage du mot de passe
@@ -45,10 +43,8 @@ export default function Login({ navigation }) {
 
       login(email, password)
         .then(async (response) => {
-          setAuthToken(response.data.token);
-          setAuthUser(response.data.user);
-          setToken(response.data.token);
-          setAuthUser(response.data.user);
+          await setAuthToken(response.data.token);
+          await setAuthUser(response.data.user);
           handleLoginToken(response.data.user); // Passez les informations de l'utilisateur à la fonction handleLoginToken
         })
         .catch((error) => {
