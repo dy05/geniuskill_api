@@ -231,10 +231,10 @@ Niveau : Débutant à Avancé",
                 'level_id' => optional($subject)->level_id,
                 'image' => 'images/ux.jpg',
                 'label' => 'Introduction au UX Design',
-                'description' => 'Le cours "Introduction au UX Design" est conçu pour fournir aux participants une compréhension approfondie des principes et pratiques du design d\'expérience utilisateur. "
-                    . "Le cours couvre un large éventail de sujets allant des concepts fondamentaux de l\'UX aux techniques avancées de conception centrée sur l\'utilisateur. "
-                    . "Les étudiants apprendront à identifier les besoins des utilisateurs, " .
-                    "à créer des prototypes et à tester les interfaces pour améliorer l\'expérience utilisateur.',
+                'description' => 'Le cours "Introduction au UX Design" est conçu pour fournir aux participants une compréhension approfondie des principes et pratiques du design d\'expérience utilisateur. '
+                    . 'Le cours couvre un large éventail de sujets allant des concepts fondamentaux de l\'UX aux techniques avancées de conception centrée sur l\'utilisateur.'
+                    . 'Les étudiants apprendront à identifier les besoins des utilisateurs, '
+                    . 'à créer des prototypes et à tester les interfaces pour améliorer l\'expérience utilisateur.',
                 'objectifs' => "- Comprendre les concepts fondamentaux du UX Design.
 - Apprendre les techniques de recherche utilisateur.
 - Maîtriser les outils de prototypage et de wireframing.

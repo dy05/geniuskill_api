@@ -34,7 +34,8 @@ class CourseController extends Controller
                         ->orWhereHas('subject', function ($query) use ($search) {
                             $query->where('label', 'like', $search);
                         });
-                });
+                })
+                ->get();
         } else {
             $data['courses'] = Course::query()
                 ->whereHas('level', function($query) { $query->where('label', '=', 'Débutant'); })
